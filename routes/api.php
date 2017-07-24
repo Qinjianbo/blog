@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 Route::group(['prefix' => 'home'], function () {
-    Route::get('/signin', 'UserController@signin');
-    Route::get('/signout', 'UserController@signout');
-    Route::get('/signup', 'UserController@signup');
+    Route::get('/session', 'UserController@signin');
+    Route::delete('/session', 'UserController@signout');
+
+    Route::post('/user', 'UserController@signup');
 });
