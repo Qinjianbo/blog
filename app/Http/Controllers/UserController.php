@@ -45,19 +45,18 @@ class UserController extends BaseController
 
             return collect($errors);
         }
-        $key = sprintf('user_%d_%s_%s', $user['id'], $user['username'], $request->get('device', 'pc'));
-        $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
-        $user = Cache::remember(
-            $key,
-            $expiresAt,
-            function () use ($request) {
-                return (new User())->where('username', $request->get('username'))
-                    ->where('password', md5($request->get('password')))
-                    ->first();
-            }
-        );
+        $user = (new User())->where('username', $request->get('username'))
+           ->where('password', md5($request->get('password')))
+           ->first();
+        if ($user) {
+            $key = sprintf('user_%d_%s_%s', $user['id'], $user['username'], $request->get('device', 'pc'));
+            $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
+            Cache::put($key, $user, $expiresAt);
 
-        return $user ? collect($user)->only(['id', 'username', 'intro', 'avatar_url']) : collect();
+            return collect($user)->only(['id', 'username', 'intro', 'avatar_url']);
+        }
+
+        return collect();
     }
 
     public function signout(Request $request)
