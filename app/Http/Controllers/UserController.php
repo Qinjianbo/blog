@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Validator;
 use App\User;
+use Illuminate\Support\Collection;
 
 /**
  * UserController 
@@ -22,7 +23,16 @@ use App\User;
  */
 class UserController extends BaseController
 {
-    public function signin(Request $request)
+    /**
+     * signin 
+     * 
+     * @param Request $request 
+     * 
+     * @access public
+     * 
+     * @return mixed
+     */
+    public function signin(Request $request) : Collection
     {
         $rules = [
             'username' => 'required|string',
@@ -32,10 +42,21 @@ class UserController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();    
 
-            return $errors;
+            return collect($errors);
         }
-        
-        return 'signin';
+
+        $user = new User();
+        $user = $user->where('username', $request->get('username'))
+                ->where('password', md5($request->get('password')))
+                ->first();
+        if ($user) {
+            $user->online = 1;
+            $user->save();
+
+            return collect($user)->only(['username', 'intro', 'avatar_url']);
+        } else {
+            return collect();    
+        }
     }
 
     public function signout(Request $request)
