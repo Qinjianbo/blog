@@ -53,7 +53,7 @@ class UserController extends BaseController
             $user->online = 1;
             $user->save();
 
-            return collect($user)->only(['username', 'intro', 'avatar_url']);
+            return collect($user)->only(['id', 'username', 'intro', 'avatar_url']);
         } else {
             return collect();    
         }
