@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use Validator;
-use App\User;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Collection;
+use App\User;
+use Cache;
+use Validator;
 
 /**
- * UserController 
- * 
+ * UserController
+ *
  * @uses BaseController
  * PHP version 7
- * 
+ *
  * @package   App\Http\Controllers
- * @author    Qinjianbo <279250819@qq.com> 
+ * @author    Qinjianbo <279250819@qq.com>
  * @copyright 2016-2019 boboidea Co. All Rights Reserved.
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @version   GIT:<git_id>
@@ -24,12 +25,12 @@ use Illuminate\Support\Collection;
 class UserController extends BaseController
 {
     /**
-     * signin 
-     * 
-     * @param Request $request 
-     * 
+     * signin
+     *
+     * @param Request $request
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function signin(Request $request) : Collection
@@ -40,32 +41,32 @@ class UserController extends BaseController
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            $errors = $validator->errors();    
+            $errors = $validator->errors();
 
             return collect($errors);
         }
+        $key = sprintf('user_%d_%s_%s', $user['id'], $user['username'], $request->get('device', 'pc'));
+        $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
+        $user = Cache::remember(
+            $key,
+            $expiresAt,
+            function () use ($request) {
+                return (new User())->where('username', $request->get('username'))
+                    ->where('password', md5($request->get('password')))
+                    ->first();
+            }
+        );
 
-        $user = new User();
-        $user = $user->where('username', $request->get('username'))
-                ->where('password', md5($request->get('password')))
-                ->first();
-        if ($user) {
-            $user->online = 1;
-            $user->save();
-
-            return collect($user)->only(['id', 'username', 'intro', 'avatar_url']);
-        } else {
-            return collect();    
-        }
+        return $user ? collect($user)->only(['id', 'username', 'intro', 'avatar_url']) : collect();
     }
 
     public function signout(Request $request)
     {
-        return 'signout';    
+        return 'signout';
     }
 
     public function signup(Request $request)
     {
-        return 'signup';    
+        return 'signup';
     }
 }
