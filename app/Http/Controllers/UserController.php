@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Collection;
-use App\User;
+use App\Models\User\User;
 use Cache;
 use Validator;
 
@@ -45,9 +45,7 @@ class UserController extends BaseController
 
             return collect($errors);
         }
-        $user = (new User())->where('username', $request->get('username'))
-           ->where('password', md5($request->get('password')))
-           ->first();
+        $user = (new User())->signin($request->get('username'), $request->get('password'));
         if ($user) {
             $key = sprintf('user_%d_%s_%s', $user['id'], $user['username'], $request->get('device', 'pc'));
             $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
