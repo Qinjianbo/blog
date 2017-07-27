@@ -21,6 +21,13 @@ use App\Models\Model;
 class User extends Model
 {
     /**
+     * guarded 
+     * 
+     * @var mixed
+     * @access protected
+     */
+    protected $guarded = [];
+    /**
      * signin 
      * 
      * @param string $username 
@@ -37,5 +44,20 @@ class User extends Model
                 'password' => md5($password)]
             )
             ->first();
+    }
+
+    /**
+     * signup 
+     * 
+     * @param string $username 
+     * @param string $password 
+     * 
+     * @access public
+     * 
+     * @return mixed
+     */
+    public function signup(string $username, string $password)
+    {
+        return self::create(['username' => $username, 'password' => md5($password)]);    
     }
 }

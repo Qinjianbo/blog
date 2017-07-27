@@ -98,11 +98,7 @@ class UserController extends BaseController
             return collect($errors);
         }
 
-        $user = new User();
-        $user->username = $request->get('username');
-        $user->password = md5($request->get('password'));
-        
-        if ($user->save()) {
+        if ((new User())->signup($request->get('username'), $request->get('password'))) {
             return collect(['created' => 1]);
         }
 
