@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Collection;
 use App\Models\User\User;
 use Cache;
+use Carbon\Carbon;
 use Validator;
 
 /**
@@ -31,7 +32,7 @@ class UserController extends BaseController
      *
      * @access public
      *
-     * @return mixed
+     * @return Illuminate\Support\Collection
      */
     public function signin(Request $request) : Collection
     {
@@ -47,7 +48,7 @@ class UserController extends BaseController
         }
         $user = (new User())->signin($request->get('username'), $request->get('password'));
         if ($user) {
-            $key = sprintf('user_%d_%s_%s', $user['id'], $user['username'], $request->get('device', 'pc'));
+            $key = sprintf('user_%d_%s', $user['id'], $request->get('device', 'pc'));
             $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
             Cache::put($key, $user, $expiresAt);
 
@@ -57,13 +58,54 @@ class UserController extends BaseController
         return collect();
     }
 
-    public function signout(Request $request)
+    /**
+     * signout
+     *
+     * @param Request $request
+     *
+     * @access public
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function signout(Request $request) : Collection
     {
-        return 'signout';
+        $key = sprintf('user_%d_%s', $request['userId'], $request->get('device', 'pc'));
+
+        Cache::forget($key);
+        
+        return collect();
     }
 
-    public function signup(Request $request)
+    /**
+     * signup
+     *
+     * @param Request $request
+     *
+     * @access public
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function signup(Request $request) : Collection
     {
-        return 'signup';
+        $rules = [
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return collect($errors);
+        }
+
+        $user = new User();
+        $user->username = $request->get('username');
+        $user->password = md5($request->get('password'));
+        
+        if ($user->save()) {
+            return collect(['created' => 1]);
+        }
+
+        return collect();
     }
 }
