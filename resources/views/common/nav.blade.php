@@ -1,14 +1,24 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expended="false" aria-controllers="navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">BoBoidea</a>
+      <a class="navbar-brand" href="/">BoBoidea</a>
     </div>
-    <div class="collapse navbar-collapse" id="navbar">
+    <div class="navbar-collapse collapse" id="navbar">
       <ul class="nav navbar-nav">
         <li class="@yield('active_home')">
-          <a href="/">Home</a>
+          <a href="/">首页</a>
+        </li>
+        <li class="@yield('active_blog')">
+          <a href="/blog">博客天地</a>
+        </li>
+        <li class="@yield('active_freshman')">
+          <a href="/freshman">小白专场</a>
         </li>
       </ul>
     </div>
