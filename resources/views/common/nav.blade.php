@@ -24,6 +24,13 @@
           <a href="/about">关于波波</a>
         </li>
       </ul>
+      <div class="navbar-right">
+        <form method="GET" action="search" class="navbar-form navbar-left hidden-sm hidden-md">
+          <div class="form-group">
+            <input class="form-control search-input mac-style" placeholder="搜索" name="q" type="text" value>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </nav>
