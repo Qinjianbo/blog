@@ -14,14 +14,15 @@ class CreateTableUsers extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('username', 20)->unique();
-            $table->string('password');
-            $table->string('email')->unique()->nullable();
-            $table->string('phone')->unique()->nullable();
-            $table->text('intro')->nullable();
-            $table->string('avatar_url')->nullable();
+            $table->increments('id')->comment('用户自增id');
+            $table->string('username', 20)->unique()->comment('用户名');
+            $table->string('password')->comment('密码');
+            $table->string('email')->unique()->nullable()->default('')->comment('电子邮箱');
+            $table->string('phone')->unique()->nullable()->default(0)->comment('手机号码');
+            $table->text('intro')->nullable()->comment('自我介绍');
+            $table->string('avatar_url')->nullable()->default('')->comment('头像地址');
             $table->timestamps();
+            $table->index(['username', 'password']);
         });
     }
 
