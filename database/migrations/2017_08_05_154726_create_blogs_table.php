@@ -22,7 +22,9 @@ class CreateBlogsTable extends Migration
             $table->unsignedTinyInteger('type')->default(1)->comment('1:原创 2:翻译');
             $table->unsignedInteger('reading')->default(0)->comment('该篇博客的阅读量');
             $table->unsignedInteger('comment_num')->default(0)->comment('该篇博客的评论量');
+            $table->unsignedInteger('vote_num')->default(0)->comment('该篇博客被点赞量');
             $table->timestamps();
+            $table->index('created_at');
         });
     }
 
