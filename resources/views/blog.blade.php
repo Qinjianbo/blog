@@ -5,7 +5,7 @@
 @section('active_blog', 'active')
 
 @section('content')
-  <div class="container" style="margin-top:100px">
+  <div class="container blog-body">
     <div class="row">
       <div class="col-sm-4">
         <div class="panel panel-default">

@@ -8,3 +8,7 @@
   border: 1px solid white;
   border-radius: 50%;
 }
+
+.blog-body {
+  margin-top: 100px;    
+}
