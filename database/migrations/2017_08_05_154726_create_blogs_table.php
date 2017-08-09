@@ -14,7 +14,7 @@ class CreateBlogsTable extends Migration
     public function up()
     {
         Schema::create('blogs', function (Blueprint $table) {
-            $table->increments('id')->default(0)->comment('博客自增编号id');
+            $table->increments('id')->comment('博客自增编号id');
             $table->unsignedInteger('user_id')->default(0)->comment('用户id');
             $table->text('content')->comment('博客的内容');
             $table->string('title')->default('')->comment('博客的标题');
