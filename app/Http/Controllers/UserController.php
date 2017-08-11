@@ -37,7 +37,7 @@ class UserController extends BaseController
     public function signin(Request $request) : Collection
     {
         $rules = [
-            'username' => 'required|string',
+            'username' => 'required|alpha_dash|between:6,20',
             'password' => 'required|string',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -88,7 +88,7 @@ class UserController extends BaseController
     public function signup(Request $request) : Collection
     {
         $rules = [
-            'username' => 'required|string',
+            'username' => 'required|alpha_dash|between:6,20',
             'password' => 'required|string',
         ];
         $validator = Validator::make($request->all(), $rules);
