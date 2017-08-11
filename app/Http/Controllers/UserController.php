@@ -73,7 +73,7 @@ class UserController extends BaseController
 
         Cache::forget($key);
         
-        return collect();
+        return collect(['delete' => 1]);
     }
 
     /**
@@ -102,6 +102,6 @@ class UserController extends BaseController
             return collect(['created' => 1]);
         }
 
-        return collect();
+        return collect(['created' => 0]);
     }
 }
