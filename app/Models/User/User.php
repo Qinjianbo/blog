@@ -5,14 +5,14 @@ namespace App\Models\User;
 use App\Models\Model;
 
 /**
- * User 
- * 
+ * User
+ *
  * @uses Model
  * PHP version 7
- * 
- * @category  
+ *
+ * @category
  * @package   App\Models\User
- * @author    Qinjianbo <279250819@qq.com> 
+ * @author    Qinjianbo <279250819@qq.com>
  * @copyright 2016-2019 boboidea Co. All Rights Reserved.
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @version   GIT:<git_id>
@@ -21,25 +21,26 @@ use App\Models\Model;
 class User extends Model
 {
     /**
-     * guarded 
-     * 
+     * guarded
+     *
      * @var mixed
      * @access protected
      */
     protected $guarded = [];
     /**
-     * signin 
-     * 
-     * @param string $username 
-     * @param string $password 
-     * 
+     * signin
+     *
+     * @param string $username
+     * @param string $password
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function signin(string $username, string $password)
     {
-        return self::where([
+        return self::where(
+            [
                 'username' => $username,
                 'password' => md5($password)]
             )
@@ -47,17 +48,17 @@ class User extends Model
     }
 
     /**
-     * signup 
-     * 
-     * @param string $username 
-     * @param string $password 
-     * 
+     * signup
+     *
+     * @param string $username
+     * @param string $password
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function signup(string $username, string $password, string $device)
     {
-        return self::create(['username' => $username, 'password' => md5($password), 'device' => $device]);    
+        return self::create(['username' => $username, 'password' => md5($password), 'device' => $device]);
     }
 }

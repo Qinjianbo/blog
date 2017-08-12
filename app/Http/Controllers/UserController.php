@@ -50,7 +50,7 @@ class UserController extends BaseController
         $user = (new User())->signin($request->get('username'), $request->get('password'));
         if ($user) {
             $key = sprintf('user_%d_%s', $user['id'], $request->get('device', 'pc'));
-            $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))))
+            $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
             Cache::put($key, $user, $expiresAt);
 
             return $this->result(collect($user)->only(['id', 'username', 'intro', 'avatar_url']), '登录成功');
@@ -105,8 +105,7 @@ class UserController extends BaseController
                     $request->get('password'),
                     $request->get('device')
                 )
-            )
-        {
+            ) {
             return $this->result(collect($user->first())->only(['id', 'username']), '注册成功');
         }
 

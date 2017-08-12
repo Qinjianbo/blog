@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 /**
- * BlogController 
- * 
+ * BlogController
+ *
  * @uses Controller
  * PHP version 7
- * 
- * @category  
- * @package   
- * @author    Qinjianbo <279250819@qq.com> 
+ *
+ * @category
+ * @package
+ * @author    Qinjianbo <279250819@qq.com>
  * @copyright 2016-2019 boboidea Co. All Rights Reserved.
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @version   GIT:<git_id>
@@ -22,13 +22,13 @@ use Illuminate\Support\Collection;
 class BlogController extends Controller
 {
     /**
-     * save 
-     * 
-     * @param Request $request 
-     * @param mixed $id 
-     * 
+     * save
+     *
+     * @param Request $request
+     * @param mixed $id
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function save(Request $request, $id)
@@ -42,4 +42,3 @@ class BlogController extends Controller
         ];
     }
 }
-

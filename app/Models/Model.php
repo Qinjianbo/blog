@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 
 /**
- * Model 
- * 
+ * Model
+ *
  * @uses Model
  * PHP version 7
- * 
- * @category  
+ *
+ * @category
  p
- * @package   App\Models 
- * @author    Qinjianbo <279250819@qq.com> 
+ * @package   App\Models
+ * @author    Qinjianbo <279250819@qq.com>
  * @copyright 2016-2019 boboidea Co. All Rights Reserved.
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @version   GIT:<git_id>
@@ -21,5 +21,4 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
  */
 class Model extends BaseModel
 {
-    
 }
