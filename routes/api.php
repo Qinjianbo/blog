@@ -13,13 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 Route::group(['prefix' => 'home'], function () {
-    Route::post('/session', 'UserController@signin');
-    Route::delete('/session', 'UserController@signout');
+    Route::group(['prefix' => 'v1'], function () {
+        Route::post('/session', 'UserController@signin');
+        Route::delete('/session', 'UserController@signout');
 
-    Route::post('/user', 'UserController@signup');
+        Route::post('/user', 'UserController@signup');
 
-    Route::post('/blog', 'BlogController@save');
-    Route::get('/blogs', 'BlogController@list');
-    Route::get('/blog/{id}', 'BlogController@show')->where('id', '[1-9]+');
-    Route::put('/blog/{id}', 'BlogController@save')->where('id', '\d+');
+        Route::post('/blog', 'BlogController@save');
+        Route::get('/blogs', 'BlogController@list');
+        Route::get('/blog/{id}', 'BlogController@show')->where('id', '[1-9]+');
+        Route::put('/blog/{id}', 'BlogController@save')->where('id', '\d+');
+    });
 });
