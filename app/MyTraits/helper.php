@@ -4,20 +4,20 @@ namespace App\MyTraits;
 
 use Illuminate\Support\Collection;
 
-trait helper
+trait Helper
 {
     /**
-     * response 
+     * result 
      * 
-     * @param int $code 
-     * @param mixed $message 
      * @param Collection $data 
+     * @param int $code 
+     * @param string $message 
      * 
      * @access public
      * 
-     * @return mixed
+     * @return Collection
      */
-    public function response(Collection $data, int $code = 0, $message = '')
+    public function result(Collection $data, $message = '', int $code = 0) : Collection
     {
         return collect([
             'code' => $code,
