@@ -39,23 +39,24 @@ class UserController extends BaseController
         $rules = [
             'username' => 'required|alpha_dash|between:6,20',
             'password' => 'required|string',
+            'device'   => 'required|string|in:pc,android,ios',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            return collect($errors);
+            return $this->result(collect(), collect($errors), 101);
         }
         $user = (new User())->signin($request->get('username'), $request->get('password'));
         if ($user) {
             $key = sprintf('user_%d_%s', $user['id'], $request->get('device', 'pc'));
-            $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
+            $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))))
             Cache::put($key, $user, $expiresAt);
 
-            return collect($user)->only(['id', 'username', 'intro', 'avatar_url']);
+            return $this->result(collect($user)->only(['id', 'username', 'intro', 'avatar_url']), '登录成功');
         }
 
-        return collect();
+        return $this->result(collect(), '用户名或密码错误', 100);
     }
 
     /**
@@ -73,7 +74,7 @@ class UserController extends BaseController
 
         Cache::forget($key);
         
-        return collect(['delete' => 1]);
+        return $this->result(collect(), '注销成功');
     }
 
     /**
@@ -90,18 +91,25 @@ class UserController extends BaseController
         $rules = [
             'username' => 'required|alpha_dash|between:6,20',
             'password' => 'required|string',
+            'device'   => 'required|string|in:pc,android,ios',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            return collect($errors);
+            return $this->result(collect(), collect($errors), 101);
         }
 
-        if ((new User())->signup($request->get('username'), $request->get('password'))) {
-            return collect(['created' => 1]);
+        if ($user = (new User())->signup(
+                    $request->get('username'),
+                    $request->get('password'),
+                    $request->get('device')
+                )
+            )
+        {
+            return $this->result(collect($user->first())->only(['id', 'username']), '注册成功');
         }
 
-        return collect(['created' => 0]);
+        return $this->result(collect(), '注册失败', 100);
     }
 }
