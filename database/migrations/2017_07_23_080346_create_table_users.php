@@ -19,8 +19,9 @@ class CreateTableUsers extends Migration
             $table->string('password')->comment('密码');
             $table->string('email')->unique()->nullable()->default('')->comment('电子邮箱');
             $table->string('phone')->unique()->nullable()->default(0)->comment('手机号码');
-            $table->text('intro')->nullable()->comment('自我介绍');
+            $table->string('intro')->nullable()->default('')->comment('自我介绍');
             $table->string('avatar_url')->nullable()->default('')->comment('头像地址');
+            $table->string('device', 10)->default('')->comment('注册设备');
             $table->timestamps();
             $table->index(['username', 'password']);
         });
