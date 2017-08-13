@@ -5,14 +5,14 @@
     </div>
   </form>
 
-  <ul class="nav navbar-nav hidden">
-    <a class="btn btn-primary login-btn">
+  <ul class="nav navbar-nav" id="before_signin">
+    <a class="btn btn-primary login-btn" data-toggle="modal" data-target="#signin_modal">
       <i class="fa fa-user"></i>
       登录
     </a>
   </ul>
 
-  <ul class="nav navbar-nav">
+  <ul class="nav navbar-nav hidden" id="after_signin">
     <li>
       <a href="#" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dLabel">
         <img class="avatar-topnav" src="https://dn-phphub.qbox.me/uploads/avatars/15609_1492940220.png?imageView2/1/w/100/h/100"/>
