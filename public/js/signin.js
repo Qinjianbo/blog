@@ -19,6 +19,10 @@ signin_btn.bind("click", function () {
             $("#before_signin").addClass("hidden");
             $("#after_signin").removeClass("hidden");
             $("#signin_modal").modal('hide');
+            $("#nickname").text(data.data.username);
+            if (data.data.avatar_url != "") {
+                $("#after_signin #dLabel img").attr("src", data.data.avatar_url);    
+            }
         } else if (data.code == 100) {
             alert(data.msg);    
         } else if (data.code == 101) {

@@ -16,7 +16,7 @@
     <li>
       <a href="#" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dLabel">
         <img class="avatar-topnav" src="https://dn-phphub.qbox.me/uploads/avatars/15609_1492940220.png?imageView2/1/w/100/h/100"/>
-        秦建波
+        <label id="nickname">秦建波</label>
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu" aria-labelledby="dLabel">
