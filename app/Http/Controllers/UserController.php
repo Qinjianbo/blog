@@ -52,9 +52,10 @@ class UserController extends BaseController
             $idMd5 = md5($user['id']);
             $key = sprintf('user_%s_%s', $idMd5, $request->get('device', 'pc'));
             $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
+            $user = $user->only(['username', 'intro', 'avatar_url'])->merge(['id' => $idMd5]);
             Cache::put($key, $user, $expiresAt);
 
-            return $this->result(collect($user)->only(['username', 'intro', 'avatar_url'])->merge(['id' => $idMd5]), '登录成功');
+            return $this->result($user, '登录成功');
         }
 
         return $this->result(collect(), '用户名或密码错误', 100);
@@ -71,7 +72,7 @@ class UserController extends BaseController
      */
     public function signout(Request $request) : Collection
     {
-        $key = sprintf('user_%s_%s', $request['userId'], $request->get('device', 'pc'));
+        $key = sprintf('user_%s_%s', $request->get('userId', 0), $request->get('device', 'pc'));
 
         if (!Cache::has($key)) {
             $this->result(collect(), '注销失败', 100);
@@ -117,8 +118,23 @@ class UserController extends BaseController
         return $this->result(collect(), '注册失败', 100);
     }
 
-    public function isSignin()
+    /**
+     * isSignin 
+     * 
+     * @param Request $request 
+     * 
+     * @access public
+     * 
+     * @return Illuminate\Support\Collection
+     */
+    public function isSignin(Request $request) : Collection
     {
+        $key = sprintf('user_%s_%s', $request->get('userId', 0), $request->get('device', 'pc'));
+
+        if (Cache::has($key) && $user = $Cache::get($key)) {
+            return $this->result($user, '已登录');
+        }
         
+        return $this->result(collect(), '登录超时或未登录',100);
     }
 }
