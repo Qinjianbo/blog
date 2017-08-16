@@ -30,7 +30,21 @@ class UserTestCase extends TestCase
      */
     public function testSignup()
     {
-        
+        $username = date('YmdHis', time());
+        $response = $this->post(
+            '/api/home/v1/user',
+            [
+                'username' => $username,
+                'password' => 'abcqwe',
+                'device'   => 'pc',
+            ]
+        );
+       
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['data', 'code', 'msg']);
+        $response->assertJson(['code' => 0]);
+
+        return $username;
     }
 
     /**
@@ -44,9 +58,22 @@ class UserTestCase extends TestCase
      /**
       * @depends testSignup
       */
-    public function testSignin()
+    public function testSignin(string $username)
     {
-        
+        $this->post(
+            '/api/home/v1/session',
+            [
+                'username' => $username,
+                'password' => 'abcqwe',
+                'device'   => 'pc',
+            ]
+        );
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['data', 'code', 'msg']);
+        $response->assertJson(['code' => 0]);
+
+        return $response()->get('data', collect(['id' => '']))->get('id');
     }
 
 
@@ -61,9 +88,18 @@ class UserTestCase extends TestCase
      /**
       * @depends testSignin
       */
-    public function testSignout()
+    public function testSignout(string $id)
     {
-        
+        $response = $this->delete(
+            '/api/home/v1/session',
+            [
+                'id' => $id,
+                'device' => 'pc',
+            ]
+        );
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['data', 'code', 'msg']);
+        $response->assertJson(['code' => 0]);
     }
 }
->
