@@ -42,13 +42,15 @@ class UserController extends BaseController
             'device'   => 'required|string|in:pc,android,ios',
         ];
         $validator = Validator::make($request->all(), $rules);
+
         if ($validator->fails()) {
             $errors = $validator->errors();
 
             return $this->result(collect(), collect($errors), 101);
         }
+
         $user = (new User())->signin($request->get('username'), $request->get('password'));
-        if ($user) {
+        if ($user->isNotEmpty()) {
             $idMd5 = md5($user['id']);
             $key = sprintf('user_%s_%s', $idMd5, $request->get('device', 'pc'));
             $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
@@ -70,9 +72,9 @@ class UserController extends BaseController
      *
      * @return Illuminate\Support\Collection
      */
-    public function signout(Request $request) : Collection
+    public function signout(Request $request, $id, $device) : Collection
     {
-        $key = sprintf('user_%s_%s', $request->get('userId', 0), $request->get('device', 'pc'));
+        $key = sprintf('user_%s_%s', $id, $device);
 
         if (!Cache::has($key)) {
             $this->result(collect(), '注销失败', 100);
@@ -112,7 +114,7 @@ class UserController extends BaseController
                     $request->get('device')
                 )
             ) {
-            return $this->result(collect($user->first())->only(['id', 'username']), '注册成功');
+            return $this->result(collect($user)->only(['id', 'username']), '注册成功');
         }
 
         return $this->result(collect(), '注册失败', 100);
@@ -127,14 +129,14 @@ class UserController extends BaseController
      * 
      * @return Illuminate\Support\Collection
      */
-    public function isSignin(Request $request) : Collection
+    public function isSignin(Request $request, $id, $device) : Collection
     {
-        $key = sprintf('user_%s_%s', $request->get('userId', 0), $request->get('device', 'pc'));
+        $key = sprintf('user_%s_%s', $id, $device);
 
-        if (Cache::has($key) && $user = $Cache::get($key)) {
+        if (Cache::has($key) && ($user = $Cache::get($key))->isNotEmpty()) {
             return $this->result($user, '已登录');
         }
         
-        return $this->result(collect(), '登录超时或未登录',100);
+        return $this->result(collect(), '登录超时或未登录', 100);
     }
 }

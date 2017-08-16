@@ -39,12 +39,14 @@ class User extends Model
      */
     public function signin(string $username, string $password)
     {
-        return self::where(
-            [
-                'username' => $username,
-                'password' => md5($password)]
-            )
-            ->first();
+        return collect(
+            self::where(
+                [
+                    'username' => $username,
+                    'password' => md5($password)
+                ]
+            )->first()
+        );
     }
 
     /**

@@ -60,7 +60,7 @@ class UserTestCase extends TestCase
       */
     public function testSignin(string $username)
     {
-        $this->post(
+        $response = $this->post(
             '/api/home/v1/session',
             [
                 'username' => $username,
@@ -73,7 +73,34 @@ class UserTestCase extends TestCase
         $response->assertJsonStructure(['data', 'code', 'msg']);
         $response->assertJson(['code' => 0]);
 
-        return $response()->get('data', collect(['id' => '']))->get('id');
+        $content = json_decode($response->getContent(), true);
+
+        return $content['data']['id'];
+    }
+
+    /**
+     * testIsSignin 
+     * 
+     * @param string $id 
+     * 
+     * @access public
+     * 
+     * @return mixed
+     */
+     /**
+      * @depends testSignin
+      */
+    public function testIsSignin(string $id)
+    {
+        $response = $this->get(
+            sprintf('/api/home/v1/session/%s/%s', $id, 'pc')
+        );   
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['data', 'code', 'msg']);
+        $response->assertJson(['code' => 0]);
+
+        return $id;
     }
 
 
@@ -86,16 +113,12 @@ class UserTestCase extends TestCase
      * @return mixed
      */
      /**
-      * @depends testSignin
+      * @depends testIsSignin
       */
     public function testSignout(string $id)
     {
         $response = $this->delete(
-            '/api/home/v1/session',
-            [
-                'id' => $id,
-                'device' => 'pc',
-            ]
+            sprintf('/api/home/v1/session/%s/%s', $id, 'pc')
         );
 
         $response->assertStatus(200);

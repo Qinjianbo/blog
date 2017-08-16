@@ -15,9 +15,11 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'home'], function () {
     Route::group(['prefix' => 'v1'], function () {
         Route::post('/session', 'UserController@signin');
-        Route::delete('/session', 'UserController@signout');
+        Route::delete('/session/{id}/{device}', 'UserController@signout');
+        Route::get('/session/{id}/{device}', 'UserController@isSignin');
 
         Route::post('/user', 'UserController@signup');
+
 
         Route::post('/blog', 'BlogController@save');
         Route::get('/blogs', 'BlogController@list');
