@@ -133,7 +133,7 @@ class UserController extends BaseController
     {
         $key = sprintf('user_%s_%s', $id, $device);
 
-        if (Cache::has($key) && ($user = $Cache::get($key))->isNotEmpty()) {
+        if (Cache::has($key) && ($user = Cache::get($key))->isNotEmpty()) {
             return $this->result($user, '已登录');
         }
         
