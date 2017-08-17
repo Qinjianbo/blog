@@ -97,7 +97,7 @@ class UserController extends BaseController
     public function signup(Request $request) : Collection
     {
         $rules = [
-            'username' => 'required|alpha_dash|between:6,20',
+            'username' => 'required|alpha_dash|between:6,20|unique:users,username',
             'password' => 'required|string',
             'device'   => 'required|string|in:pc,android,ios',
         ];

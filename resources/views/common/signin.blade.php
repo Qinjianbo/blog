@@ -7,15 +7,15 @@
        </div>
        <div class="modal-body">
          <div class="row">
-           <label class="col-xs-2 col-xs-offset-2" for="username">用户名:</label>
+           <label class="col-xs-2 col-xs-offset-2" for="username_signin">用户名:</label>
            <div class="col-xs-8">
-             <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+             <input type="text" class="form-control" id="username_signin" placeholder="请输入用户名">
            </div>
          </div>
          <div class="row">
-           <label class="col-xs-2 col-xs-offset-2" for="password">密码:</label>
+           <label class="col-xs-2 col-xs-offset-2" for="password_signin">密码:</label>
            <div class="col-xs-8">
-             <input type="password" class="form-control" id="password" placeholder="请输入密码">
+             <input type="password" class="form-control" id="password_signin" placeholder="请输入密码">
            </div>
         </div>
         </div>

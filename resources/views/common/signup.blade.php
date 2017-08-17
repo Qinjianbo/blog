@@ -7,21 +7,21 @@
        </div>
        <div class="modal-body">
          <div class="row">
-           <label class="col-xs-2 col-xs-offset-2" for="username">用户名:</label>
+           <label class="col-xs-2 col-xs-offset-2" for="username_reg">用户名:</label>
            <div class="col-xs-8">
-             <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+             <input type="text" class="form-control" id="username_reg" placeholder="请输入用户名">
            </div>
          </div>
          <div class="row">
-           <label class="col-xs-2 col-xs-offset-2" for="password">密码:</label>
+           <label class="col-xs-2 col-xs-offset-2" for="password_reg">密码:</label>
            <div class="col-xs-8">
-             <input type="password" class="form-control" id="password" placeholder="请输入密码">
+             <input type="password" class="form-control" id="password_reg" placeholder="请输入密码">
            </div>
         </div>
         </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-default" data-dismiss="modal">取消注册</button>
-         <button type="button" class="btn btn-primary" id="signin_btn">确认注册</div>
+         <button type="button" class="btn btn-primary" id="register_btn">确认注册</div>
        </div>
     </div>
   </div>

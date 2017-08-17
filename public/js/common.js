@@ -1,7 +1,7 @@
 var signin_btn = $("#signin_btn");
 signin_btn.bind("click", function () {
-  var username = $("#username").val();
-  var password = $("#password").val();
+  var username = $("#username_signin").val();
+  var password = $("#password_signin").val();
   var uri = "/api/home/v1/session";
   $.ajax({
     url: uri,
@@ -25,7 +25,7 @@ signin_btn.bind("click", function () {
       } else if (data.code == 100) {
           alert(data.msg);    
       } else if (data.code == 101) {
-          console.log(data.data);    
+          console.log(data.msg);    
       }
     },
     error: function (data) {
@@ -36,28 +36,29 @@ signin_btn.bind("click", function () {
 
 var register_btn = $("#register_btn");
 register_btn.bind("click", function () {
-  var username = $("#username").val();
-  var password = $("#password").val();
+  var username = $("#username_reg").val();
+  var password = $("#password_reg").val();
   var uri = "/api/home/v1/user";
   $.ajax({
-    "url": uri,
-    "data":{
-      "username": username,
-      "password": password,
-      "device": 'pc'
+    url: uri,
+    data: {
+      username: username,
+      password: password,
+      device: "pc"
     },
-    "type": "post",
-    "dataType": "json",
-    "success": function (data) {
+    type: "post",
+    dataType: "json",
+    success: function (data) {
         if (data.code == 0) {
           alert(data.msg);    
+          $("#register_modal").modal('hide');
         } else if (data.code == 100) {
           alert(data.msg);    
         } else {
-          console.log(data.data);      
+          console.log(data.msg);      
         }
     },
-    "error": function (data) {
+    error: function (data) {
       console.log(data); 
     }
   });
