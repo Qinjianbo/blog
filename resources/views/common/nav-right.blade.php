@@ -10,6 +10,10 @@
       <i class="fa fa-user"></i>
       登录
     </a>
+    <a class="btn btn-primary login-btn" data-toggle="modal" data-target="#register_modal">
+      <i class="fa fa-user"></i>
+      注册
+    </a>
   </ul>
 
   <ul class="nav navbar-nav hidden" id="after_signin">
