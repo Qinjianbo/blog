@@ -9,7 +9,7 @@ $("#signin_btn").bind("click", function () {
         password: password,
         device: "pc"
     },
-    type: "post",
+    type: "POST",
     dataType: "json",
     success: function(data) {
       if (data.code == 0) {
@@ -44,7 +44,7 @@ $("#register_btn").bind("click", function () {
       password: password,
       device: "pc"
     },
-    type: "post",
+    type: "POST",
     dataType: "json",
     success: function (data) {
         if (data.code == 0) {
@@ -64,14 +64,12 @@ $("#register_btn").bind("click", function () {
 
 $("#signout_btn").bind("click", function () {
   var uid_hidden = ("#uid_hidden").val();
-  var uri = "/api/home/v1/session";
+  var uri = "/api/home/v1/session/" + uid_hidden + "/pc";
   $.ajax({
     url: uri,
     data: {
-      id: uid_hidden,
-      device: "pc"
     },
-    type: "delete",
+    type: "DELETE",
     dataType: "json",
     success: function (data) {
       if (data.code == 0) {

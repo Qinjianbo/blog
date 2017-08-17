@@ -35,7 +35,7 @@
           </a>
         </li>
         <li>
-          <a class="button" id="login-out" href="">
+          <a class="button" id="signout_btn" href="">
               退出
           </a>
         </li>
