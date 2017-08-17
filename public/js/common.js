@@ -21,7 +21,6 @@ $("#signin_btn").bind("click", function () {
           if (data.data.avatar_url != "") {
               $("#after_signin #dLabel img").attr("src", data.data.avatar_url);    
           }
-
           // 将uid 存入cookie
           $.cookie('uid', data.data.id, {expires: 1, path: '/'});
       } else if (data.code == 100) {
@@ -66,8 +65,8 @@ $("#register_btn").bind("click", function () {
 });
 
 $("#signout_btn").bind("click", function () {
-  var uid_hidden = ("#uid_hidden").val();
-  var uri = "/api/home/v1/session/" + uid_hidden + "/pc";
+  var uid = $.cookie("uid");
+  var uri = "/api/home/v1/session/" + uid + "/pc";
   $.ajax({
     url: uri,
     data: {
@@ -77,6 +76,7 @@ $("#signout_btn").bind("click", function () {
     success: function (data) {
       if (data.code == 0) {
         alert(data.msg);
+        $.removeCookie("uid", {path: '/'});
         window.location.reload();
       } else if (data.code == 100) {
         alert(data.msg);    
@@ -88,4 +88,36 @@ $("#signout_btn").bind("click", function () {
   });    
 });
 
-
+function checkSignStatus()
+{
+  var uid = $.cookie("uid");
+  if (uid == "" || uid == undefined) {
+    $("#before_signin").removeClass("hidden");
+    $("#after_signin").addClass("hidden");
+    return;    
+  }
+  var uri = "/api/home/v1/session/" + uid + "/pc";
+  $.ajax({
+    url: uri,
+    dataType: "json",
+    success: function (data) {
+      if (data.code == 0) {
+        $("#before_signin").addClass("hidden");
+        $("#after_signin").removeClass("hidden");
+        $("#nickname").text(data.data.username);
+        if (data.data.avatar_url != "") {
+            $("#after_signin #dLabel img").attr("src", data.data.avatar_url);    
+        }
+      } else if (data.code == 100) {
+        alert(data.msg);
+        $("#before_signin").removeClass("hidden");
+        $("#after_signin").addClass("hidden");
+        $.removeCookie('uid', {path: '/'});
+      } 
+    },
+    error: function (data) {
+       console.log(data); 
+    }
+  });
+}
+checkSignStatus();
