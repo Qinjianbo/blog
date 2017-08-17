@@ -22,6 +22,7 @@ class CreateTableUsers extends Migration
             $table->string('intro')->default('')->comment('自我介绍');
             $table->string('avatar_url')->default('')->comment('头像地址');
             $table->string('device', 10)->default('')->comment('注册设备');
+            $table->string('nickname', 20)->default('visitor')->comment('昵称');
             $table->timestamps();
             $table->index(['username', 'password']);
         });

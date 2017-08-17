@@ -54,7 +54,7 @@ class UserController extends BaseController
             $idMd5 = md5($user['id']);
             $key = sprintf('user_%s_%s', $idMd5, $request->get('device', 'pc'));
             $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
-            $user = $user->only(['username', 'intro', 'avatar_url'])->merge(['id' => $idMd5]);
+            $user = $user->only(['nickname', 'intro', 'avatar_url'])->merge(['id' => $idMd5]);
             Cache::put($key, $user, $expiresAt);
 
             return $this->result($user, '登录成功');

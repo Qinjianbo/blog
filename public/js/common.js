@@ -17,7 +17,7 @@ $("#signin_btn").bind("click", function () {
           $("#before_signin").addClass("hidden");
           $("#after_signin").removeClass("hidden");
           $("#signin_modal").modal('hide');
-          $("#nickname").text(data.data.username);
+          $("#nickname").text(data.data.nickname);
           if (data.data.avatar_url != "") {
               $("#after_signin #dLabel img").attr("src", data.data.avatar_url);    
           }
@@ -107,7 +107,7 @@ function checkSignStatus()
       if (data.code == 0) {
         $("#before_signin").addClass("hidden");
         $("#after_signin").removeClass("hidden");
-        $("#nickname").text(data.data.username);
+        $("#nickname").text(data.data.nickname);
         if (data.data.avatar_url != "") {
             $("#after_signin #dLabel img").attr("src", data.data.avatar_url);    
         }
