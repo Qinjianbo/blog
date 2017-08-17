@@ -66,11 +66,14 @@ $("#register_btn").bind("click", function () {
 
 $("#signout_btn").bind("click", function () {
   var uid = $.cookie("uid");
+  if (uid == "" || uid == undefined) {
+    $("#before_signin").removeClass("hidden");
+    $("#after_signin").addClass("hidden");
+    return;    
+  }
   var uri = "/api/home/v1/session/" + uid + "/pc";
   $.ajax({
     url: uri,
-    data: {
-    },
     type: "DELETE",
     dataType: "json",
     success: function (data) {
