@@ -1,5 +1,4 @@
-var signin_btn = $("#signin_btn");
-signin_btn.bind("click", function () {
+$("#signin_btn").bind("click", function () {
   var username = $("#username_signin").val();
   var password = $("#password_signin").val();
   var uri = "/api/home/v1/session";
@@ -34,8 +33,7 @@ signin_btn.bind("click", function () {
   });
 });
 
-var register_btn = $("#register_btn");
-register_btn.bind("click", function () {
+$("#register_btn").bind("click", function () {
   var username = $("#username_reg").val();
   var password = $("#password_reg").val();
   var uri = "/api/home/v1/user";
@@ -62,4 +60,29 @@ register_btn.bind("click", function () {
       console.log(data); 
     }
   });
+});
+
+$("#signout_btn").bind("click", function () {
+  var uid_hidden = ("#uid_hidden").val();
+  var uri = "/api/home/v1/session";
+  $.ajax({
+    url: uri,
+    data: {
+      id: uid_hidden,
+      device: "pc"
+    },
+    type: "delete",
+    dataType: "json",
+    success: function (data) {
+      if (data.code == 0) {
+        alert(data.msg);
+        window.location.reload();
+      } else if (data.code == 100) {
+        alert(data.msg);    
+      }
+    },
+    'error': function (data) {
+       console.log(data); 
+    }
+  });    
 });
