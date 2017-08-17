@@ -1,6 +1,5 @@
 var signin_btn = $("#signin_btn");
 signin_btn.bind("click", function () {
-  alert('signin'); 
   var username = $("#username").val();
   var password = $("#password").val();
   var uri = "/api/home/v1/session";
