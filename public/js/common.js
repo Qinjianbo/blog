@@ -21,6 +21,9 @@ $("#signin_btn").bind("click", function () {
           if (data.data.avatar_url != "") {
               $("#after_signin #dLabel img").attr("src", data.data.avatar_url);    
           }
+
+          // 将uid 存入cookie
+          $.cookie('uid', data.data.id, {expires: 1, path: '/'});
       } else if (data.code == 100) {
           alert(data.msg);    
       } else if (data.code == 101) {
@@ -84,3 +87,5 @@ $("#signout_btn").bind("click", function () {
     }
   });    
 });
+
+
