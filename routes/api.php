@@ -30,6 +30,6 @@ Route::group(['prefix' => 'home'], function () {
             Route::delete('/blog/{id}', 'BlogController@update')->where('id', '\d+');
             Route::get('/blog/{id}', 'BlogController@get')->where('id', '\d+');
             Route::get('/blogs', 'BlogController@list');
-        })->middleware('isSingin');
+        });
     });
 });
