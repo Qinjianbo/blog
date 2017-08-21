@@ -31,14 +31,98 @@ class BlogController extends Controller
      *
      * @return mixed
      */
-    public function save(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $rules = [
             'title' => 'required|string|max:255',
             'user_id' => 'required|numeric|min:1',
             'content' => 'required|string',
             'description' => 'sometimes|string',
-            'type' => 'sometimes|in:1,2',
+            'type' => 'required|numeric|in:1,2',
+            'device' => 'required|string|in:pc,h5,ios,android',
         ];
+    }
+
+    /**
+     * create 
+     * 
+     * @param Request $request 
+     * 
+     * @access public
+     * 
+     * @return mixed
+     */
+    public function create(Request $request)
+    {
+        $rules = [
+            'title' => 'required|string|min:1|max:255',
+            'user_id' => 'required|string',
+            'content' => 'required|string|min:1|max:255',
+            'type'    => 'required|numeric|in:1,2',
+            'description' => 'sometimes|string|min:1|max:255',
+            'device' => 'required|string|in:pc,h5,ios,android',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return $this->result(collect(), collect($errors), 101);
+        }
+
+        if ($blog = (new Blog())->create($request->input())) {
+            return $this->result($blog->only(['id']));    
+        }
+
+        return $this->result(collect(), '添加失败', 100);
+    }
+
+    /**
+     * delete 
+     * 
+     * @param Request $request 
+     * @param mixed $user_id 
+     * @param mixed $id 
+     * 
+     * @access public
+     * 
+     * @return mixed
+     */
+    public function delete(Request $request, $user_id, $id)
+    {
+        $key = sprintf('user_%s_%s', $user_id, $request->get('device', 'pc'));
+
+        if (($user = Cache::get($key))->isNotEmpty()) {
+             
+        }
+    }
+
+    /**
+     * get 
+     * 
+     * @param Request $request 
+     * @param mixed $id 
+     * 
+     * @access public
+     * 
+     * @return mixed
+     */
+    public function get(Request $request, $id)
+    {
+    
+    }
+
+    /**
+     * list 
+     * 
+     * @param Request $request 
+     * 
+     * @access public
+     * 
+     * @return mixed
+     */
+    public function list(Request $request)
+    {
+        
     }
 }
