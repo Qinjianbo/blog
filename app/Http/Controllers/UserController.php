@@ -114,7 +114,7 @@ class UserController extends BaseController
                     $request->get('device')
                 )
             ) {
-            return $this->result(collect($user)->only(['id', 'username']), '注册成功');
+            return $this->result(collect($user)->only(['username']), '注册成功');
         }
 
         return $this->result(collect(), '注册失败', 100);
