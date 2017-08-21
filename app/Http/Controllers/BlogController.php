@@ -120,7 +120,7 @@ class BlogController extends Controller
      */
     public function get(Request $request, $id)
     {
-    
+         
     }
 
     /**
