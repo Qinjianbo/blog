@@ -21,9 +21,10 @@ Route::group(['prefix' => 'home'], function () {
         Route::post('/user', 'UserController@signup');
 
 
-        Route::post('/blog', 'BlogController@save');
+        Route::post('/blog', 'BlogController@create');
+        Route::delete('/blog/{user_id}/{id}', 'BlogController@update')->where('user_id', '[0-9a-zA-Z]+')->where('id', '\d+');
         Route::get('/blogs', 'BlogController@list');
-        Route::get('/blog/{id}', 'BlogController@show')->where('id', '[1-9]+');
+        Route::get('/blog/{id}', 'BlogController@get')->where('id', '\d+');
         Route::put('/blog/{id}', 'BlogController@save')->where('id', '\d+');
     });
 });
