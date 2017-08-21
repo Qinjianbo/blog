@@ -70,11 +70,16 @@ class BlogController extends Controller
             return $this->result(collect(), collect($errors), 101);
         }
 
-        if ($blog = (new Blog())->create($request->input())) {
-            return $this->result($blog->only(['id']));    
+        if (($user = Cache::get($key))->isNotEmpty()) {
+            if ($blog = (new Blog())->create($request->input())) {
+                return $this->result($blog->only(['id']));    
+            } else {
+                return $this->result(collect(), '添加失败', 100);
+            }
         }
 
-        return $this->result(collect(), '添加失败', 100);
+        return $this->result(collect(), '请先登录');
+
     }
 
     /**
@@ -93,8 +98,14 @@ class BlogController extends Controller
         $key = sprintf('user_%s_%s', $user_id, $request->get('device', 'pc'));
 
         if (($user = Cache::get($key))->isNotEmpty()) {
-             
+            if ((new Blog())->delete($user_id, $id)) {
+                return $this->result(collect(), '删除成功');   
+            } else {
+                return $this->result(collect(), '删除失败');
+            } 
         }
+
+        return $this->result(collect(), '请先登录');
     }
 
     /**
