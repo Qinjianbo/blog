@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Validator;
 
 /**
  * BlogController
@@ -70,8 +72,9 @@ class BlogController extends Controller
             return $this->result(collect(), collect($errors), 101);
         }
 
-        if (($user = Cache::get($key))->isNotEmpty()) {
-            if ($blog = (new Blog())->create($request->input())) {
+        $key = sprintf('user_%s_%s', $request->get('user_id'), $request->get('device'));
+        if (($user = collect(Cache::get($key)))->isNotEmpty()) {
+            if ($blog = (new Blog())->create($request->input()->merge(['user_id' => $user['user_id']]))) {
                 return $this->result($blog->only(['id']));    
             } else {
                 return $this->result(collect(), '添加失败', 100);

@@ -54,10 +54,10 @@ class UserController extends BaseController
             $idMd5 = md5($user['id']);
             $key = sprintf('user_%s_%s', $idMd5, $request->get('device', 'pc'));
             $expiresAt = Carbon::now()->addMinutes(config(sprintf('app.duration.user.%s', $request->get('device'))));
-            $user = $user->only(['nickname', 'intro', 'avatar_url'])->merge(['id' => $idMd5, 'uid' => $user['id']]);
+            $user = $user->only(['nickname', 'intro', 'avatar_url'])->merge(['id' => $idMd5, 'user_id' => $user['id']]);
             Cache::put($key, $user, $expiresAt);
 
-            return $this->result($user->except(['uid']), '登录成功');
+            return $this->result($user->except(['user_id']), '登录成功');
         }
 
         return $this->result(collect(), '用户名或密码错误', 100);
@@ -134,7 +134,7 @@ class UserController extends BaseController
         $key = sprintf('user_%s_%s', $id, $device);
 
         if (Cache::has($key) && ($user = Cache::get($key))->isNotEmpty()) {
-            return $this->result($user->except(['uid']), '已登录');
+            return $this->result($user->except(['user_id']), '已登录');
         }
         
         return $this->result(collect(), '登录超时或未登录', 100);
