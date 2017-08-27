@@ -3,6 +3,7 @@
 namespace App\Models\Blog;
 
 use App\Models\Model;
+use Illuminate\Support\Collection;
 
 class Blog extends Model
 {
@@ -16,14 +17,14 @@ class Blog extends Model
      * 
      * @return mixed
      */
-    public function delete(int $user_id,int $id)    
+    public function deleteMine(int $user_id,int $id)    
     {
         return self::where('user_id', $user_id)     
             ->where('id', $id)
             ->delete();
     }
 
-    public function create(Collection $input)
+    public function createMine(Collection $input)
     {
         return self::create($input->only([
                 'title',
@@ -31,7 +32,6 @@ class Blog extends Model
                 'content',
                 'description',
                 'type'
-            ])
-        ->toArray());     
+            ])->toArray());     
     }
 }

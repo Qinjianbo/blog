@@ -6,6 +6,7 @@ use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Validator;
+use App\Models\Blog\Blog;
 
 /**
  * BlogController
@@ -74,8 +75,11 @@ class BlogController extends Controller
 
         $key = sprintf('user_%s_%s', $request->get('user_id'), $request->get('device'));
         if (($user = collect(Cache::get($key)))->isNotEmpty()) {
-            if ($blog = (new Blog())->create($request->input()->merge(['user_id' => $user['user_id']]))) {
-                return $this->result($blog->only(['id']));    
+            if ($blog = (new Blog())->createMine(
+                    collect($request->input())->merge(['user_id' => $user['user_id']])
+                )) 
+            {
+                return $this->result(collect($blog)->only(['id']));    
             } else {
                 return $this->result(collect(), '添加失败', 100);
             }
@@ -101,7 +105,7 @@ class BlogController extends Controller
         $key = sprintf('user_%s_%s', $user_id, $request->get('device', 'pc'));
 
         if (($user = Cache::get($key))->isNotEmpty()) {
-            if ((new Blog())->delete($user_id, $id)) {
+            if ((new Blog())->deleteMine($user_id, $id)) {
                 return $this->result(collect(), '删除成功');   
             } else {
                 return $this->result(collect(), '删除失败');
