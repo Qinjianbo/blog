@@ -8,18 +8,18 @@ use Illuminate\Support\Collection;
 class Blog extends Model
 {
     /**
-     * delete 
-     * 
-     * @param int $user_id 
-     * @param int $id 
-     * 
+     * delete
+     *
+     * @param int $user_id
+     * @param int $id
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
-    public function deleteMine(int $user_id,int $id)    
+    public function deleteMine(int $user_id, int $id)
     {
-        return self::where('user_id', $user_id)     
+        return self::where('user_id', $user_id)
             ->where('id', $id)
             ->delete();
     }
@@ -32,6 +32,6 @@ class Blog extends Model
                 'content',
                 'description',
                 'type'
-            ])->toArray());     
+            ])->toArray());
     }
 }

@@ -47,12 +47,12 @@ class BlogController extends Controller
     }
 
     /**
-     * create 
-     * 
-     * @param Request $request 
-     * 
+     * create
+     *
+     * @param Request $request
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function create(Request $request)
@@ -77,27 +77,25 @@ class BlogController extends Controller
         if (($user = collect(Cache::get($key)))->isNotEmpty()) {
             if ($blog = (new Blog())->createMine(
                     collect($request->input())->merge(['user_id' => $user['user_id']])
-                )) 
-            {
-                return $this->result(collect($blog)->only(['id']));    
+                )) {
+                return $this->result(collect($blog)->only(['id']));
             } else {
                 return $this->result(collect(), '添加失败', 100);
             }
         }
 
         return $this->result(collect(), '请先登录');
-
     }
 
     /**
-     * delete 
-     * 
-     * @param Request $request 
-     * @param mixed $user_id 
-     * @param mixed $id 
-     * 
+     * delete
+     *
+     * @param Request $request
+     * @param mixed $user_id
+     * @param mixed $id
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function delete(Request $request, $user_id, $id)
@@ -106,41 +104,39 @@ class BlogController extends Controller
 
         if (($user = Cache::get($key))->isNotEmpty()) {
             if ((new Blog())->deleteMine($user_id, $id)) {
-                return $this->result(collect(), '删除成功');   
+                return $this->result(collect(), '删除成功');
             } else {
                 return $this->result(collect(), '删除失败');
-            } 
+            }
         }
 
         return $this->result(collect(), '请先登录');
     }
 
     /**
-     * get 
-     * 
-     * @param Request $request 
-     * @param mixed $id 
-     * 
+     * get
+     *
+     * @param Request $request
+     * @param mixed $id
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function get(Request $request, $id)
     {
-         
     }
 
     /**
-     * list 
-     * 
-     * @param Request $request 
-     * 
+     * list
+     *
+     * @param Request $request
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function list(Request $request)
     {
-        
     }
 }
