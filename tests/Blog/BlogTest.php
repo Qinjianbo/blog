@@ -46,4 +46,19 @@ class BlogTestCase extends TestCase
         $response->assertJsonStructure(['data', 'code', 'msg']);
         $response->assertJson(['code' => 0]);
     }
+
+    public function testList()
+    {
+        $response = $this->get(
+            '/api/home/v1/blogs',
+            [
+                'page' => 1,
+                'size' => '12',
+            ]
+        );
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['data', 'code', 'msg']);
+        $response->assertJson(['code' => 0]);
+    }
 }

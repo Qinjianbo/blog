@@ -138,5 +138,9 @@ class BlogController extends Controller
      */
     public function list(Request $request)
     {
+        return $this->result(collect([
+                'list' => (new Blog())->list(collect($request->input())),
+                'count' => (new Blog())->count(collect($request->input()))
+            ]), '获取成功');
     }
 }
