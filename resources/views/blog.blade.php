@@ -6,6 +6,7 @@
 
 @section('content')
   <input id="page" type="hidden" value="1">
+  <input id="totalPage" type="hidden" value="1">
   <div class="container blog-body">
     <div class="row">
       <div class="col-sm-4">

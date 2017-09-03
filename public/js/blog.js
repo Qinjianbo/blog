@@ -39,6 +39,7 @@ function getBlogs(page, size)
           }
         } 
         $("#page").val(parseInt(page) + 1);
+        $("#totalPage").val(Math.ceil(parseInt(data.data.count)/size));
       } else {
         console.log(data);    
       }
@@ -59,8 +60,11 @@ function loadBlog()
     console.log(offsetTop);
     if (offsetTop < scrollTop + winH) {
         var page = $("#page").val();
+        var totalPage = $("#totalPage").val();
         var size = 9;
-        getBlogs(page, size);
+        if (page <= totalPage) {
+            getBlogs(page, size);
+        }
     }
 }
 $(window).scroll(function() {
