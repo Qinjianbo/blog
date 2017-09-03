@@ -39,7 +39,7 @@ function getBlogs(page, size)
           }
         } 
         $("#page").val(parseInt(page) + 1);
-        $("#totalPage").val(Math.ceil(parseInt(data.data.count)/size));
+        $("#totalPage").val(Math.ceil(parseInt(data.count)/size));
       } else {
         console.log(data);    
       }
@@ -49,6 +49,7 @@ function getBlogs(page, size)
     }
   });
 }
+getBlogs(1, 9);
 
 function loadBlog()
 {

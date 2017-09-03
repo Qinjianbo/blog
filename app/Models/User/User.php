@@ -63,4 +63,18 @@ class User extends Model
     {
         return self::create(['username' => $username, 'password' => md5($password), 'device' => $device]);
     }
+
+    /**
+     * listByIds 
+     * 
+     * @param string $ids 
+     * 
+     * @access public
+     * 
+     * @return mixed
+     */
+    public function listByIds(string $ids)
+    {
+        return self::whereIn('id', explode(',', $ids))->get();
+    }
 }

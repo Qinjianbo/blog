@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Validator;
 use App\Models\Blog\Blog;
+use App\Models\User\User;
 
 /**
  * BlogController
@@ -139,7 +140,15 @@ class BlogController extends Controller
     public function list(Request $request)
     {
         return $this->result(collect([
-                'list' => (new Blog())->list(collect($request->input())),
+                'list' => (new Blog())->list(collect($request->input()))->pipe(function ($blogs) {
+                    $users = (new User())->listByIds($blogs->pluck('user_id')->implode(','))->keyBy('id');
+
+                    return $blogs->map(function ($blog) use ($users) {
+                        $blog['nickname'] = $users[$blog['user_id']]['nickname'];
+
+                        return $blog;
+                    });
+                }),
                 'count' => (new Blog())->count(collect($request->input()))
             ]), '获取成功');
     }
