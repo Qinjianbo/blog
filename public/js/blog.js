@@ -19,9 +19,14 @@ function getBlogs(page, size)
             var panelHeading = $('<div class="panel-heading"></div>');
             var panelBody = $('<div class="panel-body"></div>');
             var panelFooter = $('<div class="panel-footer"></div>');
+            var nicknameSpan = $('<span></span>');
+            var readNumSpan = $('<span class="pull-right"></span>')
             panelHeading.html(data.list[i].title);
             panelBody.html(data.list[i].description);
-            panelFooter.html(data.list[i].nickname);
+            nicknameSpan.html('Author:' + data.list[i].nickname);
+            readNumSpan.html('Read:' + data.list[i].reading);
+            panelFooter.append(nicknameSpan);
+            panelFooter.append(readNumSpan);
             panel.append(panelHeading);
             panel.append(panelBody);
             panel.append(panelFooter);

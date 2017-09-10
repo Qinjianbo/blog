@@ -11,15 +11,19 @@
     </div>
     <div class="navbar-collapse collapse" id="navbar">
       <ul class="nav navbar-nav">
+        <!--
         <li class="@yield('active_home')">
           <a href="/">首页</a>
         </li>
+        -->
         <li class="@yield('active_blog')">
           <a href="/blog">博客天地</a>
         </li>
+        <!--
         <li class="@yield('active_freshman')">
           <a href="/freshman">小白专场</a>
         </li>
+        -->
         <li class="@yield('active_about')">
           <a href="/about">关于波波</a>
         </li>
