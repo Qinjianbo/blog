@@ -80,4 +80,14 @@ class Blog extends Model
         })
             ->count();
     }
+
+
+    public function show($input, $id)
+    {
+        return self::when($input->has('user_id'), function ($blog) use ($input) {
+            return $blog->where('user_id', $input->get('user_id'));
+        })
+            ->where('id', $id)
+            ->first();
+    }
 }

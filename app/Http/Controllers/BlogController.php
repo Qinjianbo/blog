@@ -126,6 +126,7 @@ class BlogController extends Controller
      */
     public function get(Request $request, $id)
     {
+        return (new Blog())->show(collect($request->input()), $id);
     }
 
     /**
