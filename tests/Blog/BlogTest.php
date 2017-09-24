@@ -34,8 +34,8 @@ class BlogTestCase extends TestCase
             '/api/home/v1/user/blog',
             [
                 'user_id' => 'c4ca4238a0b923820dcc509a6f75849b',
-                'content' => '我来测试一下插入一篇博文的内容',
-                'title' => '这是这篇博文的标题',
+                'content' => '* 我来测试一下插入一篇博文的内容',
+                'title' => '# 这是这篇博文的标题',
                 'description' => '这是这篇博文的描述信息',
                 'type' => 1,
                 'device' => 'pc',
