@@ -27,6 +27,6 @@ Route::get('/blog', function () {
 //Route::get('/about', function () {
 //    return view('about');
 //});
-Route::get('markdown_test', function() {
-    return view('markdown_test');
+Route::get('profile', function() {
+    return view('profile');
 });

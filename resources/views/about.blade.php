@@ -7,8 +7,9 @@
 @section('active_about', 'active')
 
 @section('content')
-  <div class="container" style="margin-top:100px">
-    <h1>About BoBo!</h1>
+  <div class="container profile" style="margin-top:100px">
   </div>
+  <script src="/js/app.js"></script>
+  <script src="/js/profile.js"></script>
 @endsection
 
