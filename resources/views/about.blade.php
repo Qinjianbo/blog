@@ -9,7 +9,8 @@
 @section('content')
   <div class="container profile" style="margin-top:100px">
   </div>
-  <script src="/js/app.js"></script>
-  <script src="/js/profile.js"></script>
+@endsection
+@section('js')
+  <script src="js/profile.js"></script>
 @endsection
 
