@@ -58,7 +58,7 @@ class Blog extends Model
         return self::when($input->has('user_id'), function ($blog) use ($input) {
             return $blog->where('user_id', $input->get('user_id'));
         })
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->offset(($input->get('page', 1) - 1) * $input->get('size', 12))
             ->limit($input->get('size', 12))
             ->get();

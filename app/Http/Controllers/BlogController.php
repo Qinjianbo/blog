@@ -166,6 +166,9 @@ class BlogController extends Controller
      */
     public function show(Request $request, $id)
     {
+        // 阅读量增加
+        (new Blog())->where('id', $id)->increment('reading', 1);
+
         return view('blog_detail', ['blog' => (new Blog())->show(collect($request->input), $id)]);
     }
 }
