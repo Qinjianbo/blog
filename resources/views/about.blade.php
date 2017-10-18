@@ -7,7 +7,7 @@
 @section('active_about', 'active')
 
 @section('content')
-  <div class="container profile" style="margin-top:100px">
+  <div class="container profile mt100">
   </div>
 @endsection
 @section('js')

@@ -61,7 +61,7 @@ class BlogController extends Controller
         $rules = [
             'title' => 'required|string|min:1|max:255',
             'user_id' => 'required|string',
-            'content' => 'required|string|min:1|max:255',
+            'content' => 'required|string|min:1',
             'type'    => 'required|numeric|in:1,2',
             'description' => 'sometimes|string|min:1|max:255',
             'device' => 'required|string|in:pc,h5,ios,android',
@@ -152,5 +152,20 @@ class BlogController extends Controller
                 }),
                 'count' => (new Blog())->count(collect($request->input()))
             ]), '获取成功');
+    }
+    
+    /**
+     * show
+     * 
+     * @param Request $request
+     * @param int $id
+     *
+     * @access public
+     *
+     * @return mixed
+     */
+    public function show(Request $request, $id)
+    {
+        return view('blog_detail', ['blog' => (new Blog())->show(collect($request->input), $id)]);
     }
 }

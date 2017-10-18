@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::get('/blog', function () {
     return view('blog');
 });
+Route::get('/blog/{id}', 'BlogController@show')->where('id', '\d+');
 
 //Route::get('/freshman', function () {
 //    return view('freshman');

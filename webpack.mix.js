@@ -12,5 +12,6 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .js('resources/assets/js/blog.js', 'public/js')
    .js('resources/assets/js/profile.js', 'public/js')
+   .js('resources/assets/js/blog.js', 'public/js')
+   .js('resources/assets/js/blog_detail.js', 'public/js');

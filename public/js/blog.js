@@ -1,1 +1,162 @@
-!function(n){function a(t){if(e[t])return e[t].exports;var i=e[t]={i:t,l:!1,exports:{}};return n[t].call(i.exports,i,i.exports,a),i.l=!0,i.exports}var e={};a.m=n,a.c=e,a.d=function(n,e,t){a.o(n,e)||Object.defineProperty(n,e,{configurable:!1,enumerable:!0,get:t})},a.n=function(n){var e=n&&n.__esModule?function(){return n.default}:function(){return n};return a.d(e,"a",e),e},a.o=function(n,a){return Object.prototype.hasOwnProperty.call(n,a)},a.p="",a(a.s=35)}({35:function(n,a,e){n.exports=e(36)},36:function(n,a){function e(n,a){var n=n,a=a;$.ajax({url:"api/home/v1/blogs",data:{page:n,size:a},success:function(e){if(0==e.code){for(var t=0,i=!0,e=e.data,l=0;l<e.list.length;l++){var o=$('<div class="col-sm-4"></div>'),r=$('<div class="panel panel-default"></div>'),p=$('<div class="panel-heading"></div>'),s=$('<div class="panel-body"></div>'),d=$('<div class="panel-footer"></div>'),c=$("<span></span>"),u=$('<span class="pull-right"></span>');if(p.html(e.list[l].title),s.html(e.list[l].description),c.html("Author:"+e.list[l].nickname),u.html("Read:"+e.list[l].reading),d.append(c),d.append(u),r.append(p),r.append(s),r.append(d),o.append(r),t++,(l+1)%3==1){var v=$("<div class='row'></div>");v.append(o)}else v.append(o);3==l&&(i=!1),(3==t||i)&&($(".blog-body").append(v),t=0)}$("#page").val(parseInt(n)+1),$("#totalPage").val(Math.ceil(parseInt(e.count)/a))}},error:function(n){}})}function t(){var n=$(window).height(),a=$(window).scrollTop(),t=$(".blog-body").height();if(t<a+n){var i=$("#page").val();i<=$("#totalPage").val()&&e(i,9)}}e(1,9),$(window).scroll(function(){t()})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 42:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(43);
+
+
+/***/ }),
+
+/***/ 43:
+/***/ (function(module, exports) {
+
+function getBlogs(page, size) {
+  var uri = "api/home/v1/blogs";
+  $.ajax({
+    url: uri,
+    data: {
+      page: page,
+      size: size
+    },
+    success: function success(data) {
+      if (data.code == 0) {
+        var j = 0;
+        var isLessThanThree = true;
+        for (var i = 0; i < data.data.list.length; i++) {
+          var col = $('<div class="col-sm-4"></div>');
+          var panel = $('<div class="panel panel-default"></div>');
+          var panelHeading = $('<div class="panel-heading"></div>');
+          // var panelBody = $('<div class="panel-body"></div>');
+          var panelFooter = $('<div class="panel-footer"></div>');
+          var nicknameSpan = $('<span></span>');
+          var readNumSpan = $('<span class="pull-right"></span>');
+          var blogHref = $('<a target="_blank"></a>');
+          blogHref.html(data.data.list[i].title);
+          blogHref.attr("href", "/blog/" + data.data.list[i].id);
+          panelHeading.html(blogHref);
+          // panelBody.html(data.data.list[i].description);
+          nicknameSpan.html('Author:' + data.data.list[i].nickname);
+          readNumSpan.html('Read:' + data.data.list[i].reading);
+          panelFooter.append(nicknameSpan);
+          panelFooter.append(readNumSpan);
+          panel.append(panelHeading);
+          // panel.append(panelBody);
+          panel.append(panelFooter);
+          col.append(panel);
+          j++;
+          if ((i + 1) % 3 == 1) {
+            var row = $("<div class='row'></div>");
+            row.append(col);
+          } else {
+            row.append(col);
+          }
+          if (i == 3) {
+            isLessThanThree = false;
+          }
+          if (j == 3 || isLessThanThree) {
+            $(".blog-body").append(row);
+            j = 0;
+          }
+        }
+        $("#page").val(parseInt(page) + 1);
+        $("#totalPage").val(Math.ceil(parseInt(data.data.count) / size));
+      } else {
+        console.log(data);
+      }
+    },
+    error: function error(data) {
+      console.log(data);
+    }
+  });
+}
+getBlogs(1, 18);
+
+function loadBlog() {
+  var winH = $(window).height();
+  var scrollTop = $(window).scrollTop();
+  var offsetTop = $(".blog-body").height();
+  console.log(winH);
+  console.log(scrollTop);
+  console.log(offsetTop);
+  if (offsetTop < scrollTop + winH) {
+    var page = $("#page").val();
+    var totalPage = $("#totalPage").val();
+    var size = 18;
+    if (page <= totalPage) {
+      getBlogs(page, size);
+    }
+  }
+}
+$(window).scroll(function () {
+  loadBlog();
+});
+
+/***/ })
+
+/******/ });

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 44);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -294,15 +294,15 @@ exports.parse = exports.markdown.toHTML;
 
 /***/ }),
 
-/***/ 40:
+/***/ 44:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(41);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
 
-/***/ 41:
+/***/ 45:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -311,19 +311,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_markdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_markdown__);
 
 
-function getProfile() {
-    $.ajax({
-        url: '/profile',
-        success: function success(data) {
-            $(".profile").html(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML(data));
-        },
-        error: function error(data) {
-            alert("请检查网络");
-        }
-    });
+function parseBlogContent() {
+    var content = "- 表锁（TABLE LOCK）> 表锁类似于上面示例中的第一种方案，给整个餐厅设立一个守卫。它是开销最小的策略，当某一个用户对一张表进行增、删、改的时候，就会给这个表加上一个写锁，这样其他用户在同一时段就不能对该表进行读写了。只有这个写操作执行完成释放了写锁后，其他用户才能对这个表进行其他的操作。";
+    var blog_content = $("#content_hidden").html();
+    $("#body-content").html(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML(blog_content));
+    console.log(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML(content));
 }
 
-getProfile();
+parseBlogContent();
 
 /***/ }),
 
