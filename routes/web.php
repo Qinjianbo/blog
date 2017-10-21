@@ -17,9 +17,12 @@ Route::get('/', function () {
 });
 
 Route::get('/blog', function () {
-    return view('blog');
+    return view('blog.blog');
 });
 Route::get('/blog/{id}', 'BlogController@show')->where('id', '\d+');
+Route::get('/blog/add', function () {
+    return view('blog.edit_blog');
+});
 
 //Route::get('/freshman', function () {
 //    return view('freshman');

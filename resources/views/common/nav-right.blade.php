@@ -25,8 +25,8 @@
       </a>
       <ul class="dropdown-menu" aria-labelledby="dLabel">
         <li>
-          <a class="button" href="">
-              个人中心
+          <a class="button" href="/blog/add" target="_blank">
+              发表博文
           </a>
         </li>
         <li>

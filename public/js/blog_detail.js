@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 44);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -284,45 +284,17 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 // super simple module for the most common nodejs use case.
-exports.markdown = __webpack_require__(5);
+exports.markdown = __webpack_require__(4);
 exports.parse = exports.markdown.toHTML;
 
 
 /***/ }),
 
-/***/ 44:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(45);
-
-
-/***/ }),
-
-/***/ 45:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_markdown__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_markdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_markdown__);
-
-
-function parseBlogContent() {
-    var content = "- 表锁（TABLE LOCK）> 表锁类似于上面示例中的第一种方案，给整个餐厅设立一个守卫。它是开销最小的策略，当某一个用户对一张表进行增、删、改的时候，就会给这个表加上一个写锁，这样其他用户在同一时段就不能对该表进行读写了。只有这个写操作执行完成释放了写锁后，其他用户才能对这个表进行其他的操作。";
-    var blog_content = $("#content_hidden").html();
-    $("#body-content").html(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML(blog_content));
-    console.log(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML(content));
-}
-
-parseBlogContent();
-
-/***/ }),
-
-/***/ 5:
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Released under MIT license
@@ -454,7 +426,7 @@ function mk_block_toSource() {
 
 // node
 function mk_block_inspect() {
-  var util = __webpack_require__(6);
+  var util = __webpack_require__(5);
   return "Markdown.mk_block( " +
           util.inspect(this.toString()) +
           ", " +
@@ -2054,7 +2026,35 @@ function merge_text_nodes( jsonml ) {
 
 /***/ }),
 
-/***/ 6:
+/***/ 46:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(47);
+
+
+/***/ }),
+
+/***/ 47:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_markdown__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_markdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_markdown__);
+
+
+function parseBlogContent() {
+    var content = "- 表锁（TABLE LOCK）> 表锁类似于上面示例中的第一种方案，给整个餐厅设立一个守卫。它是开销最小的策略，当某一个用户对一张表进行增、删、改的时候，就会给这个表加上一个写锁，这样其他用户在同一时段就不能对该表进行读写了。只有这个写操作执行完成释放了写锁后，其他用户才能对这个表进行其他的操作。";
+    var blog_content = $("#content_hidden").html();
+    $("#body-content").html(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML(blog_content));
+    console.log(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML(content));
+}
+
+parseBlogContent();
+
+/***/ }),
+
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -2582,7 +2582,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(7);
+exports.isBuffer = __webpack_require__(6);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -2626,7 +2626,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(8);
+exports.inherits = __webpack_require__(7);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -2648,7 +2648,7 @@ function hasOwnProperty(obj, prop) {
 
 /***/ }),
 
-/***/ 7:
+/***/ 6:
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -2660,7 +2660,7 @@ module.exports = function isBuffer(arg) {
 
 /***/ }),
 
-/***/ 8:
+/***/ 7:
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {

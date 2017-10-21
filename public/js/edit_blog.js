@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 44);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2026,15 +2026,15 @@ function merge_text_nodes( jsonml ) {
 
 /***/ }),
 
-/***/ 40:
+/***/ 44:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(41);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
 
-/***/ 41:
+/***/ 45:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2043,19 +2043,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_markdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_markdown__);
 
 
-function getProfile() {
-    $.ajax({
-        url: '/profile',
-        success: function success(data) {
-            $(".profile").html(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML(data));
-        },
-        error: function error(data) {
-            alert("请检查网络");
-        }
-    });
-}
-
-getProfile();
+$("#content").bind("input propertychange", function () {
+    $("#parsing_content").html(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML($(this).val()));
+});
 
 /***/ }),
 
