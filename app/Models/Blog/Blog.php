@@ -44,6 +44,16 @@ class Blog extends Model
             ])->toArray());
     }
 
+    public function updateMine(Collection $input)
+    {
+        return self::update($input->only([
+                'title',
+                'content',
+                'description',
+                'type'
+            ])->toArray());
+    }
+
     /**
      * list
      *

@@ -45,6 +45,24 @@ class BlogController extends Controller
             'type' => 'required|numeric|in:1,2',
             'device' => 'required|string|in:pc,h5,ios,android',
         ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return $this->result(collect(), collect($errors), 101);
+        }
+
+        $key = sprintf('user_%s_%s', $request->get('user_id'), $request->get('device'));
+        if (($user = collect(Cache::get($key)))->isNotEmpty()) {
+            if ($blog = (new Blog())->updateMine(collect($request->input()), $id)) {
+                return $this->result($id);
+            } else {
+                return $this->result(collect(), '添加失败', 100);
+            }
+        }
+
+        return $this->result(collect(), '请先登录');
     }
 
     /**
