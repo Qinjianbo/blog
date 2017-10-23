@@ -80,7 +80,7 @@ class BlogController extends Controller
             'title' => 'required|string|min:1|max:255',
             'user_id' => 'required|string',
             'content' => 'required|string|min:1',
-            'type'    => 'required|numeric|in:1,2',
+            'type'    => 'required|numeric|in:1,0',
             'description' => 'sometimes|string|min:1|max:255',
             'device' => 'required|string|in:pc,h5,ios,android',
         ];
@@ -91,11 +91,15 @@ class BlogController extends Controller
 
             return $this->result(collect(), collect($errors), 101);
         }
+        $input = collect($request->input());
+       // $input->put('content', htmlspecialchars($request->get('content')));
+       // $input->put('description', htmlspecialchars($request->get('description')));
+       // $input->put('title', htmlspecialchars($request->get('title')));
 
         $key = sprintf('user_%s_%s', $request->get('user_id'), $request->get('device'));
         if (($user = collect(Cache::get($key)))->isNotEmpty()) {
             if ($blog = (new Blog())->createMine(
-                    collect($request->input())->merge(['user_id' => $user['user_id']])
+                    $input->merge(['user_id' => $user['user_id']])
                 )) {
                 return $this->result(collect($blog)->only(['id']));
             } else {

@@ -23,12 +23,15 @@
           </div>
 -->
           <div class="form-group">
-            <input type="text" placeholder="请输入博文标题" id="title"/>
+            <input id="title" type="text" placeholder="请输入博文标题"/>
+          </div>
+          <div class="form-group">
+            <input id="description" type="text" placeholder="请输入博文的简介"/>
           </div>
           <div class="form-group">
              <textarea id="content" class="form-control" rows="30"></textarea>
           </div>
-          <button class="btn btn-info" type="submit">提交</button>
+          <button id="submit_btn" class="btn btn-info" type="button">提交</button>
         </form>
       </div>
       <div class="col-sm-6">

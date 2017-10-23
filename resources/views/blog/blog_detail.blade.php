@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-<div id="content_hidden" style="display:none">{{$blog['content']}}</div>
+<textarea id="content_hidden" style="display:none">{{$blog['content']}}</textarea>
 @endsection
 
 @section('js')
