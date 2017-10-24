@@ -121,12 +121,12 @@ class UserController extends BaseController
     }
 
     /**
-     * isSignin 
-     * 
-     * @param Request $request 
-     * 
+     * isSignin
+     *
+     * @param Request $request
+     *
      * @access public
-     * 
+     *
      * @return Illuminate\Support\Collection
      */
     public function isSignin(Request $request, $id, $device) : Collection

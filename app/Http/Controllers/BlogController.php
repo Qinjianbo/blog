@@ -92,9 +92,6 @@ class BlogController extends Controller
             return $this->result(collect(), collect($errors), 101);
         }
         $input = collect($request->input());
-       // $input->put('content', htmlspecialchars($request->get('content')));
-       // $input->put('description', htmlspecialchars($request->get('description')));
-       // $input->put('title', htmlspecialchars($request->get('title')));
 
         $key = sprintf('user_%s_%s', $request->get('user_id'), $request->get('device'));
         if (($user = collect(Cache::get($key)))->isNotEmpty()) {
@@ -178,7 +175,7 @@ class BlogController extends Controller
     
     /**
      * show
-     * 
+     *
      * @param Request $request
      * @param int $id
      *

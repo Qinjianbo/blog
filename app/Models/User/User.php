@@ -65,12 +65,12 @@ class User extends Model
     }
 
     /**
-     * listByIds 
-     * 
-     * @param string $ids 
-     * 
+     * listByIds
+     *
+     * @param string $ids
+     *
      * @access public
-     * 
+     *
      * @return mixed
      */
     public function listByIds(string $ids)
