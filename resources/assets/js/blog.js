@@ -15,7 +15,7 @@ function getBlogs(page, size)
             var col = $('<div class="col-sm-4"></div>');
             var panel = $('<div class="panel panel-default"></div>');
             var panelHeading = $('<div class="panel-heading"></div>');
-            // var panelBody = $('<div class="panel-body"></div>');
+            var panelBody = $('<div class="panel-body"></div>');
             var panelFooter = $('<div class="panel-footer"></div>');
             var nicknameSpan = $('<span></span>');
             var readNumSpan = $('<span class="pull-right"></span>')
@@ -23,13 +23,13 @@ function getBlogs(page, size)
             blogHref.html(data.data.list[i].title);
             blogHref.attr("href", "/blog/" + data.data.list[i].id);
             panelHeading.html(blogHref);
-            // panelBody.html(data.data.list[i].description);
+            panelBody.html(data.data.list[i].description);
             nicknameSpan.html('Author:' + data.data.list[i].nickname);
             readNumSpan.html('Read:' + data.data.list[i].reading);
             panelFooter.append(nicknameSpan);
             panelFooter.append(readNumSpan);
             panel.append(panelHeading);
-            // panel.append(panelBody);
+            panel.append(panelBody);
             panel.append(panelFooter);
             col.append(panel);
             j++;

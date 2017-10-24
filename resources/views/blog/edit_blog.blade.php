@@ -23,10 +23,10 @@
           </div>
 -->
           <div class="form-group">
-            <input id="title" type="text" placeholder="请输入博文标题"/>
+            <input id="title" type="text" placeholder="请输入博文标题" style="min-width: 100%;"/>
           </div>
           <div class="form-group">
-            <input id="description" type="text" placeholder="请输入博文的简介"/>
+            <input id="description" type="text" placeholder="请输入博文的简介" style="min-width: 100%;"/>
           </div>
           <div class="form-group">
              <textarea id="content" class="form-control" rows="30"></textarea>
@@ -35,7 +35,7 @@
         </form>
       </div>
       <div class="col-sm-6">
-        <div class="container" id="parsing_content">
+        <div id="parsing_content">
         </div>
       </div>
     </div>
