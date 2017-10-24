@@ -24,6 +24,10 @@ Route::get('/blog/add', function () {
     return view('blog.edit_blog');
 });
 
+Route::any('/captcha', function () {
+    return Captcha::create();
+});
+
 //Route::get('/freshman', function () {
 //    return view('freshman');
 //});
