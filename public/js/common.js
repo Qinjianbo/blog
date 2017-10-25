@@ -1,14 +1,20 @@
 $("#signin_btn").bind("click", function () {
   var username = $("#username_signin").val();
   var password = $("#password_signin").val();
-  var captcha = $("#captcha_signin").val();
+  if (username == "") {
+    alert("请输入用户名");
+    return false;
+  }
+  if (password == "") {
+    alert("请输入密码");
+    return false;
+  }
   var uri = "/api/home/v1/session";
   $.ajax({
     url: uri,
     data: {
         username: username,
         password: password,
-        captcha:captcha,
         device: "pc"
     },
     type: "POST",
@@ -41,7 +47,6 @@ $("#register_btn").bind("click", function () {
   var username = $("#username_reg").val();
   var password = $("#password_reg").val();
   var nickname = $("#nickname_reg").val();
-  var captcha = $("#captcha_reg").val();
   var uri = "/api/home/v1/user";
   $.ajax({
     url: uri,
@@ -49,7 +54,6 @@ $("#register_btn").bind("click", function () {
       username: username,
       password: password,
       nickname:nickname,
-      captcha:captcha,
       device: "pc"
     },
     type: "POST",
