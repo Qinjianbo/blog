@@ -99,6 +99,7 @@ class UserController extends BaseController
         $rules = [
             'username' => 'required|alpha_dash|between:6,20|unique:users,username',
             'password' => 'required|string',
+            'nickname' => 'sometimes|string',
             'device'   => 'required|string|in:pc,android,ios',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -111,6 +112,7 @@ class UserController extends BaseController
         if ($user = (new User())->signup(
                     $request->get('username'),
                     $request->get('password'),
+                    $request->get('nickname'),
                     $request->get('device')
                 )
             ) {

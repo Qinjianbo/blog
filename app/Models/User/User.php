@@ -59,9 +59,9 @@ class User extends Model
      *
      * @return mixed
      */
-    public function signup(string $username, string $password, string $device)
+    public function signup(string $username, string $password, string $nickname, string $device)
     {
-        return self::create(['username' => $username, 'password' => md5($password), 'device' => $device]);
+        return self::create(['username' => $username, 'password' => md5($password), 'nickname' => $nickname, 'device' => $device]);
     }
 
     /**
