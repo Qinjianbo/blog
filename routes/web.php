@@ -24,9 +24,10 @@ Route::get('/blog/add', function () {
     return view('blog.edit_blog');
 });
 
-Route::any('/captcha', function () {
+Route::get('/captcha', function () {
     return Captcha::create();
 });
+Route::get('/captcha/check', 'CaptchaController@check')->where('captcha', '\s+');
 
 //Route::get('/freshman', function () {
 //    return view('freshman');

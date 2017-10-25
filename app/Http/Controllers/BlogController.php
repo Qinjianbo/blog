@@ -62,7 +62,7 @@ class BlogController extends Controller
             }
         }
 
-        return $this->result(collect(), '请先登录');
+        return $this->result(collect(), '请先登录', 102);
     }
 
     /**
