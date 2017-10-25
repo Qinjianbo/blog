@@ -48,6 +48,18 @@ $("#register_btn").bind("click", function () {
   var password = $("#password_reg").val();
   var nickname = $("#nickname_reg").val();
   var uri = "/api/home/v1/user";
+  if (username == "") {
+    alert("请输入用户名");
+    return false;
+  }
+  if (password == "") {
+    alert("请输入密码");
+    return false;
+  }
+  if (nickname == "") {
+    alert("请输入昵称");
+    return false;
+  }
   $.ajax({
     url: uri,
     data: {
