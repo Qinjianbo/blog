@@ -1,12 +1,14 @@
 $("#signin_btn").bind("click", function () {
   var username = $("#username_signin").val();
   var password = $("#password_signin").val();
+  var captcha = $("#captcha_signin").val();
   var uri = "/api/home/v1/session";
   $.ajax({
     url: uri,
     data: {
         username: username,
         password: password,
+        captcha:captcha,
         device: "pc"
     },
     type: "POST",
@@ -38,12 +40,16 @@ $("#signin_btn").bind("click", function () {
 $("#register_btn").bind("click", function () {
   var username = $("#username_reg").val();
   var password = $("#password_reg").val();
+  var nickname = $("#nickname_reg").val();
+  var captcha = $("#captcha_reg").val();
   var uri = "/api/home/v1/user";
   $.ajax({
     url: uri,
     data: {
       username: username,
       password: password,
+      nickname:nickname,
+      captcha:captcha,
       device: "pc"
     },
     type: "POST",
