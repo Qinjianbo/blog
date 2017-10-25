@@ -21,7 +21,7 @@
           <div class="row">
             <label class="col-xs-2 col-xs-offset-2" for="captcha_signin">验证码:</label>
             <div class="col-xs-4">
-              <input type="text" class="form-control" id="captcha_signin" placeholder="请输入图中验证码">
+              <input type="text" class="form-control" id="captcha_signin" placeholder="请输入图中验证码" onblur="checkCaptcha(this)">
             </div>
             <div class="col-xs-4">
               <img src="/captcha" onclick="refreshImg(this)">

@@ -1,12 +1,17 @@
 $("#signin_btn").bind("click", function () {
   var username = $("#username_signin").val();
   var password = $("#password_signin").val();
+  var captcha = $("#captcha_signin").val();
   if (username == "") {
     alert("请输入用户名");
     return false;
   }
   if (password == "") {
     alert("请输入密码");
+    return false;
+  }
+  if (captcha == "") {
+    alert("请输入验证码");
     return false;
   }
   var uri = "/api/home/v1/session";
@@ -47,6 +52,7 @@ $("#register_btn").bind("click", function () {
   var username = $("#username_reg").val();
   var password = $("#password_reg").val();
   var nickname = $("#nickname_reg").val();
+  var captcha = $("#captcha_signin").val();
   var uri = "/api/home/v1/user";
   if (username == "") {
     alert("请输入用户名");
@@ -58,6 +64,10 @@ $("#register_btn").bind("click", function () {
   }
   if (nickname == "") {
     alert("请输入昵称");
+    return false;
+  }
+  if (captcha == "") {
+    alert("请输入验证码");
     return false;
   }
   $.ajax({
@@ -151,4 +161,33 @@ function refreshImg(obj)
 {
   var url = "/captcha?time=" + new Date();
   $(obj).attr("src", url);
+}
+
+function checkCaptcha(obj)
+{
+  var captcha = $(obj).val();
+  if (captcha == "") {
+    $(obj).attr("placeholder", "请输入验证码");
+    $(obj).focus();
+    return false;
+  }
+  $.ajax({
+    url:"/captcha/check",
+    data:{
+      captcha:captcha
+    },
+    success:function(data) {
+      if (data.code == 0) {
+        alert("验证码输入正确");
+      } else {
+        $(obj).focus();
+        $(obj).val("");
+        $(obj).attr("placeholder", "输入错误，请重新输入");
+      }
+    },
+    error:function(data) {
+      alert("请检查网络");
+      console.log(data);
+    }
+  });
 }
