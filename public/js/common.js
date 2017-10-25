@@ -146,3 +146,9 @@ function checkSignStatus()
   });
 }
 checkSignStatus();
+
+function refreshImg(obj)
+{
+  var url = "/captcha?time=" + new Date();
+  $(obj).attr("src", url);
+}

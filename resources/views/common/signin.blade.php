@@ -24,7 +24,7 @@
               <input type="text" class="form-control" id="captcha_signin" placeholder="请输入图中验证码">
             </div>
             <div class="col-xs-4">
-              <img src="/captcha">
+              <img src="/captcha" onclick="refreshImg(this)">
             </div>
           </div>
         </div>
