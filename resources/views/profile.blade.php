@@ -33,10 +33,23 @@
 
 ### 技能简介
 
-> php
+##### 编程语言:
 
-> mysql
+- PHP
+- JS
+- HTML\CSS
+- JAVA SE
 
-> bootstrap
+##### 数据库:
 
-> es
+- MySQL
+- Redis
+
+##### 技术框架:
+
+- Laravel
+- ThinkPHP
+
+##### 搜索引擎:
+
+- ElasticSearch
