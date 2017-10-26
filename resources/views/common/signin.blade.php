@@ -21,10 +21,10 @@
           <div class="row">
             <label class="col-xs-2 col-xs-offset-2" for="captcha_signin">验证码:</label>
             <div class="col-xs-4">
-              <input type="text" class="form-control" id="captcha_signin" placeholder="请输入图中验证码" onblur="checkCaptcha(this)">
+              <input type="text" class="form-control" id="captcha_signin" placeholder="请输入图中验证码">
             </div>
             <div class="col-xs-4">
-              <img src="/captcha" onclick="refreshImg(this)">
+              <img id="img_signin" onclick="refreshImg(this)">
             </div>
           </div>
         </div>

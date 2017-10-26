@@ -30,7 +30,7 @@
               <input type="text" class="form-control" id="captcha_reg" placeholder="请输入图中验证码">
             </div>
             <div class="col-xs-4">
-              <img src="/captcha" onclick="refreshImg(this)">
+              <img id="img_reg" onclick="refreshImg(this)">
             </div>
           </div>
         </div>

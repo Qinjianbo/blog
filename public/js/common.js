@@ -1,5 +1,4 @@
-$("#signin_btn").bind("click", function () {
-  var username = $("#username_signin").val();
+$("#signin_btn").bind("click", function () { var username = $("#username_signin").val();
   var password = $("#password_signin").val();
   var captcha = $("#captcha_signin").val();
   if (username == "") {
@@ -10,8 +9,8 @@ $("#signin_btn").bind("click", function () {
     alert("请输入密码");
     return false;
   }
-  if (captcha == "") {
-    alert("请输入验证码");
+  if (!checkCaptcha(captcha, 'signin')) {
+    alert("验证码输入错误，请重新输入");
     return false;
   }
   var uri = "/api/home/v1/session";
@@ -53,7 +52,6 @@ $("#register_btn").bind("click", function () {
   var password = $("#password_reg").val();
   var nickname = $("#nickname_reg").val();
   var captcha = $("#captcha_signin").val();
-  var uri = "/api/home/v1/user";
   if (username == "") {
     alert("请输入用户名");
     return false;
@@ -66,10 +64,11 @@ $("#register_btn").bind("click", function () {
     alert("请输入昵称");
     return false;
   }
-  if (captcha == "") {
-    alert("请输入验证码");
+  if (!checkCaptcha(captcha, 'reg')) {
+    alert("验证码输入错误，请重新输入");
     return false;
   }
+  var uri = "/api/home/v1/user";
   $.ajax({
     url: uri,
     data: {
@@ -163,26 +162,28 @@ function refreshImg(obj)
   $(obj).attr("src", url);
 }
 
-function checkCaptcha(obj)
+function checkCaptcha(captcha, page)
 {
-  var captcha = $(obj).val();
   if (captcha == "") {
-    $(obj).attr("placeholder", "请输入验证码");
-    $(obj).focus();
+    alert("请输入验证码");
     return false;
   }
+  var flag = false;
   $.ajax({
     url:"/captcha/check",
+    async:false,
     data:{
       captcha:captcha
     },
     success:function(data) {
       if (data.code == 0) {
-        alert("验证码输入正确");
-      } else {
-        $(obj).focus();
-        $(obj).val("");
-        $(obj).attr("placeholder", "输入错误，请重新输入");
+        flag = true;
+      } else if (data.code == 100) {
+        if (page == 'reg') {
+          $("#img_reg").attr("src", "/captcha?time="+new Date());
+        } else if (page == 'signin') {
+          $("#img_signin").attr("src", "/captcha?time="+new Date());
+        }
       }
     },
     error:function(data) {
@@ -190,4 +191,12 @@ function checkCaptcha(obj)
       console.log(data);
     }
   });
+
+  return flag;
 }
+$("#signin_modal").bind("show.bs.modal", function () {
+  $("#img_signin").attr("src", "/captcha?time="+new Date());
+});
+$("#register_modal").bind("show.bs.modal", function () {
+  $("#img_reg").attr("src", "/captcha?time="+new Date());
+});
