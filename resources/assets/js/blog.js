@@ -25,7 +25,7 @@ function getBlogs(page, size)
             panelHeading.html(blogHref);
             panelBody.html(data.data.list[i].description);
             nicknameSpan.html('Author:' + data.data.list[i].nickname);
-            readNumSpan.html('Read:' + data.data.list[i].reading);
+            readNumSpan.html('<span class="glyphicon glyphicon-eye-open"></span>&nbsp;' + data.data.list[i].reading);
             panelFooter.append(nicknameSpan);
             panelFooter.append(readNumSpan);
             panel.append(panelHeading);
