@@ -161,7 +161,7 @@ class BlogController extends Controller
     {
         return $this->result(collect([
                 'list' => (new Blog())->list(collect($request->input()))->pipe(function ($blogs) {
-                    $users = (new User())->listByIds($blogs->pluck('user_id')->implode(','))->keyBy('id');
+                    $users = (new User())->listByIds($blogs->pluck('user_id')->unique()->implode(','))->keyBy('id');
 
                     return $blogs->map(function ($blog) use ($users) {
                         $blog['nickname'] = $users[$blog['user_id']]['nickname'];
