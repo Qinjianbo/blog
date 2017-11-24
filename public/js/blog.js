@@ -86,7 +86,6 @@ function getBlogs(page, size) {
     },
     success: function success(data) {
       if (data.code == 0) {
-        var j = 0;
         var isLessThanThree = true;
         for (var i = 0; i < data.data.list.length; i++) {
           var col = $('<div class="col-sm-4"></div>');
@@ -109,19 +108,18 @@ function getBlogs(page, size) {
           panel.append(panelBody);
           panel.append(panelFooter);
           col.append(panel);
-          j++;
           if ((i + 1) % 3 == 1) {
             var row = $("<div class='row'></div>");
             row.append(col);
           } else {
             row.append(col);
           }
-          if (i == 3) {
+          if (i % 3 == 0) {
             isLessThanThree = false;
           }
-          if (j == 3 || isLessThanThree) {
+          if (!isLessThanThree) {
             $(".blog-body").append(row);
-            j = 0;
+            isLessThanThree = true;
           }
         }
         $("#page").val(parseInt(page) + 1);
