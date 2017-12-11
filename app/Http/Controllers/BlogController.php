@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Validator;
 use App\Models\Blog\Blog;
 use App\Models\User\User;
+use Mail;
 
 /**
  * BlogController

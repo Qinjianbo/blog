@@ -12,6 +12,7 @@
 @section('active_blog', 'active')
 
 @section('content')
+<textarea id="content_hidden" style="display:none">{{$blog['content']}}</textarea>
   <div class="container mt100">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -25,7 +26,6 @@
       </div>
     </div>
   </div>
-<textarea id="content_hidden" style="display:none">{{$blog['content']}}</textarea>
 @endsection
 
 @section('js')
