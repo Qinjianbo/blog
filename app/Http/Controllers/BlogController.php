@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 use Validator;
 use App\Models\Blog\Blog;
 use App\Models\User\User;
-use Mail;
 
 /**
  * BlogController
@@ -189,6 +188,11 @@ class BlogController extends Controller
         // 阅读量增加
         (new Blog())->where('id', $id)->increment('reading', 1);
 
-        return view('blog.blog_detail', ['blog' => (new Blog())->show(collect($request->input), $id)]);
+        return view(
+            'blog.blog_detail',
+            [
+                'blog' => (new Blog())->show(collect($request->input), $id)
+            ]
+        );
     }
 }

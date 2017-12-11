@@ -4,6 +4,7 @@ namespace App\Models\Blog;
 
 use App\Models\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Mail\Markdown;
 
 class Blog extends Model
 {
@@ -94,10 +95,15 @@ class Blog extends Model
 
     public function show($input, $id)
     {
-        return self::when($input->has('user_id'), function ($blog) use ($input) {
+        return collect(self::when($input->has('user_id'), function ($blog) use ($input) {
             return $blog->where('user_id', $input->get('user_id'));
         })
             ->where('id', $id)
-            ->first();
+            ->first())
+            ->pipe(function ($blog) {
+                $blog['content'] = Markdown::parse($blog['content']);
+                
+                return $blog;
+            });
     }
 }
