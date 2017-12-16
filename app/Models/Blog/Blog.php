@@ -92,8 +92,15 @@ class Blog extends Model
             ->count();
     }
 
-
-    public function show($input, $id)
+    /**
+     * show
+     *
+     * @param Collection $input
+     * @param int $id
+     *
+     * @return Collection
+     */
+    public function show(Collection $input, int $id) : Collection
     {
         return collect(self::when($input->has('user_id'), function ($blog) use ($input) {
             return $blog->where('user_id', $input->get('user_id'));

@@ -170,7 +170,7 @@ function checkCaptcha(captcha, page)
   }
   var flag = false;
   $.ajax({
-    url:"/captcha/check",
+    url:"/captcha/compare",
     async:false,
     data:{
       captcha:captcha
@@ -180,9 +180,9 @@ function checkCaptcha(captcha, page)
         flag = true;
       } else if (data.code == 100) {
         if (page == 'reg') {
-          $("#img_reg").attr("src", "/captcha?time="+new Date());
+          $("#img_reg").attr("src", "/captcha?time="+Math.random());
         } else if (page == 'signin') {
-          $("#img_signin").attr("src", "/captcha?time="+new Date());
+          $("#img_signin").attr("src", "/captcha?time="+Math.random());
         }
       }
     },
@@ -195,8 +195,8 @@ function checkCaptcha(captcha, page)
   return flag;
 }
 $("#signin_modal").bind("show.bs.modal", function () {
-  $("#img_signin").attr("src", "/captcha?time="+new Date());
+  $("#img_signin").attr("src", "/captcha?time="+Math.random());
 });
 $("#register_modal").bind("show.bs.modal", function () {
-  $("#img_reg").attr("src", "/captcha?time="+new Date());
+  $("#img_reg").attr("src", "/captcha?time="+Math.random());
 });
