@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/checkCaptcha', 'CaptchaController@check')->where('captcha', '\s+');
+Route::get('/captcha', function () {
+    return Captcha::create();
+});
 Route::get('/', function () {
    // return view('home');
     return view('about');
@@ -22,11 +26,6 @@ Route::get('/blog', function () {
 Route::get('/blog/{id}', 'BlogController@show')->where('id', '\d+');
 Route::get('/blog/add', function () {
     return view('blog.edit_blog');
-});
-
-Route::get('/captcha/compare', 'CaptchaController@check')->where('captcha', '\s+');
-Route::get('/captcha', function () {
-    return Captcha::create();
 });
 
 //Route::get('/freshman', function () {

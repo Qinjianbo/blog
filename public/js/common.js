@@ -170,7 +170,7 @@ function checkCaptcha(captcha, page)
   }
   var flag = false;
   $.ajax({
-    url:"/captcha/compare",
+    url:"/checkCaptcha",
     async:false,
     data:{
       captcha:captcha
