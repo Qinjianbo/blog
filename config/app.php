@@ -240,4 +240,10 @@ return [
         ],
     ],
 
+    'wxa' => [
+        'appId' => env('WXA_APPID', ''),
+        'appSecret' => env('WXA_APPSECRET', ''),
+        'cachePath' => env('WXA_CACHEPATH'),
+    ],
+
 ];
