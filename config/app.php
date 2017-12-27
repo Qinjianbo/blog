@@ -180,6 +180,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Mews\Captcha\CaptchaServiceProvider::class,
+
+        Bqrd\WeAppSdk\Providers\WxaServiceProvider::class,
     ],
 
     /*
@@ -239,11 +241,4 @@ return [
             'ios'     => 1440,
         ],
     ],
-
-    'wxa' => [
-        'appId' => env('WXA_APPID', ''),
-        'appSecret' => env('WXA_APPSECRET', ''),
-        'cachePath' => env('WXA_CACHEPATH'),
-    ],
-
 ];

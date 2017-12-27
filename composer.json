@@ -7,7 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "doctrine/dbal": "^2.6",
-        "jiaweixs/weapp": "^1.4",
+        "bqrd/weapp": "1.5.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "mews/captcha": "^2.1",
@@ -57,5 +57,12 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
-    }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
+    },
+    "minimum-stability": "dev"
 }

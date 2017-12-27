@@ -9,7 +9,8 @@ use App\Models\User\User;
 use Cache;
 use Carbon\Carbon;
 use Validator;
-use JiaweiXS\WeApp\WeApp;
+use App\Services\WxBizDataCryptService;
+use Bqrd\WeAppSdk\Facades\WeApp;
 
 /**
  * WxaController
@@ -27,20 +28,6 @@ use JiaweiXS\WeApp\WeApp;
 class WxaController extends BaseController
 {
     /**
-     * $weapp
-     */
-    protected $weapp = null;
-
-    public function __construct()
-    {
-        $this->weapp = new WeApp(
-            config('app.wxa.appId'),
-            config('app.wxa.appSecret'),
-            config('app.wxa.cachePath')
-        );
-    }
-
-    /**
      * 去微信换取openid 和 session_key
      *
      * @param Request $request
@@ -53,8 +40,8 @@ class WxaController extends BaseController
             info('code2Session:code is empty!');
             return '';
         }
-        $session = $this->weapp->getSessionKey($code);
-        $session = json_decode($session, true);
+
+        $session = WeApp::getSessionKey($code);
 
         $cacheKey = sprintf('%u', crc32(sprintf('%s_%s', $session['openid'], $session['session_key'])));
         $cacheValue = sprintf('%s_%s', $session['openid'], $session['session_key']);
@@ -66,6 +53,21 @@ class WxaController extends BaseController
 
     public function analyzeUser(Request $request)
     {
+        $session = Cache::get($request->get('sessionId'));
+        if (!$session) {
+            return $this->result(collect(), '登录超时', 10001);
+        }
+        $sessionKey = explode('_', $session)[1];
         $res = $request->get('res');
+        $rawData = $res['rawData'];
+        $encryptedData = $res['encryptedData'];
+        $iv = $res['iv'];
+        $encriptyService = (new WxBizDataCryptService(config('app.wxa.appId'), $sessionKey));
+        $error = $encriptyService->decryptData($encryptedData, $iv, $data);
+        if ($error) {
+            info('analyzeUser error:'.$error);
+        } else {
+            print_r($data);
+        }
     }
 }
