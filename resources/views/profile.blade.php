@@ -14,15 +14,6 @@
 - 微信号：wanghuiwoshinideyou
 - 电子邮件：279250819@qq.com
 
-### 博客地址
-
-- [个人博客网站](https://www.boboidea.com/blog)
-- [csdn博客主页](http://blog.csdn.net/qin_jian_bo)
-
-### 项目地址
-
-- [Github项目地址](https://github.com/Qinjianbo)
-
 ### 工作经历
 
 - 2016.7 - 至今 光橙（上海）信息科技有限公司
@@ -53,3 +44,12 @@
 ##### 搜索引擎:
 
 - ElasticSearch
+
+### 博客地址
+
+- [个人博客网站](https://www.boboidea.com/blog)
+- [csdn博客主页](http://blog.csdn.net/qin_jian_bo)
+
+### 项目地址
+
+- [Github项目地址](https://github.com/Qinjianbo)
