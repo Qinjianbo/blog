@@ -51,6 +51,23 @@ class WxaController extends BaseController
         return $this->result(collect(['sessionId' => $cacheKey]), '微信登录成功');
     }
 
+    /**
+     * 检测微信登录是否过期
+     *
+     * @param Request $request
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function check(Request $request)
+    {
+        $session = Cache::get($request->get('sessionId'));
+        if (!$session) {
+            return $this->result(collect(), 'session失效，请重新登录', 10001);
+        }
+        
+        return $this->result(collect(['sessionId' => $request->get('sessionId')]), 'session有效');
+    }
+
     public function analyzeUser(Request $request)
     {
         $session = Cache::get($request->get('sessionId'));

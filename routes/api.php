@@ -36,7 +36,8 @@ Route::group(['prefix' => 'home'], function () {
 
 Route::group(['prefix' => 'wxa'], function () {
     Route::group(['prefix' => 'v1'], function () {
-        Route::post('/session', 'WxaController@code2Session');
+        Route::get('/session', 'WxaController@code2Session');
         Route::post('/user', 'WxaController@analyzeUser');
+        Route::get('/session/check', 'WxaController@check');
     });
 });
