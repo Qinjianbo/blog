@@ -66,9 +66,10 @@ class Blog extends Model
      */
     public function list(Collection $input)
     {
-        return self::when($input->has('user_id'), function ($blog) use ($input) {
-            return $blog->where('user_id', $input->get('user_id'));
-        })
+        return self::select(explode(',', $input->get('select', '*')))
+            ->when($input->has('user_id'), function ($blog) use ($input) {
+                return $blog->where('user_id', $input->get('user_id'));
+            })
             ->orderBy('created_at', 'desc')
             ->offset(($input->get('page', 1) - 1) * $input->get('size', 12))
             ->limit($input->get('size', 12))

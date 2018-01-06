@@ -5,7 +5,7 @@ namespace Tests\Blog;
 use Tests\TestCase;
 
 /**
- * UserTestCase  
+ * BlogTestCase  
  * 
  * @uses TestCase
  * PHP version 7

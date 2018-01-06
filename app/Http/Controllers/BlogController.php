@@ -159,18 +159,22 @@ class BlogController extends Controller
      */
     public function list(Request $request)
     {
-        return $this->result(collect([
-                'list' => (new Blog())->list(collect($request->input()))->pipe(function ($blogs) {
-                    $users = (new User())->listByIds($blogs->pluck('user_id')->unique()->implode(','))->keyBy('id');
+        $list = (new Blog())->list(collect($request->input())->merge(['select' => 'id,title,reading,user_id']))
+            ->pipe(function ($blogs) {
+                $users = (new User())->listByIds($blogs->pluck('user_id')->unique()->implode(','))->keyBy('id');
 
-                    return $blogs->map(function ($blog) use ($users) {
-                        $blog['nickname'] = $users[$blog['user_id']]['nickname'];
+                return $blogs->map(function ($blog) use ($users) {
+                    $blog['nickname'] = $users[$blog['user_id']]['nickname'];
 
-                        return $blog;
-                    });
-                }),
-                'count' => (new Blog())->count(collect($request->input()))
-            ]), '获取成功');
+                    return $blog;
+                });
+            });
+        $count = (new Blog())->count(collect($request->input()));
+        if ($request->ajax()) {
+            return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
+        } else {
+            return view('blog.blogs', ['list' => $list, 'count' => $count]);
+        }
     }
     
     /**

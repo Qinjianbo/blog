@@ -10,9 +10,16 @@
 }
 
 .blog-body {
-  margin-top: 100px;    
+  margin-top: 100px;
+  padding-left: 30px;
 }
 
 .mt100 {
   margin-top: 100px;
+}
+
+.split-line {
+  margin-top: 20px;
+  border: 0;
+  border-top: 1px solid #444
 }

@@ -19,7 +19,9 @@
   <ul class="nav navbar-nav" id="after_signin">
     <li>
       <a href="#" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dLabel">
+        <!--
         <img class="avatar-topnav" src="https://dn-phphub.qbox.me/uploads/avatars/15609_1492940220.png?imageView2/1/w/100/h/100"/>
+        -->
         <label id="nickname">游客</label>
         <span class="caret"></span>
       </a>
