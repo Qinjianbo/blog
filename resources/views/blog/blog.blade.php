@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', '博文列表')
+@section('title', '波波的博文列表')
 @section('keywords', 'Blogs 博客列表 博文列表')
 @section('description', '这里是波波写的博文的列表页面! This is the page of bobo`s blogs!')
 
