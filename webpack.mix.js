@@ -15,4 +15,5 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .js('resources/assets/js/profile.js', 'public/js')
    .js('resources/assets/js/blog.js', 'public/js')
    .js('resources/assets/js/edit_blog.js', 'public/js')
-   .js('resources/assets/js/blog_detail.js', 'public/js');
+   .js('resources/assets/js/blog_detail.js', 'public/js')
+   .sass('resources/assets/sass/blog.scss', 'public/css');

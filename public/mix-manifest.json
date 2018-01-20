@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/css/blog.css": "/css/blog.css",
     "/js/profile.js": "/js/profile.js",
     "/js/edit_blog.js": "/js/edit_blog.js",
     "/js/blog_detail.js": "/js/blog_detail.js",

@@ -967,7 +967,8 @@ module.exports = Cancel;
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15);
+__webpack_require__(15);
+module.exports = __webpack_require__(40);
 
 
 /***/ }),
@@ -31691,6 +31692,12 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
