@@ -5,6 +5,8 @@ namespace App\Models\Blog;
 use App\Models\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Mail\Markdown;
+use Illuminate\Pagination\{Paginator, LengthAwarePaginator};
+use Illuminate\Container\Container;
 
 class Blog extends Model
 {
@@ -113,5 +115,35 @@ class Blog extends Model
                 
                 return $blog;
             });
+    }
+
+    /**
+     * paginate
+     *
+     * @param Illuminate\Support\Collection
+     * @param int $total
+     * @param int $perPage
+     * @param string $pageName page
+     * @param $page null
+     *
+     * @return mixed
+     */
+    public function paginate($total, $perPage, $currentPage)
+    {
+        $items = collect();
+        $options = [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => 'page'
+        ];
+
+        return Container::getInstance()->makeWith(LengthAwarePaginator::class, compact(
+            'items', 'total', 'perPage', 'currentPage', 'options'
+        ));
+
+        $page = $page ?: Paginator::resolveCurrentPage($pageName);
+        return $this->paginator($result, $total, $perPage, $page, [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => $pageName,
+        ]);
     }
 }

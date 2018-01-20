@@ -241,4 +241,5 @@ return [
             'ios'     => 1440,
         ],
     ],
+    'search_url' => env('SEARCH_URL', 'http://search.boboidea.com'),
 ];

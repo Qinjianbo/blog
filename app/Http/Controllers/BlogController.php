@@ -159,21 +159,33 @@ class BlogController extends Controller
      */
     public function list(Request $request)
     {
-        $list = (new Blog())->list(collect($request->input())->merge(['select' => 'id,title,reading,user_id']))
-            ->pipe(function ($blogs) {
-                $users = (new User())->listByIds($blogs->pluck('user_id')->unique()->implode(','))->keyBy('id');
+        $url = sprintf('%s/%s?p=%d&ps=%d', config('app.search_url'), 'api/search/v1/blogs', $request->input('page', 1), 12);
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 60);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $result = collect(json_decode(curl_exec($curl), true));
+        $curl_errno = curl_errno($curl);
+        $curl_error = curl_error($curl);
+        curl_close($curl);
+        if ($curl_errno > 0) {
+            info('curl error '.$curl_error);
+        } else {
+            $list = collect($result->get('list', collect()))->pipe(function($list) {
+                $authors = (new User())->listByIds($list->pluck('user_id')->unique()->implode(','))->keyBy('id');
+                return $list->map(function ($item) use ($authors) {
+                    $item['nickname'] = $authors[$item['user_id']]['nickname'];
 
-                return $blogs->map(function ($blog) use ($users) {
-                    $blog['nickname'] = $users[$blog['user_id']]['nickname'];
-
-                    return $blog;
+                    return $item;
                 });
             });
-        $count = (new Blog())->count(collect($request->input()));
+            $count = $result->get('count', 0);
+        }
         if ($request->ajax()) {
             return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
         } else {
-            return view('blog.blogs', ['list' => $list, 'count' => $count]);
+            $pagination = (new Blog())->paginate($count, 12, $request->input('page', 1));
+            return view('blog.blogs', ['list' => $list, 'count' => $count, 'pagination' => $pagination]);
         }
     }
     
