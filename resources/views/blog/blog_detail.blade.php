@@ -1,13 +1,13 @@
 @extends('layout')
 
 @section('title')
-  {{$blog['title']}}-boboidea
+{{$blog['title']}}-boboidea
 @endsection
 @section('keywords')
-  {{$blog['title']}},boboidea
+{{$blog['title']}},boboidea
 @endsection
 @section('description')
-  {{$blog['description']}},boboidea
+{{$blog['description']}},boboidea
 @endsection
 @section('active_blog', 'active')
 
