@@ -15,13 +15,6 @@
               <input type="checkbox" id="type"/>原创请勾我
             </label>
           </div>
-<!--
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" id="type"/>markdown请勾我
-            </label>
-          </div>
--->
           <div class="form-group">
             <input id="title" type="text" placeholder="请输入博文标题" style="min-width: 100%;"/>
           </div>
