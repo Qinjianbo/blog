@@ -11,31 +11,29 @@
 |
 */
 
-Route::get('/checkCaptcha', 'CaptchaController@check')->where('captcha', '\s+');
-Route::get('/captcha', function () {
-    return Captcha::create();
-});
-Route::get('/about', function () {
-   // return view('home');
-    return view('about');
-});
+// 首页路由
+Route::get('/', 'BlogController@list');
 
+// 博客跳转路由
 Route::get('/blog', function () {
     return view('blog.blog');
 });
-Route::get('/', 'BlogController@list');
 Route::get('/blog/{id}', 'BlogController@show')->where('id', '\d+');
 Route::get('/blog/add', function () {
     return view('blog.edit_blog');
 });
+Route::get('/blog/edit/{id}', 'BlogController@edit')->where('id', '\d+');
 
-//Route::get('/freshman', function () {
-//    return view('freshman');
-//});
-
-//Route::get('/about', function () {
-//    return view('about');
-//});
+// 关于波波
+Route::get('/about', function () {
+    return view('about');
+});
 Route::get('profile', function() {
     return view('profile');
+});
+
+// 验证码相关路由
+Route::get('/checkCaptcha', 'CaptchaController@check')->where('captcha', '\s+');
+Route::get('/captcha', function () {
+    return Captcha::create();
 });

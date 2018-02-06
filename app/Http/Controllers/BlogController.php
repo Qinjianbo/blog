@@ -159,7 +159,13 @@ class BlogController extends Controller
      */
     public function list(Request $request)
     {
-        $url = sprintf('%s/%s?p=%d&ps=%d', config('app.search_url'), 'api/search/v1/blogs', $request->input('page', 1), $request->input('pageSize', 30));
+        $url = sprintf(
+            '%s/%s?p=%d&ps=%d',
+            config('app.search_url'),
+            'api/search/v1/blogs',
+            $request->input('page', 1),
+            $request->input('pageSize', 30)
+        );
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
         curl_setopt($curl, CURLOPT_TIMEOUT, 60);
@@ -184,7 +190,9 @@ class BlogController extends Controller
         if ($request->ajax()) {
             return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
         } else {
-            $pagination = (new Blog())->paginate($count, $request->input('pageSize', 30), $request->input('page', 1));
+            $pagination = (new Blog())->paginate(
+                $count, $request->input('pageSize', 30), $request->input('page', 1)
+            );
             return view('blog.blogs', ['list' => $list, 'count' => $count, 'pagination' => $pagination]);
         }
     }
