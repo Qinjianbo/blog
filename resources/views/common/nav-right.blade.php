@@ -32,8 +32,8 @@
           </a>
         </li>
         <li>
-          <a class="button" href="">
-              编辑资料
+          <a class="button" href="/my/blogs">
+              我的博文
           </a>
         </li>
         <li>

@@ -15,14 +15,14 @@
 Route::get('/', 'BlogController@list');
 
 // 博客跳转路由
-Route::get('/blog', function () {
-    return view('blog.blog');
-});
 Route::get('/blog/{id}', 'BlogController@show')->where('id', '\d+');
 Route::get('/blog/add', function () {
     return view('blog.edit_blog');
 });
 Route::get('/blog/edit/{id}', 'BlogController@edit')->where('id', '\d+');
+Route::get('/my/blogs', function () {
+    return view('blog.blog');
+});
 
 // 关于波波
 Route::get('/about', function () {

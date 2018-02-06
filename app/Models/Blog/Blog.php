@@ -47,9 +47,18 @@ class Blog extends Model
             ])->toArray());
     }
 
-    public function updateMine(Collection $input)
+    /**
+     * updateMine
+     *
+     * @param Collection $input
+     * @param int $id
+     *
+     * @return mixed
+     */
+    public function updateMine(Collection $input, int $id)
     {
-        return self::update($input->only([
+        return self::where('id', $id)
+            ->update($input->only([
                 'title',
                 'content',
                 'description',
@@ -103,16 +112,16 @@ class Blog extends Model
      *
      * @return Collection
      */
-    public function show(Collection $input, int $id) : Collection
+    public function show(Collection $input, int $id, bool $parse = false) : Collection
     {
         return collect(self::when($input->has('user_id'), function ($blog) use ($input) {
             return $blog->where('user_id', $input->get('user_id'));
         })
             ->where('id', $id)
             ->first())
-            ->pipe(function ($blog) {
-                $blog['content'] = Markdown::parse($blog['content']);
-                
+            ->when($parse, function ($blog) {
+                $blog['content'] = Markdown::parse($blog['content']); 
+
                 return $blog;
             });
     }

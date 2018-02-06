@@ -77,12 +77,15 @@ module.exports = __webpack_require__(44);
 /***/ (function(module, exports) {
 
 function getBlogs(page, size) {
-  var uri = "api/home/v1/blogs";
+  var uri = "https://www.boboidea.com/api/home/v1/user/blogs";
+  var uid = $.cookie("uid");
   $.ajax({
     url: uri,
     data: {
+      uid: uid,
       page: page,
-      size: size
+      size: size,
+      device: 'pc'
     },
     success: function success(data) {
       if (data.code == 0) {
@@ -91,21 +94,18 @@ function getBlogs(page, size) {
           var col = $('<div class="col-sm-4"></div>');
           var panel = $('<div class="panel panel-default"></div>');
           var panelHeading = $('<div class="panel-heading"></div>');
-          var panelBody = $('<div class="panel-body"></div>');
           var panelFooter = $('<div class="panel-footer"></div>');
-          var nicknameSpan = $('<span></span>');
           var readNumSpan = $('<span class="pull-right"></span>');
           var blogHref = $('<a target="_blank"></a>');
+          var operators = $('<a tagrant="_blank">编辑</a>');
           blogHref.html(data.data.list[i].title);
           blogHref.attr("href", "/blog/" + data.data.list[i].id);
+          operators.attr("href", "/blog/edit/" + data.data.list[i].id);
           panelHeading.html(blogHref);
-          panelBody.html(data.data.list[i].description);
-          nicknameSpan.html('Author:' + data.data.list[i].nickname);
           readNumSpan.html('<span class="glyphicon glyphicon-eye-open"></span>&nbsp;' + data.data.list[i].reading);
-          panelFooter.append(nicknameSpan);
+          panelFooter.append(operators);
           panelFooter.append(readNumSpan);
           panel.append(panelHeading);
-          panel.append(panelBody);
           panel.append(panelFooter);
           col.append(panel);
           if ((i + 1) % 3 == 1) {

@@ -2043,6 +2043,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_markdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_markdown__);
 
 
+$("#parsing_content").html(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML($('#content').val()));
+
 $("#content").bind("input propertychange", function () {
     $("#parsing_content").html(__WEBPACK_IMPORTED_MODULE_0_markdown__["markdown"].toHTML($(this).val()));
 });
@@ -2051,6 +2053,7 @@ $("#submit_btn").bind("click", function () {
     submit();
 });
 function submit() {
+    var blog_id = $("#blog_id").val();
     var title = $("#title").val();
     var description = $("#description").val();
     var content = $("#content").val();
@@ -2074,9 +2077,16 @@ function submit() {
         $("#signin_modal").modal('show');
         return false;
     }
+    if (blog_id) {
+        var uri = "/api/home/v1/user/blog/" + blog_id;
+        var requestType = "put";
+    } else {
+        var uri = "api/home/v1/user/blog";
+        var requestType = "post";
+    }
     $.ajax({
-        url: "/api/home/v1/user/blog",
-        type: "post",
+        url: uri,
+        type: requestType,
         dataType: "json",
         data: {
             "user_id": uid,
@@ -2088,8 +2098,8 @@ function submit() {
         },
         success: function success(data) {
             if (data.code == 0) {
-                alert("博文发表成功");
-                location.href = "/blog";
+                alert("博文更新或发表成功");
+                location.href = "/my/blogs";
             } else if (data.code == 100) {
                 alert("博文发表失败");
             } else if (data.code == 101) {

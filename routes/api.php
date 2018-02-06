@@ -32,7 +32,7 @@ Route::group(['prefix' => 'home'], function () {
             Route::put('/blog/{id}', 'BlogController@update')->where('id', '\d+');
             Route::delete('/blog/{id}', 'BlogController@delete')->where('id', '\d+');
             Route::get('/blog/{id}', 'BlogController@get')->where('id', '\d+');
-            Route::get('/blogs', 'BlogController@list');
+            Route::get('/blogs', 'BlogController@myList');
         });
     });
 });

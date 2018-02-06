@@ -39,7 +39,7 @@ class BlogController extends Controller
     {
         $rules = [
             'title' => 'required|string|max:255',
-            'user_id' => 'required|numeric|min:1',
+            'user_id' => 'required|string',
             'content' => 'required|string',
             'description' => 'sometimes|string',
             'type' => 'required|numeric|in:1,2',
@@ -56,9 +56,9 @@ class BlogController extends Controller
         $key = sprintf('user_%s_%s', $request->get('user_id'), $request->get('device'));
         if (($user = collect(Cache::get($key)))->isNotEmpty()) {
             if ($blog = (new Blog())->updateMine(collect($request->input()), $id)) {
-                return $this->result($id);
+                return $this->result(collect(['id' => $id]), '更新成功');
             } else {
-                return $this->result(collect(), '添加失败', 100);
+                return $this->result(collect(), '更新失败', 100);
             }
         }
 
@@ -215,8 +215,58 @@ class BlogController extends Controller
         return view(
             'blog.blog_detail',
             [
+                'blog' => (new Blog())->show(collect($request->input), $id, true)
+            ]
+        );
+    }
+
+    /**
+     * edit
+     *
+     * @param Request $request
+     * @param int $id
+     *
+     * @return mixed
+     */
+    public function edit(Request $request, $id)
+    {
+        return view(
+            'blog.edit_blog',
+            [
                 'blog' => (new Blog())->show(collect($request->input), $id)
             ]
         );
+    }
+
+    /**
+     * myList
+     *
+     * @param Request $request
+     *
+     * @return Collection
+     */
+    public function myList(Request $request): Collection
+    {
+        $uid = $request->input('uid', '');
+        $device = $request->input('device', 'pc');
+        $key = sprintf('user_%s_%s', $uid, $device);
+        $user = Cache::get($key);
+        $uid = $user['user_id'] ?? 0;
+        if (!$uid) {
+            return $this->result(collect(), '登录超时或未登录', 100);
+        }
+        $list = (new Blog())->list(collect($request->input())->merge(['user_id' => $uid, 'select' => 'id,title,reading,user_id']))
+             ->pipe(function ($blogs) {
+                 $users = (new User())->listByIds($blogs->pluck('user_id')->unique()->implode(','))->keyBy('id');
+ 
+                 return $blogs->map(function ($blog) use ($users) {
+                     $blog['nickname'] = $users[$blog['user_id']]['nickname'];
+
+                     return $blog;
+                 });
+             });
+         $count = (new Blog())->count(collect($request->input()));
+         
+         return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
     }
 }
