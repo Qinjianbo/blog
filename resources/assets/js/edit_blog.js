@@ -35,13 +35,14 @@ function submit()
         $("#signin_modal").modal('show');
         return false;
     }
-    if (blog_id) {
+    if (blog_id != 0 && blog_id != undifined) {
         var uri = "/api/home/v1/user/blog/" + blog_id;
         var requestType = "put";
     } else {
-        var uri = "api/home/v1/user/blog";
+        var uri = "/api/home/v1/user/blog";
         var requestType = "post";
     }
+    console.log(uri);
     $.ajax({
         url: uri,
         type:requestType,
