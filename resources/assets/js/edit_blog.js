@@ -35,7 +35,7 @@ function submit()
         $("#signin_modal").modal('show');
         return false;
     }
-    if (blog_id != 0 && blog_id != undifined) {
+    if (blog_id != 0 && blog_id != undefined) {
         var uri = "/api/home/v1/user/blog/" + blog_id;
         var requestType = "put";
     } else {
