@@ -177,7 +177,13 @@ class BlogController extends Controller
         if ($curl_errno > 0) {
             info('curl error '.$curl_error);
         } else {
-            $list = collect($result->get('list', collect()))->pipe(function($list) {
+            $list = collect($result->get('list', collect()))->pipe(function($list) use ($request) {
+				if ($list->isEmpty()) {
+					$list = (new Blog())->list(collect([
+					    'page' => $request->input('page', 1),
+						'size' => $request->input('pageSize', 30)])
+					);
+				}
                 $authors = (new User())->listByIds($list->pluck('user_id')->unique()->implode(','))->keyBy('id');
                 return $list->map(function ($item) use ($authors) {
                     $item['nickname'] = $authors[$item['user_id']]['nickname'];
