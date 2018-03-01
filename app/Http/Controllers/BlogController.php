@@ -177,7 +177,8 @@ class BlogController extends Controller
         if ($curl_errno > 0) {
             info('curl error '.$curl_error);
         } else {
-            $list = collect($result->get('list', collect()))->pipe(function($list) use ($request) {
+			$esList = collect($result->get('list'));
+            $list = $esList->pipe(function($list) use ($request) {
 				if ($list->isEmpty()) {
 					$list = (new Blog())->list(collect([
 					    'page' => $request->input('page', 1),
@@ -192,6 +193,9 @@ class BlogController extends Controller
                 });
             });
             $count = $result->get('count', 0);
+			if ($esList->isEmpty()) {
+			    $count = (new Blog())->count(collect());
+			}
         }
         if ($request->ajax()) {
             return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
