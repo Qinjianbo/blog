@@ -177,14 +177,15 @@ class BlogController extends Controller
         if ($curl_errno > 0) {
             info('curl error '.$curl_error);
         } else {
-			$esList = collect($result->get('list'));
-            $list = $esList->pipe(function($list) use ($request) {
-				if ($list->isEmpty()) {
-					$list = (new Blog())->list(collect([
-					    'page' => $request->input('page', 1),
-						'size' => $request->input('pageSize', 30)])
-					);
-				}
+            $esList = collect($result->get('list'));
+            $list = $esList->pipe(function ($list) use ($request) {
+                if ($list->isEmpty()) {
+                    $list = (new Blog())->list(
+                        collect([
+                        'page' => $request->input('page', 1),
+                        'size' => $request->input('pageSize', 30)])
+                    );
+                }
                 $authors = (new User())->listByIds($list->pluck('user_id')->unique()->implode(','))->keyBy('id');
                 return $list->map(function ($item) use ($authors) {
                     $item['nickname'] = $authors[$item['user_id']]['nickname'];
@@ -193,15 +194,17 @@ class BlogController extends Controller
                 });
             });
             $count = $result->get('count', 0);
-			if ($esList->isEmpty()) {
-			    $count = (new Blog())->count(collect());
-			}
+            if ($esList->isEmpty()) {
+                $count = (new Blog())->count(collect());
+            }
         }
         if ($request->ajax()) {
             return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
         } else {
             $pagination = (new Blog())->paginate(
-                $count, $request->input('pageSize', 30), $request->input('page', 1)
+                $count,
+                $request->input('pageSize', 30),
+                $request->input('page', 1)
             );
             return view('blog.blogs', ['list' => $list, 'count' => $count, 'pagination' => $pagination]);
         }
@@ -275,8 +278,8 @@ class BlogController extends Controller
                      return $blog;
                  });
              });
-         $count = (new Blog())->count(collect($request->input()));
+        $count = (new Blog())->count(collect($request->input()));
          
-         return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
+        return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
     }
 }
