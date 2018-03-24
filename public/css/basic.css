@@ -10,12 +10,15 @@
 }
 
 .blog-body {
-  margin-top: 100px;
-  padding-left: 30px;
+  margin-top: 50px;
 }
 
 .mt100 {
   margin-top: 100px;
+}
+
+.blog-container {
+  padding-top: 30px;
 }
 
 .split-line {

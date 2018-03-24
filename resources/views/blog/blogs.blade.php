@@ -10,7 +10,9 @@
 @section('active_blog', 'active')
 
 @section('content')
-  <div class="container blog-body">
+<div class="blog-body">
+  <div id="container-canvas"></div>
+  <div class="container blog-container">
     @foreach($list as $blog)
     <div class="row">
       <div class="col-xs-12">
@@ -22,8 +24,10 @@
     @endforeach
     {{$pagination->links()}}
   </div>
+</div>
 @endsection
 @section('js')
 <script src="https://cdn.bootcss.com/three.js/90/three.min.js"></script>
+<script src="https://cdn.bootcss.com/stats.js/r17/Stats.min.js"></script>
 <script src="/js/list_3dbg.js"></script>
 @endsection
