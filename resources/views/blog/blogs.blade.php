@@ -23,3 +23,7 @@
     {{$pagination->links()}}
   </div>
 @endsection
+@section('js')
+<script src="https://cdn.bootcss.com/three.js/90/three.min.js"></script>
+<script src="/js/list_3dbg.js"></script>
+@endsection

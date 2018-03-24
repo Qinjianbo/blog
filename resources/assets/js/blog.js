@@ -47,6 +47,9 @@ function getBlogs(page, size)
         } 
         $("#page").val(parseInt(page) + 1);
         $("#totalPage").val(Math.ceil(parseInt(data.data.count)/size));
+      } else if(data.code == 100) {
+        alert(data.msg);
+        location.href = "https://www.boboidea.com";
       } else {
         console.log(data);    
       }

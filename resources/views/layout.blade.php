@@ -2,6 +2,7 @@
 <html>
   @include('common.header')
   <body>
+    <div id="container-canvas"></div>
     @include('common.nav')
 
     @yield('content')
