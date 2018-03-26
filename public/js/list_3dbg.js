@@ -8,9 +8,10 @@ const wHeight = window.innerHeight;
 const groundWidth = 3000;
 const groundHeight = 2000;
 var flag = true;
+var windwill;
 
-//init();
-//animate();
+init();
+animate();
 
 function init()
 {
@@ -42,6 +43,21 @@ function init()
     ballMesh.position.x = -(wWidth/2);
     scene.add(ballMesh);
 
+    var windwillGeometry = new THREE.PlaneBufferGeometry(50, 400);
+    var windwillMaterial = new THREE.MeshLambertMaterial({ color: "white"});
+    windwill = new THREE.Mesh(windwillGeometry, windwillMaterial);
+    windwill.position.z = 10;
+    windwill.position.x = -230;
+    windwill.position.y = 400;
+    scene.add(windwill);
+
+    var cylinderGeometry = new THREE.CylinderGeometry(30, 100, 800, 32);
+    var cylinderMaterial = new THREE.MeshLambertMaterial({ color: "#48c9ff"});
+    var cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+    cylinder.position.z = -25;
+    cylinder.position.x = -230;
+    scene.add(cylinder);
+
     var ambientLight = new THREE.AmbientLight(0xffffff);
     scene.add(ambientLight);
 
@@ -51,7 +67,6 @@ function init()
     container.appendChild(renderer.domElement);    
 
     stats = new Stats();
-    // container.appendChild(stats.dom);
     document.body.appendChild(stats.dom);
 
     window.addEventListener('resize', onWindowResize, false);
@@ -65,6 +80,8 @@ function animate()
         ballMesh.position.x += 3;
         ballMesh.rotation.z -= 0.03;
     }
+
+    windwill.rotation.z += 0.25;
    
     renderer.render(scene, camera);
 
