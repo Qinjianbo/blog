@@ -30,6 +30,7 @@
 - JS
 - HTML\CSS
 - JAVA SE
+- Shell
 
 ##### 数据库:
 
@@ -39,7 +40,6 @@
 ##### 技术框架:
 
 - Laravel
-- ThinkPHP
 
 ##### 搜索引擎:
 
