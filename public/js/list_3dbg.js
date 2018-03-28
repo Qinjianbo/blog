@@ -5,10 +5,10 @@ var cube;
 var ballMesh;
 const wWidth = window.innerWidth;
 const wHeight = window.innerHeight;
-const groundWidth = 3000;
+const groundWidth = 2000;
 const groundHeight = 2000;
 var flag = true;
-var windwill;
+var windwill,windwill1;
 
 init();
 animate();
@@ -23,7 +23,7 @@ function init()
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    scene.background = new THREE.Color(0xffffff);
 
     var groundTexture = new THREE.TextureLoader().load('/images/grassland.jpg');
     groundTexture.wrapS = groundTexture.wrapT = THREE.Repeatwrapping;
@@ -35,36 +35,62 @@ function init()
     mesh.receiveShadow = true;
     scene.add(mesh);
 
-    var ball = new THREE.SphereBufferGeometry(30, 32, 32);
-    var ballTexture = new THREE.TextureLoader().load('/images/bg1.jpg');
-    var ballMaterial = new THREE.MeshLambertMaterial({ map: ballTexture });
-    ballMesh = new THREE.Mesh(ball, ballMaterial);
-    ballMesh.position.z = 100;
-    ballMesh.position.x = -(wWidth/2);
-    scene.add(ballMesh);
-
     var windwillGeometry = new THREE.PlaneBufferGeometry(50, 400);
     var windwillMaterial = new THREE.MeshLambertMaterial({ color: "white"});
     windwill = new THREE.Mesh(windwillGeometry, windwillMaterial);
-    windwill.position.z = 10;
+    windwill.castShadow = true;
+    windwill.position.z = 90;
     windwill.position.x = -230;
     windwill.position.y = 400;
     scene.add(windwill);
 
-    var cylinderGeometry = new THREE.CylinderGeometry(30, 100, 800, 32);
-    var cylinderMaterial = new THREE.MeshLambertMaterial({ color: "#48c9ff"});
+    windwill1 = windwill.clone();
+    windwill1.rotation.z = 80;
+    scene.add(windwill1);
+
+    var cylinderGeometry = new THREE.CylinderGeometry(30, 100, 900, 32);
+    var cylinderTexture = new THREE.TextureLoader().load('/images/cylinder.jpg');
+    var cylinderMaterial = new THREE.MeshLambertMaterial({ map: cylinderTexture });
     var cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-    cylinder.position.z = -25;
+    cylinder.castShadow = true;
+    cylinder.position.z = 40;
     cylinder.position.x = -230;
     scene.add(cylinder);
 
-    var ambientLight = new THREE.AmbientLight(0xffffff);
+    var cylinderAxisGeometry = new THREE.CylinderGeometry(5, 5, 50, 32);
+    var cylinderAxisMaterial = new THREE.MeshLambertMaterial({ color: "black"});
+    var cylinderAxis = new THREE.Mesh(cylinderAxisGeometry, cylinderAxisMaterial);
+    cylinderAxis.castShadow = true;
+    cylinderAxis.rotation.x = -90;
+    cylinderAxis.position.x = -230;
+    cylinderAxis.position.y = 390;
+    cylinderAxis.position.z = 70;
+    scene.add(cylinderAxis);
+
+    var ambientLight = new THREE.AmbientLight(0xbbbbbb);
     scene.add(ambientLight);
+
+    var directionLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionLight.position.set(-200, 400, -200);
+    directionLight.position.multiplyScalar(1.3);
+    directionLight.castShadow = true;
+    directionLight.shadow.mapSize.width = 2048;
+    directionLight.shadow.mapSize.height = 2048;
+    var d = 3000;
+    directionLight.shadow.camera.left = -d;
+    directionLight.shadow.camera.right = d;
+    directionLight.shadow.camera.top = d;
+    directionLight.shadow.camera.bottom = -d;
+    directionLight.shadow.camera.far = 2000;
+    scene.add(directionLight);
 
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(wWidth, wHeight);
     container.appendChild(renderer.domElement);    
+    renderer.gammaInput = true;
+    renderer.gammaOutput = true;
+    renderer.shadowMap.enabled = true;
 
     stats = new Stats();
     document.body.appendChild(stats.dom);
@@ -76,12 +102,8 @@ function animate()
 {
     requestAnimationFrame(animate);
     
-    if (ballMesh.position.x < wWidth/2) {
-        ballMesh.position.x += 3;
-        ballMesh.rotation.z -= 0.03;
-    }
-
-    windwill.rotation.z += 0.25;
+    windwill.rotation.z += 0.05;
+    windwill1.rotation.z += 0.05;
    
     renderer.render(scene, camera);
 
