@@ -32,6 +32,10 @@
 - JAVA SE
 - Shell
 
+##### 编码规范
+
+- psr-2
+
 ##### 数据库:
 
 - MySQL
