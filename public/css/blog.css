@@ -1,1 +1,10 @@
-.author{display:inline-block;margin-right:16px}#container-canvas{position:fixed;z-index:-1000}
+.author {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+#container-canvas {
+  position: fixed;
+  z-index: -1000;
+}
+

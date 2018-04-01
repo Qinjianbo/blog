@@ -41,7 +41,7 @@ function getBlogs(page, size)
               isLessThanThree = false;
           }
           if (!isLessThanThree) {
-            $(".blog-body").append(row);    
+            $(".my-blog-body").append(row);    
             isLessThanThree = true;
           }
         } 
@@ -59,20 +59,20 @@ function getBlogs(page, size)
     }
   });
 }
-getBlogs(1, 18);
+getBlogs(1, 21);
 
 function loadBlog()
 {
     var winH = $(window).height();
     var scrollTop = $(window).scrollTop();
-    var offsetTop = $(".blog-body").height();
+    var offsetTop = $(".my-blog-body").height();
     console.log(winH);
     console.log(scrollTop);
     console.log(offsetTop);
     if (offsetTop < scrollTop + winH) {
         var page = $("#page").val();
         var totalPage = $("#totalPage").val();
-        var size = 18;
+        var size = 21;
         if (page <= totalPage) {
             getBlogs(page, size);
         }
