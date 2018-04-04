@@ -1,7 +1,7 @@
 <div class="navbar-right">
   <form method="GET" action="" class="navbar-form navbar-left hidden-sm hidden-md">
     <div class="form-group">
-      <input class="form-control search-input" placeholder="搜索" name="q" type="text" value>
+      <input class="form-control search-input" placeholder="搜索" name="q" type="text" value="{{ $q }}">
     </div>
   </form>
 

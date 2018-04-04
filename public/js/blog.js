@@ -136,7 +136,7 @@ function getBlogs(page, size) {
     }
   });
 }
-getBlogs(1, 21);
+getBlogs(1, 24);
 
 function loadBlog() {
   var winH = $(window).height();
@@ -148,7 +148,7 @@ function loadBlog() {
   if (offsetTop < scrollTop + winH) {
     var page = $("#page").val();
     var totalPage = $("#totalPage").val();
-    var size = 21;
+    var size = 24;
     if (page <= totalPage) {
       getBlogs(page, size);
     }

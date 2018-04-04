@@ -86,7 +86,7 @@ function ground()
     var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(groundWidth, groundHeight), groundMaterial);
     mesh.rotation.x = -1;
     mesh.receiveShadow = true;
-    groupAll.add(mesh);
+//    groupAll.add(mesh);
 }
 
 function windwill()

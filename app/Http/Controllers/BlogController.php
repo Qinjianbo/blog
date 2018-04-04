@@ -160,11 +160,12 @@ class BlogController extends Controller
     public function list(Request $request)
     {
         $url = sprintf(
-            '%s/%s?p=%d&ps=%d',
+            '%s/%s?p=%d&ps=%d&q=%s',
             config('app.search_url'),
             'api/search/v1/blogs',
             $request->input('page', 1),
-            $request->input('pageSize', 30)
+            $request->input('pageSize', 30),
+            $request->input('q', '')
         );
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
@@ -206,7 +207,7 @@ class BlogController extends Controller
                 $request->input('pageSize', 30),
                 $request->input('page', 1)
             );
-            return view('blog.blogs', ['list' => $list, 'count' => $count, 'pagination' => $pagination]);
+            return view('blog.blogs', ['list' => $list, 'count' => $count, 'pagination' => $pagination, 'q' => $request->input('q', '')]);
         }
     }
     
