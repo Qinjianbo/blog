@@ -180,7 +180,7 @@ class BlogController extends Controller
         } else {
             $esList = collect($result->get('list'));
             $list = $esList->pipe(function ($list) use ($request) {
-                if ($list->isEmpty()) {
+                if ($list->isEmpty() && !$request->get('q', '')) {
                     $list = (new Blog())->list(
                         collect([
                         'page' => $request->input('page', 1),

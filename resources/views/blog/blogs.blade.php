@@ -13,16 +13,20 @@
 <div class="blog-body">
   <div id="container-canvas"></div>
   <div class="container blog-container">
-    @foreach($list as $blog)
-    <div class="row">
-      <div class="col-xs-12">
-        <h4><a href="/blog/{{ $blog['id'] }}">{{ $blog['title'] }}</a></h4>
-        <div><div class="author">{{ $blog['nickname'] }}</div><div class="author">{{ $blog['created_at'] }}</div><div class="glyphicon glyphicon-eye-open"></div>&nbsp;{{$blog['reading']}}</div>
-      </div>
-    </div>
-    <hr class="split-line"/>
-    @endforeach
-    {{$pagination->links()}}
+    @if ($list->isNotEmpty()) 
+        @foreach($list as $blog)
+        <div class="row">
+          <div class="col-xs-12">
+            <h4><a href="/blog/{{ $blog['id'] }}">{!! $blog['title'] !!}</a></h4>
+            <div><div class="author">{{ $blog['nickname'] }}</div><div class="author">{{ $blog['created_at'] }}</div><div class="glyphicon glyphicon-eye-open"></div>&nbsp;{{$blog['reading']}}</div>
+          </div>
+        </div>
+        <hr class="split-line"/>
+        @endforeach
+        {{$pagination->links()}}
+    @else
+        <div class="row center no_re">没有找到符合条件的搜索结果!</div>
+    @endif
   </div>
 </div>
 @endsection
