@@ -43,7 +43,8 @@ class Blog extends Model
                 'user_id',
                 'content',
                 'description',
-                'type'
+                'type',
+                'tags'
             ])->toArray());
     }
 
@@ -62,7 +63,8 @@ class Blog extends Model
                 'title',
                 'content',
                 'description',
-                'type'
+                'type',
+                'tags'
             ])->toArray());
     }
 

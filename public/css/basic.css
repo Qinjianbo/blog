@@ -9,20 +9,12 @@
   border-radius: 50%;
 }
 
-.blog-body {
-  margin-top: 50px;
-}
-
-.my-blog-body {
-  margin-top: 120px;
-}
-
 .mt100 {
   margin-top: 100px;
 }
 
-.blog-container {
-  padding-top: 30px;
+.mt50 {
+  margin-top: 50px;
 }
 
 .split-line {
@@ -34,3 +26,9 @@
 .center {
     text-align: center;
 }
+
+.profile {
+  background-color: #222;
+  color: #dedede;
+}
+

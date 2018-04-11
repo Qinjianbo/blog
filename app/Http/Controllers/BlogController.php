@@ -44,6 +44,7 @@ class BlogController extends Controller
             'description' => 'sometimes|string',
             'type' => 'required|numeric|in:1,2',
             'device' => 'required|string|in:pc,h5,ios,android',
+            'tags' => 'required|string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -83,6 +84,7 @@ class BlogController extends Controller
             'type'    => 'required|numeric|in:1,0',
             'description' => 'sometimes|string|min:1|max:255',
             'device' => 'required|string|in:pc,h5,ios,android',
+            'tags' => 'required|string',
         ];
 
         $validator = Validator::make($request->all(), $rules);

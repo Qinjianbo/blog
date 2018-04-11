@@ -23,6 +23,9 @@
             <input id="description" type="text" placeholder="请输入博文的简介" value="{{$blog['description'] ?? ''}}" style="min-width: 100%;"/>
           </div>
           <div class="form-group">
+            <input id="tags" type="text" placeholder="请输入合适的标签,多个用英文逗号分割" value="{{$blog['tags']}}" style="min-width: 100%"/> 
+          </div>
+          <div class="form-group">
              <textarea id="content" class="form-control" rows="30">{{$blog['content'] ?? ''}}</textarea>
           </div>
           <button id="submit_btn" class="btn btn-info" type="button">提交</button>

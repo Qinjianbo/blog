@@ -16,6 +16,7 @@ function submit()
     var description = $("#description").val();
     var content = $("#content").val();
     var type = $("#type").is(":checked") ? 1 : 0;
+    var tags = $("#tags").val();
     if (title == "") {
         alert("请输入博文标题");
         return false;
@@ -28,8 +29,11 @@ function submit()
         alert("请输入博文内容");
         return false;
     }
+    if (tags == "") {
+        alert("请至少输入一个标签");
+        return false;
+    }
     var uid = $.cookie("uid");
-    console.log(uid);
     if (uid == "" || uid == undefined) {
         alert("登陆超时或没有登陆，请先登陆");
         $("#signin_modal").modal('show');
@@ -42,7 +46,6 @@ function submit()
         var uri = "/api/home/v1/user/blog";
         var requestType = "post";
     }
-    console.log(uri);
     $.ajax({
         url: uri,
         type:requestType,
@@ -53,7 +56,8 @@ function submit()
             "description":description,
             "content":content,
             "type":type,
-            "device":"pc"
+            "device":"pc",
+            "tags":tags
         },
         success:function (data) {
             if (data.code == 0) {

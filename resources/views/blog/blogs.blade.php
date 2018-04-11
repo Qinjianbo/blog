@@ -17,8 +17,8 @@
         @foreach($list as $blog)
         <div class="row">
           <div class="col-xs-12">
-            <h4><a href="/blog/{{ $blog['id'] }}">{!! $blog['title'] !!}</a></h4>
-            <div><div class="author">{{ $blog['nickname'] }}</div><div class="author">{{ $blog['created_at'] }}</div><div class="glyphicon glyphicon-eye-open"></div>&nbsp;{{$blog['reading']}}</div>
+            <h4><a href="/blog/{{ $blog['id'] }}" class="blog_title">{!! $blog['title'] !!}</a></h4>
+            <div class="author"><div class="author">{{ $blog['nickname'] }}</div><div class="author">{{ $blog['created_at'] }}</div><div class="glyphicon glyphicon-eye-open"></div>&nbsp;{{$blog['reading']}}</div>
           </div>
         </div>
         <hr class="split-line"/>
