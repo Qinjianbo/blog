@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace app\Services;
+namespace App\Services;
 
 /*
  * 对微信小程序用户加密数据的解密示例代码.

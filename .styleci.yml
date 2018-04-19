@@ -1,10 +1,15 @@
-preset: recommended
+preset: recommended                                                                                                                                                                          
+
 risky: true
+
+enabled:
+  - short_array_syntax
+  - align_double_arrow
+
+disabled:
+  - long_array_syntax
+  - psr4
+
 finder:
-  exclude:
-    - modules
-    - node_modules
-    - storage
-    - vendor
-  name: "*.php"
-  not-name: "*.blade.php"
+  name: [ "*.php"]
+  exclude : [ "vendor"]
