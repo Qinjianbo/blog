@@ -10,6 +10,9 @@
 {{$blog['description']}},boboidea
 @endsection
 @section('active_blog', 'active')
+@section('css')
+  <link rel="stylesheet" href="/css/blog.css">
+@endsection
 
 @section('content')
   <div class="container mt100">
