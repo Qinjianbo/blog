@@ -38,6 +38,8 @@ class Blog extends Model
      */
     public function createMine(Collection $input)
     {
+        $input['tags'] = rtrim($input['tags'], ',');
+        $input['tags'] = str_replace('，', ',', $input['tags']);
         return self::create($input->only([
                 'title',
                 'user_id',
@@ -58,6 +60,8 @@ class Blog extends Model
      */
     public function updateMine(Collection $input, int $id)
     {
+        $input['tags'] = rtrim($input['tags'], ',');
+        $input['tags'] = str_replace('，', ',', $input['tags']);
         return self::where('id', $id)
             ->update($input->only([
                 'title',

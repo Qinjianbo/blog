@@ -192,6 +192,7 @@ class BlogController extends Controller
                 $authors = (new User())->listByIds($list->pluck('user_id')->unique()->implode(','))->keyBy('id');
                 return $list->map(function ($item) use ($authors) {
                     $item['nickname'] = $authors[$item['user_id']]['nickname'];
+                    $item['tags'] = explode(',', $item['tags']);
 
                     return $item;
                 });
@@ -209,7 +210,13 @@ class BlogController extends Controller
                 $request->input('pageSize', 30),
                 $request->input('page', 1)
             );
-            return view('blog.blogs', ['list' => $list, 'count' => $count, 'pagination' => $pagination, 'q' => $request->input('q', '')]);
+            return view('blog.blogs', [
+                'list' => $list,
+                'count' => $count,
+                'pagination' => $pagination,
+                'q' => $request->input('q', ''),
+                'styles' => config('app.styles'),
+            ]);
         }
     }
     

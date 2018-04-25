@@ -18,7 +18,12 @@
         <div class="row">
           <div class="col-xs-12">
             <h4><a href="/blog/{{ $blog['id'] }}" class="blog_title">{!! $blog['title'] !!}</a></h4>
-            <div class="author"><div class="author">{{ $blog['nickname'] }}</div><div class="author">{{ $blog['created_at'] }}</div><div class="glyphicon glyphicon-eye-open"></div>&nbsp;{{$blog['reading']}}</div>
+            <div class="author"><div class="author">{{ $blog['nickname'] }}</div>
+            <div class="author">{{ $blog['created_at'] }}</div>
+            <div class="glyphicon glyphicon-eye-open"></div>&nbsp;{{$blog['reading']}}</div>
+            @foreach($blog['tags'] as $tag)
+              <span class="label label-{{ $styles[rand(0, count($styles) - 1)] }}">{{ $tag }}</span>
+            @endforeach
           </div>
         </div>
         <hr class="split-line"/>

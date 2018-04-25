@@ -242,4 +242,7 @@ return [
         ],
     ],
     'search_url' => env('SEARCH_URL', 'http://search.boboidea.com'),
+    'styles' => [
+        'default', 'primary', 'success', 'info', 'warning', 'danger'
+    ],
 ];
