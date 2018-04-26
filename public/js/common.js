@@ -38,6 +38,7 @@ $("#signin_btn").bind("click", function () { var username = $("#username_signin"
       } else if (data.code == 100) {
           alert(data.msg);    
       } else if (data.code == 101) {
+          alert(data.msg);
           console.log(data.msg);    
       }
     },
@@ -51,7 +52,7 @@ $("#register_btn").bind("click", function () {
   var username = $("#username_reg").val();
   var password = $("#password_reg").val();
   var nickname = $("#nickname_reg").val();
-  var captcha = $("#captcha_signin").val();
+  var captcha = $("#captcha_reg").val();
   if (username == "") {
     alert("请输入用户名");
     return false;
@@ -86,6 +87,7 @@ $("#register_btn").bind("click", function () {
         } else if (data.code == 100) {
           alert(data.msg);    
         } else {
+          alert(data.msg);
           console.log(data.msg);      
         }
     },
