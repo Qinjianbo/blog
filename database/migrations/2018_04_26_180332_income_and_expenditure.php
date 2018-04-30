@@ -21,6 +21,7 @@ class IncomeAndExpenditure extends Migration
             $table->string('remark')->default('')->comment('备注');
             $table->unsignedTinyInteger('type')->default(0)->comment('类型：1.收入 2.支出');
             $table->unsignedInteger('user_id')->default(0)->comment('用户id');
+            $table->string('source', 10)->default('')->comment('来源');
             $table->timestamps();
         });
     }

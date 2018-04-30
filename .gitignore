@@ -20,3 +20,4 @@ Homestead.json
 .rocketeer/
 
 .php_cs.cache
+*.sql

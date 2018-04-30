@@ -23,6 +23,8 @@ class CreateTableUsers extends Migration
             $table->string('avatar_url')->default('')->comment('头像地址');
             $table->string('device', 10)->default('')->comment('注册设备');
             $table->string('nickname', 20)->default('visitor')->comment('昵称');
+            $table->string('tags', 100)->default(',')->comment('标签，多个用英文逗号分隔');
+            $table->unsignedTinyInteger('type')->default(1)->comment('1:原创 0:非原创');
             $table->timestamps();
             $table->index(['username', 'password']);
         });
