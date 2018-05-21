@@ -42,7 +42,7 @@ class BlogController extends Controller
             'user_id' => 'required|string',
             'content' => 'required|string',
             'description' => 'sometimes|string',
-            'type' => 'required|numeric|in:1,2',
+            'type' => 'required|numeric|in:0,1',
             'device' => 'required|string|in:pc,h5,ios,android',
             'tags' => 'required|string',
         ];
