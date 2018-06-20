@@ -21,3 +21,4 @@ Homestead.json
 
 .php_cs.cache
 *.sql
+.idea/

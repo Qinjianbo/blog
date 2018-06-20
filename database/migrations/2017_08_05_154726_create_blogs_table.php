@@ -24,6 +24,7 @@ class CreateBlogsTable extends Migration
             $table->unsignedInteger('reading')->default(0)->comment('该篇博客的阅读量');
             $table->unsignedInteger('comment_num')->default(0)->comment('该篇博客的评论量');
             $table->unsignedInteger('vote_num')->default(0)->comment('该篇博客被点赞量');
+            $table->string('tags')->default('')->comment('标签 多个标签用英文逗号分割');
             $table->timestamps();
             $table->index('created_at');
         });
