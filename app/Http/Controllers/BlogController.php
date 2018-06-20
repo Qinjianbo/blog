@@ -166,7 +166,7 @@ class BlogController extends Controller
             config('app.search_url'),
             'api/search/v1/blogs',
             $request->input('page', 1),
-            $request->input('pageSize', 30),
+            $request->input('pageSize', 40),
             $request->input('q', '')
         );
         $curl = curl_init($url);
@@ -186,7 +186,7 @@ class BlogController extends Controller
                     $list = (new Blog())->list(
                         collect([
                         'page' => $request->input('page', 1),
-                        'size' => $request->input('pageSize', 30)])
+                        'size' => $request->input('pageSize', 40)])
                     );
                 }
                 $authors = (new User())->listByIds($list->pluck('user_id')->unique()->implode(','))->keyBy('id');
@@ -207,7 +207,7 @@ class BlogController extends Controller
         } else {
             $pagination = (new Blog())->paginate(
                 $count,
-                $request->input('pageSize', 30),
+                $request->input('pageSize', 40),
                 $request->input('page', 1)
             );
             return view('blog.blogs', [
