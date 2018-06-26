@@ -161,46 +161,27 @@ class BlogController extends Controller
      */
     public function list(Request $request)
     {
-        $url = sprintf(
-            '%s/%s?p=%d&ps=%d&q=%s',
-            config('app.search_url'),
-            'api/search/v1/blogs',
-            $request->input('page', 1),
-            $request->input('pageSize', 40),
-            $request->input('q', '')
-        );
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 60);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $result = collect(json_decode(curl_exec($curl), true));
-        $curl_errno = curl_errno($curl);
-        $curl_error = curl_error($curl);
-        curl_close($curl);
-        if ($curl_errno > 0) {
-            info('curl error '.$curl_error);
-        } else {
-            $esList = collect($result->get('list'));
-            $list = $esList->pipe(function ($list) use ($request) {
-                if ($list->isEmpty() && !$request->get('q', '')) {
-                    $list = (new Blog())->list(
-                        collect([
-                        'page' => $request->input('page', 1),
-                        'size' => $request->input('pageSize', 40)])
-                    );
-                }
-                $authors = (new User())->listByIds($list->pluck('user_id')->unique()->implode(','))->keyBy('id');
-                return $list->map(function ($item) use ($authors) {
-                    $item['nickname'] = $authors[$item['user_id']]['nickname'];
-                    $item['tags'] = explode(',', $item['tags']);
-
-                    return $item;
-                });
-            });
-            $count = $result->get('count', 0);
-            if ($esList->isEmpty()) {
-                $count = (new Blog())->count(collect());
+        $result = $this->doSearch(collect($request->input()));
+        $esList = collect($result->get('list'));
+        $list = $esList->pipe(function ($list) use ($request) {
+            if ($list->isEmpty() && !$request->get('q', '')) {
+                $list = (new Blog())->list(
+                    collect([
+                    'page' => $request->input('page', 1),
+                    'size' => $request->input('pageSize', 40)])
+                );
             }
+            $authors = (new User())->listByIds($list->pluck('user_id')->unique()->implode(','))->keyBy('id');
+            return $list->map(function ($item) use ($authors) {
+                $item['nickname'] = $authors[$item['user_id']]['nickname'];
+                $item['tags'] = explode(',', $item['tags']);
+
+                return $item;
+            });
+        });
+        $count = $result->get('count', 0);
+        if ($esList->isEmpty()) {
+            $count = (new Blog())->count(collect());
         }
         if ($request->ajax()) {
             return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
@@ -220,6 +201,39 @@ class BlogController extends Controller
         }
     }
     
+    /**
+     * doSearch 请求搜索服务
+     *
+     * @param Illuminate\Support\Collection $params
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function doSearch(Collection $params)
+    {
+        $url = sprintf(
+            '%s/%s?p=%d&ps=%d&q=%s',
+            config('app.search_url'),
+            'api/search/v1/blogs',
+            $params->get('page', 1),
+            $params->get('pageSize', 40),
+            $params->get('q', '')
+        );
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 60);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $result = collect(json_decode(curl_exec($curl), true));
+        $curl_errno = curl_errno($curl);
+        $curl_error = curl_error($curl);
+        curl_close($curl);
+        if ($curl_errno > 0) {
+            info('curl error '.$curl_error);
+            return collect();
+        }
+
+        return $result;
+    }
+
     /**
      * show 获取指定博文
      *
