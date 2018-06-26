@@ -22,7 +22,7 @@
             <div class="author">{{ $blog['created_at'] }}</div>
             <div class="glyphicon glyphicon-eye-open"></div>&nbsp;{{$blog['reading']}}</div>
             @foreach($blog['tags'] as $tag)
-              <span class="label label-{{ $styles[rand(0, count($styles) - 1)] }}">{{ $tag }}</span>
+              <a class="label label-{{ $styles[rand(0, count($styles) - 1)] }}" href="?q={{ $tag }}">{{ $tag }}</a>
             @endforeach
           </div>
         </div>
