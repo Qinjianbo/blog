@@ -36,7 +36,9 @@
 </div>
 @endsection
 @section('js')
+<!-- 
 <script src="https://cdn.bootcss.com/three.js/90/three.min.js"></script>
 <script src="https://cdn.bootcss.com/stats.js/r17/Stats.min.js"></script>
 <script src="/js/list_3dbg.js"></script>
+-->
 @endsection
