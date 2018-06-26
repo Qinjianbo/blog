@@ -162,27 +162,27 @@ class BlogController extends Controller
     public function list(Request $request)
     {
         $result = $this->doSearch(collect($request->input()));
-        $esList = collect($result->get('list'));
-        $list = $esList->pipe(function ($list) use ($request) {
-            if ($list->isEmpty() && !$request->get('q', '')) {
-                $list = (new Blog())->list(
-                    collect([
-                    'page' => $request->input('page', 1),
-                    'size' => $request->input('pageSize', 40)])
-                );
-            }
+        $list = collect($result->get('list'));
+        $count = $result->get('count', 0);
+        if ($list->isEmpty() && !$request->get('q', '')) {
+            $list = (new Blog())->list(
+                collect([
+                'page' => $request->input('page', 1),
+                'size' => $request->input('pageSize', 40)])
+            );
+            $count = (new Blog())->count(collect());
+        }
+        if ($list->isNotEmpty()) {
             $authors = (new User())->listByIds($list->pluck('user_id')->unique()->implode(','))->keyBy('id');
-            return $list->map(function ($item) use ($authors) {
+
+            $list = $list->map(function ($item) use ($authors) {
                 $item['nickname'] = $authors[$item['user_id']]['nickname'];
                 $item['tags'] = explode(',', $item['tags']);
 
                 return $item;
             });
-        });
-        $count = $result->get('count', 0);
-        if ($esList->isEmpty()) {
-            $count = (new Blog())->count(collect());
         }
+
         if ($request->ajax()) {
             return $this->result(collect(['list' => $list, 'count' => $count]), '获取成功');
         } else {
