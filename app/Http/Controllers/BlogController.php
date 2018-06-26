@@ -26,7 +26,7 @@ use App\Models\User\User;
 class BlogController extends Controller
 {
     /**
-     * save
+     * update 更新博文
      *
      * @param Request $request
      * @param mixed $id
@@ -67,7 +67,7 @@ class BlogController extends Controller
     }
 
     /**
-     * create
+     * create 创建博文
      *
      * @param Request $request
      *
@@ -110,7 +110,7 @@ class BlogController extends Controller
     }
 
     /**
-     * delete
+     * delete 删除博文
      *
      * @param Request $request
      * @param mixed $user_id
@@ -136,7 +136,7 @@ class BlogController extends Controller
     }
 
     /**
-     * get
+     * get 获取指定Id的博文，不增加阅读量 
      *
      * @param Request $request
      * @param mixed $id
@@ -151,7 +151,7 @@ class BlogController extends Controller
     }
 
     /**
-     * list
+     * list 博文列表
      *
      * @param Request $request
      *
@@ -221,7 +221,7 @@ class BlogController extends Controller
     }
     
     /**
-     * show
+     * show 获取指定博文
      *
      * @param Request $request
      * @param int $id
@@ -244,7 +244,7 @@ class BlogController extends Controller
     }
 
     /**
-     * edit
+     * edit 编辑博文跳转
      *
      * @param Request $request
      * @param int $id
@@ -262,7 +262,7 @@ class BlogController extends Controller
     }
 
     /**
-     * myList
+     * myList 获取我的博文列表
      *
      * @param Request $request
      *
