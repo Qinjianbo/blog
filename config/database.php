@@ -40,14 +40,14 @@ return [
         ],
 
         'mysql' => [
-            'read' => [
-                'host' => env('DB_READ_HOST', '47.94.5.239'),
-            ],
-            'write' => [
-                'host' => env('DB_WRITE_HOST', '120.27.38.195'),
-            ],
+           // 'read' => [
+           //     'host' => env('DB_READ_HOST', '47.94.5.239'),
+           // ],
+           // 'write' => [
+           //     'host' => env('DB_WRITE_HOST', '120.27.38.195'),
+           // ],
             'driver' => 'mysql',
-            // 'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
