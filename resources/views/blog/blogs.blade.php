@@ -3,6 +3,9 @@
 @section('title', '波波的博文列表')
 @section('keywords', 'Blogs 博客列表 博文列表')
 @section('description', '这里是波波写的博文的列表页面! This is the page of bobo`s blogs!')
+@section('baidu_union')
+<meta name="baidu_union_verify" content="07ed842e59fd6e58e8f9953920351d47">
+@endsection
 @section('css')
   <link rel="stylesheet" href="/css/blog.css">
 @endsection
