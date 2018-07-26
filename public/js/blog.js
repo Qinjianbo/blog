@@ -77,7 +77,7 @@ module.exports = __webpack_require__(44);
 /***/ (function(module, exports) {
 
 function getBlogs(page, size) {
-  var uri = "https://www.boboidea.com/api/home/v1/user/blogs";
+  var uri = "http://dev.boboidea.com/api/home/v1/user/blogs";
   var uid = $.cookie("uid");
   $.ajax({
     url: uri,
@@ -126,7 +126,7 @@ function getBlogs(page, size) {
         $("#totalPage").val(Math.ceil(parseInt(data.data.count) / size));
       } else if (data.code == 100) {
         alert(data.msg);
-        location.href = "https://www.boboidea.com";
+        location.href = "http://dev.boboidea.com";
       } else {
         console.log(data);
       }
@@ -142,10 +142,8 @@ function loadBlog() {
   var winH = $(window).height();
   var scrollTop = $(window).scrollTop();
   var offsetTop = $(".my-blog-body").height();
-  console.log(winH);
-  console.log(scrollTop);
-  console.log(offsetTop);
-  if (offsetTop < scrollTop + winH) {
+  var bottom = 50;
+  if (bottom + scrollTop >= offsetTop - winH) {
     var page = $("#page").val();
     var totalPage = $("#totalPage").val();
     var size = 24;

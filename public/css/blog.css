@@ -17,7 +17,7 @@ em {
 }
 
 .blog_title {
-  color: #dedede;
+  color: #e89d11e6;
 }
 
 .author {
@@ -34,6 +34,6 @@ em {
 
 .blog-container {
   padding-top: 30px;
-  background-color: #222;
+  background-color: rgba(12, 101, 255, 0.1);
 }
 
