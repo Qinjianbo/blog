@@ -26,9 +26,14 @@ em {
 
 .blog-body {
   margin-top: 50px;
-  background-image: url("/background_img.jpeg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+}
+
+@media screen and (min-width: 1280px) {
+  .blog-body {
+    background-image: url("/background_img.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
 }
 
 .my-blog-body {
