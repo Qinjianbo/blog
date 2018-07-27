@@ -26,7 +26,9 @@ em {
 
 .blog-body {
   margin-top: 50px;
-  background-image:url('/background_img.jpeg');
+  background-image: url('/background_img.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .my-blog-body {
