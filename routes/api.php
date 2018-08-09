@@ -27,7 +27,7 @@ Route::group(['prefix' => 'home'], function () {
         Route::get('/blog/{id}', 'BlogController@get')->where('id', '\d+');
 
         // 需要登录权限的博客操作相关路由
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'user', 'middleware' => 'check_login'], function () {
             Route::post('/blog', 'BlogController@create');
             Route::put('/blog/{id}', 'BlogController@update')->where('id', '\d+');
             Route::delete('/blog/{id}', 'BlogController@delete')->where('id', '\d+');

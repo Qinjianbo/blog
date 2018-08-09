@@ -39,7 +39,7 @@ class BlogController extends Controller
     {
         $rules = [
             'title' => 'required|string|max:255',
-            'user_id' => 'required|string',
+            'user_id' => 'required|integer|min:1',
             'content' => 'required|string',
             'description' => 'sometimes|string',
             'type' => 'required|numeric|in:0,1',
@@ -54,16 +54,11 @@ class BlogController extends Controller
             return $this->result(collect(), collect($errors), 101);
         }
 
-        $key = sprintf('user_%s_%s', $request->get('user_id'), $request->get('device'));
-        if (($user = collect(Cache::get($key)))->isNotEmpty()) {
-            if ($blog = (new Blog())->updateMine(collect($request->input()), $id)) {
-                return $this->result(collect(['id' => $id]), '更新成功');
-            } else {
-                return $this->result(collect(), '更新失败', 100);
-            }
+        if ($blog = (new Blog())->updateMine(collect($request->input()), $id)) {
+            return $this->result(collect(['id' => $id]), '更新成功');
         }
 
-        return $this->result(collect(), '请先登录', 102);
+        return $this->result(collect(), '更新失败', 100);
     }
 
     /**
@@ -79,7 +74,7 @@ class BlogController extends Controller
     {
         $rules = [
             'title' => 'required|string|min:1|max:255',
-            'user_id' => 'required|string',
+            'user_id' => 'required|integer|min:1',
             'content' => 'required|string|min:1',
             'type'    => 'required|numeric|in:1,0',
             'description' => 'sometimes|string|min:1|max:255',
@@ -95,18 +90,10 @@ class BlogController extends Controller
         }
         $input = collect($request->input());
 
-        $key = sprintf('user_%s_%s', $request->get('user_id'), $request->get('device'));
-        if (($user = collect(Cache::get($key)))->isNotEmpty()) {
-            if ($blog = (new Blog())->createMine(
-                    $input->merge(['user_id' => $user['user_id']])
-                )) {
-                return $this->result(collect($blog)->only(['id']));
-            } else {
-                return $this->result(collect(), '添加失败', 100);
-            }
+        if ($blog = (new Blog())->createMine($input)) {
+            return $this->result(collect($blog)->only(['id']));
         }
-
-        return $this->result(collect(), '请先登录', 102);
+        return $this->result(collect(), '添加失败', 100);
     }
 
     /**
@@ -120,19 +107,12 @@ class BlogController extends Controller
      *
      * @return mixed
      */
-    public function delete(Request $request, $user_id, $id)
+    public function delete(Request $request, $id)
     {
-        $key = sprintf('user_%s_%s', $user_id, $request->get('device', 'pc'));
-
-        if (($user = Cache::get($key))->isNotEmpty()) {
-            if ((new Blog())->deleteMine($user_id, $id)) {
-                return $this->result(collect(), '删除成功');
-            } else {
-                return $this->result(collect(), '删除失败');
-            }
-        }
-
-        return $this->result(collect(), '请先登录');
+         if ((new Blog())->deleteMine($request->get('user_id'), $id)) {
+             return $this->result(collect(), '删除成功');
+         }
+         return $this->result(collect(), '删除失败');
     }
 
     /**
@@ -284,15 +264,7 @@ class BlogController extends Controller
      */
     public function myList(Request $request): Collection
     {
-        $uid = $request->input('uid', '');
-        $device = $request->input('device', 'pc');
-        $key = sprintf('user_%s_%s', $uid, $device);
-        $user = Cache::get($key);
-        $uid = $user['user_id'] ?? 0;
-        if (!$uid) {
-            return $this->result(collect(), '登录超时或未登录', 100);
-        }
-        $list = (new Blog())->list(collect($request->input())->merge(['user_id' => $uid, 'select' => 'id,title,reading,user_id']))
+        $list = (new Blog())->list(collect($request->input())->merge(['select' => 'id,title,reading,user_id']))
              ->pipe(function ($blogs) {
                  $users = (new User())->listByIds($blogs->pluck('user_id')->unique()->implode(','))->keyBy('id');
  
