@@ -36,12 +36,3 @@ Route::group(['prefix' => 'home'], function () {
         });
     });
 });
-
-// 小程序相关路由
-Route::group(['prefix' => 'wxa'], function () {
-    Route::group(['prefix' => 'v1'], function () {
-        Route::get('/session', 'WxaController@code2Session');
-        Route::post('/user', 'WxaController@analyzeUser');
-        Route::get('/session/check', 'WxaController@check');
-    });
-});
