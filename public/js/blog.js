@@ -77,7 +77,7 @@ module.exports = __webpack_require__(44);
 /***/ (function(module, exports) {
 
 function getBlogs(page, size) {
-  var uri = "http://www.boboidea.com/api/home/v1/user/blogs";
+  var uri = "https://www.boboidea.com/api/home/v1/user/blogs";
   var uid = $.cookie("uid");
   $.ajax({
     url: uri,

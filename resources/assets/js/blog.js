@@ -1,6 +1,6 @@
 function getBlogs(page, size)
 {
-  var uri = "http://www.boboidea.com/api/home/v1/user/blogs";
+  var uri = "https://www.boboidea.com/api/home/v1/user/blogs";
   var uid = $.cookie("uid");
   $.ajax({
     url:uri,
