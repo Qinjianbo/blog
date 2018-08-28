@@ -49,7 +49,7 @@ function getBlogs(page, size)
         $("#totalPage").val(Math.ceil(parseInt(data.data.count)/size));
       } else if(data.code == 102) {
         alert(data.msg);
-        location.href = "http://dev.boboidea.com";
+        location.href = "https://www.boboidea.com";
       } else {
         console.log(data);    
       }
