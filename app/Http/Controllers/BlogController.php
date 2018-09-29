@@ -226,15 +226,14 @@ class BlogController extends Controller
      */
     public function show(Request $request, $id)
     {
+        $blog = (new Blog())->show(collect($request->input), $id, true);
+        if ($blog->isEmpty()) {
+            return view('404');
+        }
         // 阅读量增加
         (new Blog())->where('id', $id)->increment('reading', 1);
 
-        return view(
-            'blog.blog_detail',
-            [
-                'blog' => (new Blog())->show(collect($request->input), $id, true)
-            ]
-        );
+        return view('blog.blog_detail', ['blog' => $blog]);
     }
 
     /**

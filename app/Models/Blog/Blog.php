@@ -115,6 +115,7 @@ class Blog extends Model
      *
      * @param Collection $input
      * @param int $id
+     * @param bool $parse
      *
      * @return Collection
      */
@@ -126,6 +127,9 @@ class Blog extends Model
             ->where('id', $id)
             ->first())
             ->when($parse, function ($blog) {
+                if ($blog->isEmpty()) {
+                    return $blog;
+                }
                 $blog['content'] = Markdown::parse($blog['content']); 
 
                 return $blog;
