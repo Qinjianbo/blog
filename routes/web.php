@@ -37,5 +37,3 @@ Route::get('/checkCaptcha', 'CaptchaController@check')->where('captcha', '\s+');
 Route::get('/captcha', function () {
     return Captcha::create();
 });
-
-Auth::routes();
