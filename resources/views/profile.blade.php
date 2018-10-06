@@ -32,6 +32,7 @@
 - HTML\CSS
 - JAVA SE
 - Shell
+- Python
 
 ##### 编码规范
 
