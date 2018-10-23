@@ -87,8 +87,8 @@ $("#register_btn").bind("click", function () {
         } else if (data.code == 100) {
           alert(data.msg);    
         } else {
-          alert(data.msg);
-          console.log(data.msg);      
+          alert('注册失败');
+          console.log(data);      
         }
     },
     error: function (data) {
