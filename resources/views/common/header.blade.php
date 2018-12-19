@@ -8,6 +8,7 @@
   <meta name="description" content="@yield('description')">
   @yield('meta')
   <title>@yield('title')</title>
+  <link rel="shortcut icon" href="{{ config('blog.default_icon') }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/basic.css">
   @yield('css')
