@@ -14,10 +14,10 @@
     </div>
 </template>
 
-<script>
+<script type="text/javascript">
     export default {
         mounted() {
-            console.log('Component mounted.')
+            console.log('tag component mounted.')
         }
     }
 </script>

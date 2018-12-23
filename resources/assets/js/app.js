@@ -10,7 +10,10 @@
 window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueRouter from 'vue-router';
+
 Vue.use(ElementUI);
+Vue.use(VueRouter);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,9 +21,25 @@ Vue.use(ElementUI);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
-Vue.component('element-ui-example', require('./components/ElementUiExample.vue'));
+const users = require('./components/User.vue');
+const articles = require('./components/Article.vue');
+const tags = require('./components/Tag.vue');
+const dashboard = require('./components/Dashboard.vue');
+const links = require('./components/Link.vue');
 
-const app = new Vue({
-    el: '#app'
+Vue.component('aside-component', require('./components/Aside.vue'));
+
+const routes = [
+	{ path: '/dashboard', component: dashboard },
+	{ path: '/users', component: users },
+	{ path: '/articles', component: articles },
+	{ path: '/tags', component: tags },
+	{ path: '/links', component: links }
+];
+
+const router = new VueRouter({
+	routes
 });
+const app = new Vue({
+    router
+}).$mount('#app');
