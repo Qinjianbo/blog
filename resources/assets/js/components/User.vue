@@ -2,22 +2,24 @@
 	<div>
 		<el-main>
 			<el-table
+			  :data="tableData"
 			  style="width: 100%;"
 			>
 				<el-table-column
-				  prop="date"
-				  label="用户名"
-				  width="180"
+				  v-for="(item, i) in items"
+				  :key="i"
+				  :prop="item.prop"
+				  :label="item.label"
+				  :width="item.width"
 				></el-table-column>
 				<el-table-column
-				  prop="name"
-				  label="姓名"
-				  width="180"
-				></el-table-column>
-				<el-table-column
-				  prop="address"
-				  label="地址"
-				></el-table-column>
+			      label="操作"
+			    >
+			      <template slot-scope="scope">
+			        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+			        <el-button type="text" size="small">编辑</el-button>
+			      </template>
+    			</el-table-column>
 			</el-table>
 		</el-main>
 	</div>
@@ -26,7 +28,41 @@
 <script type="text/javascript">
 	export default {
 		method() {
-			console.log('user component mounted.');
+			console.log('article component mounted.');
+		},
+		data() {
+			return {
+				items: [
+					{
+						"prop": "id",
+						"label": "ID",
+						"width": ""
+					},
+					{
+						"prop": "username",
+						"label": "用户名",
+						"width": ""
+					},
+					{
+						"prop": "nickname",
+						"label": "用户昵称",
+						"width": ""
+					},
+					{
+						"prop": "createTime",
+						"label": "创建时间",
+						"width": ""
+					}
+				],
+				tableData: [
+					{
+						id: 1,
+						username: "qinjianbo",
+						nickname: "bobo",
+						createTime: "2018-12-29"
+					}
+				]
+			}
 		}
 	}
 </script>
