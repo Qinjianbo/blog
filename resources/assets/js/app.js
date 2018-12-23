@@ -21,11 +21,12 @@ Vue.use(VueRouter);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const users = require('./components/User.vue');
-const articles = require('./components/Article.vue');
-const tags = require('./components/Tag.vue');
+const users = require('./components/Users.vue');
+const articles = require('./components/Articles.vue');
+const tags = require('./components/Tags.vue');
 const dashboard = require('./components/Dashboard.vue');
-const links = require('./components/Link.vue');
+const links = require('./components/Links.vue');
+const myArticle = require('./components/Article');
 
 Vue.component('aside-component', require('./components/Aside.vue'));
 
@@ -34,7 +35,8 @@ const routes = [
 	{ path: '/users', component: users },
 	{ path: '/articles', component: articles },
 	{ path: '/tags', component: tags },
-	{ path: '/links', component: links }
+	{ path: '/links', component: links },
+	{ path: '/newArticle', component: myArticle }
 ];
 
 const router = new VueRouter({

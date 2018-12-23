@@ -1,0 +1,71 @@
+<template>
+	<div>
+		<el-header height="100" style="text-align:right;">
+			<router-link to="/newArticle"><el-button type="success">新建</el-button></router-link>
+		</el-header>
+		<el-main>
+			<el-table
+			  :data="tableData"
+			  style="width: 100%;"
+			>
+				<el-table-column
+				  v-for="(item, i) in items"
+				  :key="i"
+				  :prop="item.prop"
+				  :label="item.label"
+				  :width="item.width"
+				></el-table-column>
+				<el-table-column
+			      label="操作"
+			    >
+			      <template slot-scope="scope">
+			        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+			        <el-button type="text" size="small">编辑</el-button>
+			      </template>
+    			</el-table-column>
+			</el-table>
+		</el-main>
+	</div>
+</template>
+
+<script type="text/javascript">
+	export default {
+		method() {
+			console.log('article component mounted.');
+		},
+		data() {
+			return {
+				items: [
+					{
+						"prop": "id",
+						"label": "ID",
+						"width": ""
+					},
+					{
+						"prop": "title",
+						"label": "标题",
+						"width": "360"
+					},
+					{
+						"prop": "author",
+						"label": "作者",
+						"width": ""
+					},
+					{
+						"prop": "createTime",
+						"label": "创建时间",
+						"width": ""
+					}
+				],
+				tableData: [
+					{
+						id: 1,
+						title: "testTitle",
+						author: "bobo",
+						createTime: "2018-12-29"
+					}
+				]
+			}
+		}
+	}
+</script>

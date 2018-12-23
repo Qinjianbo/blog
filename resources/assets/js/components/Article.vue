@@ -1,68 +1,36 @@
 <template>
 	<div>
 		<el-main>
-			<el-table
-			  :data="tableData"
-			  style="width: 100%;"
-			>
-				<el-table-column
-				  v-for="(item, i) in items"
-				  :key="i"
-				  :prop="item.prop"
-				  :label="item.label"
-				  :width="item.width"
-				></el-table-column>
-				<el-table-column
-			      label="操作"
-			    >
-			      <template slot-scope="scope">
-			        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-			        <el-button type="text" size="small">编辑</el-button>
-			      </template>
-    			</el-table-column>
-			</el-table>
+			<el-form ref="form" label-width="80px">
+				<el-form-item label="标题">
+					<el-input></el-input>
+				</el-form-item>
+				<el-form-item label="简介">
+					<el-input></el-input>
+				</el-form-item>
+				<el-form-item label="正文">
+					<el-input type="textarea" :row="2" id="editor"></el-input>
+				</el-form-item>
+			</el-form>
 		</el-main>
 	</div>
 </template>
-
 <script type="text/javascript">
+	import {default as SimpleMDE} from 'simplemde/dist/simplemde.min';
+
 	export default {
 		method() {
-			console.log('article component mounted.');
+			console.log('new article component mounted.');
 		},
 		data() {
 			return {
-				items: [
-					{
-						"prop": "id",
-						"label": "ID",
-						"width": ""
-					},
-					{
-						"prop": "title",
-						"label": "标题",
-						"width": "360"
-					},
-					{
-						"prop": "author",
-						"label": "作者",
-						"width": ""
-					},
-					{
-						"prop": "createTime",
-						"label": "创建时间",
-						"width": ""
-					}
-				],
-				tableData: [
-					{
-						id: 1,
-						title: "testTitle",
-						author: "bobo",
-						createTime: "2018-12-29"
-					}
-				]
+				simplemde: ""
 			}
+		},
+		mounted() {
+			this.simplemde = new SimpleMDE({
+				element: document.getElementById('editor')
+			})
 		}
 	}
 </script>
