@@ -34,3 +34,7 @@
 		}
 	}
 </script>
+
+<style>
+    @import '~simplemde/dist/simplemde.min.css';
+</style>
