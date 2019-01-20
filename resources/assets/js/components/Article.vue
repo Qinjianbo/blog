@@ -25,10 +25,8 @@
 </template>
 <script type="text/javascript">
 	import {default as SimpleMDE} from 'simplemde/dist/simplemde.min';
-	import ElButton from "../../../../public/js/app";
 
 	export default {
-		components: {ElButton},
 		method() {
 			console.log('new article component mounted.');
 		},
@@ -44,4 +42,8 @@
 		}
 	}
 </script>
+
+<style>
+  @import '~simplemde/dist/simplemde.min.css';
+</style>
 
