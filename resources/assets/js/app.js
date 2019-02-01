@@ -11,9 +11,13 @@ window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueRouter from 'vue-router';
+import httpPlugs from './plugins/http/index';
+import VueCookie from 'vue-cookie';
 
 Vue.use(ElementUI);
 Vue.use(VueRouter);
+Vue.use(httpPlugs);
+Vue.use(VueCookie);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

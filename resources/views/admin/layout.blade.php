@@ -3,6 +3,11 @@
 <head>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>{{ config('blog.title') }} - admin </title>
+	<script type="text/javascript">
+		window.Laravel = {
+			csrfToken: "{{ csrf_token() }}"
+		}
+	</script>
 </head>
 <body>
 	<div id="app">
