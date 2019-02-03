@@ -19,8 +19,10 @@
 			      label="操作"
 			    >
 			      <template slot-scope="scope">
-			        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-			        <el-button type="text" size="small">编辑</el-button>
+			        <el-button @click="showArticle(scope.row.id)" type="text" size="small">查看</el-button>
+			        <router-link :to="{name: 'newArticle', query: {id: scope.row.id}}">
+			        	<el-button type="text" size="small">编辑</el-button>
+			        </router-link>
 			      </template>
     			</el-table-column>
 			</el-table>
@@ -32,6 +34,36 @@
 	export default {
 		method() {
 			console.log('article component mounted.');
+		},
+		created() {
+			this.getArticleList();
+		},
+		methods: {
+			editArticle(id) {
+				window.open(`/admin#/newArticle?id=${id}`);
+			},
+			showArticle(id) {
+				window.open(`/blog/${id}`);
+			},
+			getArticleList() {
+				let url = 'user/blogs';
+				let page = 1;
+				let pageSize = 10;
+				let user_id = this.$cookie.get('uid');
+				url = `${url}?page=${page}&pageSize=${pageSize}&user_id=${user_id}&device=pc`;
+				this.$http.get(url)
+				.then(response => {
+					console.log(response);
+					if (response.data.code != 0) {
+						this.$message.error(response.data.msg);
+					} else {
+						this.tableData = response.data.data.list;
+					}
+				})
+				.catch(error => {
+					this.$message.error(error);
+				})
+			}
 		},
 		data() {
 			return {
@@ -47,24 +79,27 @@
 						"width": "360"
 					},
 					{
-						"prop": "author",
+						"prop": "nickname",
 						"label": "作者",
 						"width": ""
 					},
 					{
-						"prop": "createTime",
+						"prop": "reading",
+						"label": "阅读量",
+						"width": ""
+					},
+					{
+						"prop": "tags",
+						"label": "标签",
+						"width": ""
+					},
+					{
+						"prop": "created_at",
 						"label": "创建时间",
 						"width": ""
 					}
 				],
-				tableData: [
-					{
-						id: 1,
-						title: "testTitle",
-						author: "bobo",
-						createTime: "2018-12-29"
-					}
-				]
+				tableData: []
 			}
 		}
 	}

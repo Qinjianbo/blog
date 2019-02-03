@@ -30,21 +30,22 @@ const articles = require('./components/Articles.vue');
 const tags = require('./components/Tags.vue');
 const dashboard = require('./components/Dashboard.vue');
 const links = require('./components/Links.vue');
-const myArticle = require('./components/Article');
+const newArticle = require('./components/Article');
 
 Vue.component('aside-component', require('./components/Aside.vue'));
 
 const routes = [
-	{ path: '/dashboard', component: dashboard },
-	{ path: '/users', component: users },
-	{ path: '/articles', component: articles },
-	{ path: '/tags', component: tags },
-	{ path: '/links', component: links },
-	{ path: '/newArticle', component: myArticle }
+	{ path: '/dashboard', component: dashboard, name: 'dashboard' },
+	{ path: '/users', component: users, name: 'users' },
+	{ path: '/articles', component: articles, name: 'articles' },
+	{ path: '/tags', component: tags, name: 'tags' },
+	{ path: '/links', component: links, name: 'links' },
+	{ path: '/newArticle', component: newArticle, name: 'newArticle' }
 ];
 
 const router = new VueRouter({
-	routes
+	// mode: 'history',
+	routes: routes
 });
 const app = new Vue({
     router

@@ -127,7 +127,10 @@ class BlogController extends Controller
      */
     public function get(Request $request, $id)
     {
-        return (new Blog())->show(collect($request->input()), $id);
+        return $this->result(
+            (new Blog())->show(collect($request->input()), $id),
+            '数据获取成功'
+        );
     }
 
     /**
@@ -263,7 +266,7 @@ class BlogController extends Controller
      */
     public function myList(Request $request): Collection
     {
-        $list = (new Blog())->list(collect($request->input())->merge(['select' => 'id,title,reading,user_id']))
+        $list = (new Blog())->list(collect($request->input())->merge(['select' => 'id,title,reading,user_id,created_at,tags']))
              ->pipe(function ($blogs) {
                  $users = (new User())->listByIds($blogs->pluck('user_id')->unique()->implode(','))->keyBy('id');
  

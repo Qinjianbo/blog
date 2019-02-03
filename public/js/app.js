@@ -16157,13 +16157,14 @@ var articles = __webpack_require__(200);
 var tags = __webpack_require__(203);
 var dashboard = __webpack_require__(206);
 var links = __webpack_require__(209);
-var myArticle = __webpack_require__(212);
+var newArticle = __webpack_require__(212);
 
 Vue.component('aside-component', __webpack_require__(221));
 
-var routes = [{ path: '/dashboard', component: dashboard }, { path: '/users', component: users }, { path: '/articles', component: articles }, { path: '/tags', component: tags }, { path: '/links', component: links }, { path: '/newArticle', component: myArticle }];
+var routes = [{ path: '/dashboard', component: dashboard, name: 'dashboard' }, { path: '/users', component: users, name: 'users' }, { path: '/articles', component: articles, name: 'articles' }, { path: '/tags', component: tags, name: 'tags' }, { path: '/links', component: links, name: 'links' }, { path: '/newArticle', component: newArticle, name: 'newArticle' }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_2_vue_router__["a" /* default */]({
+  // mode: 'history',
   routes: routes
 });
 var app = new Vue({
@@ -63031,7 +63032,6 @@ http.interceptors.response.use(function (response) {
 		if (response.status == 401) {
 			alert(response.data.msg);
 			window.open('/');
-			return Promise.reject(response);
 		}
 	}
 
@@ -64421,10 +64421,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	method: function method() {
 		console.log('article component mounted.');
+	},
+	created: function created() {
+		this.getArticleList();
+	},
+
+	methods: {
+		editArticle: function editArticle(id) {
+			window.open('/admin#/newArticle?id=' + id);
+		},
+		showArticle: function showArticle(id) {
+			window.open('/blog/' + id);
+		},
+		getArticleList: function getArticleList() {
+			var _this = this;
+
+			var url = 'user/blogs';
+			var page = 1;
+			var pageSize = 10;
+			var user_id = this.$cookie.get('uid');
+			url = url + '?page=' + page + '&pageSize=' + pageSize + '&user_id=' + user_id + '&device=pc';
+			this.$http.get(url).then(function (response) {
+				console.log(response);
+				if (response.data.code != 0) {
+					_this.$message.error(response.data.msg);
+				} else {
+					_this.tableData = response.data.data.list;
+				}
+			}).catch(function (error) {
+				_this.$message.error(error);
+			});
+		}
 	},
 	data: function data() {
 		return {
@@ -64437,20 +64470,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				"label": "标题",
 				"width": "360"
 			}, {
-				"prop": "author",
+				"prop": "nickname",
 				"label": "作者",
 				"width": ""
 			}, {
-				"prop": "createTime",
+				"prop": "reading",
+				"label": "阅读量",
+				"width": ""
+			}, {
+				"prop": "tags",
+				"label": "标签",
+				"width": ""
+			}, {
+				"prop": "created_at",
 				"label": "创建时间",
 				"width": ""
 			}],
-			tableData: [{
-				id: 1,
-				title: "testTitle",
-				author: "bobo",
-				createTime: "2018-12-29"
-			}]
+			tableData: []
 		};
 	}
 });
@@ -64511,7 +64547,7 @@ var render = function() {
                             attrs: { type: "text", size: "small" },
                             on: {
                               click: function($event) {
-                                _vm.handleClick(scope.row)
+                                _vm.showArticle(scope.row.id)
                               }
                             }
                           },
@@ -64519,9 +64555,23 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c(
-                          "el-button",
-                          { attrs: { type: "text", size: "small" } },
-                          [_vm._v("编辑")]
+                          "router-link",
+                          {
+                            attrs: {
+                              to: {
+                                name: "newArticle",
+                                query: { id: scope.row.id }
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "el-button",
+                              { attrs: { type: "text", size: "small" } },
+                              [_vm._v("编辑")]
+                            )
+                          ],
+                          1
                         )
                       ]
                     }
@@ -65545,14 +65595,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	method: function method() {
 		console.log('new article component mounted.');
 	},
+	created: function created() {
+		var query = this.$route.query;
+		console.log(query);
+		var id = query.id;
+		this.show(id);
+	},
 	data: function data() {
 		return {
 			simplemde: "",
-			title: "",
-			description: "",
-			content: "",
-			tags: "",
-			type: ""
+			blog: {
+				title: "",
+				description: "",
+				content: "",
+				tags: "",
+				type: ""
+			}
 		};
 	},
 	mounted: function mounted() {
@@ -65570,11 +65628,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var url = 'user/blog';
 			var data = {
 				user_id: this.$cookie.get('uid'),
-				title: this.title,
-				description: this.description,
+				title: this.blog.title,
+				description: this.blog.description,
 				content: this.simplemde.value(),
-				tags: this.tags,
-				type: Number(this.type),
+				tags: this.blog.tags,
+				type: Number(this.blog.type),
 				device: 'pc'
 			};
 			console.log(data);
@@ -65584,10 +65642,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					_this.$message.error(response.data.msg);
 				} else {
 					_this.$message.success('文章创建成功');
+					location.href = "/admin#/articles";
 				}
 			}).catch(function (error) {
 				console.log(error);
 				_this.$message.error('创建过程出现错误');
+			});
+		},
+		show: function show(id) {
+			var _this2 = this;
+
+			var url = '/user/blog/' + id + '?user_id=' + this.$cookie.get('uid') + '&device=pc';
+			this.$http.get(url).then(function (response) {
+				console.log(response);
+				if (response.data.code != 0) {
+					_this2.$message.error(response.data.msg);
+				} else {
+					var blog = response.data.data;
+					_this2.blog.title = blog.title;
+					_this2.blog.tags = blog.tags;
+					_this2.blog.type = Boolean(blog.type);
+					_this2.blog.description = blog.description;
+					_this2.simplemde.value(blog.content);
+				}
+			}).catch(function (error) {
+				_this2.$message.error(error);
 			});
 		}
 	}
@@ -65634,15 +65713,15 @@ var render = function() {
             [
               _c(
                 "el-form-item",
-                { attrs: { label: "标题", id: _vm.title } },
+                { attrs: { label: "标题" } },
                 [
                   _c("el-input", {
                     model: {
-                      value: _vm.title,
+                      value: _vm.blog.title,
                       callback: function($$v) {
-                        _vm.title = $$v
+                        _vm.$set(_vm.blog, "title", $$v)
                       },
-                      expression: "title"
+                      expression: "blog.title"
                     }
                   })
                 ],
@@ -65655,11 +65734,11 @@ var render = function() {
                 [
                   _c("el-input", {
                     model: {
-                      value: _vm.description,
+                      value: _vm.blog.description,
                       callback: function($$v) {
-                        _vm.description = $$v
+                        _vm.$set(_vm.blog, "description", $$v)
                       },
-                      expression: "description"
+                      expression: "blog.description"
                     }
                   })
                 ],
@@ -65673,11 +65752,11 @@ var render = function() {
                   _c("el-input", {
                     attrs: { type: "textarea", row: 2, id: "editor" },
                     model: {
-                      value: _vm.content,
+                      value: _vm.blog.content,
                       callback: function($$v) {
-                        _vm.content = $$v
+                        _vm.$set(_vm.blog, "content", $$v)
                       },
-                      expression: "content"
+                      expression: "blog.content"
                     }
                   })
                 ],
@@ -65691,11 +65770,11 @@ var render = function() {
                   _c("el-input", {
                     attrs: { type: "input" },
                     model: {
-                      value: _vm.tags,
+                      value: _vm.blog.tags,
                       callback: function($$v) {
-                        _vm.tags = $$v
+                        _vm.$set(_vm.blog, "tags", $$v)
                       },
-                      expression: "tags"
+                      expression: "blog.tags"
                     }
                   })
                 ],
@@ -65709,11 +65788,11 @@ var render = function() {
                     "el-checkbox",
                     {
                       model: {
-                        value: _vm.type,
+                        value: _vm.blog.type,
                         callback: function($$v) {
-                          _vm.type = $$v
+                          _vm.$set(_vm.blog, "type", $$v)
                         },
-                        expression: "type"
+                        expression: "blog.type"
                       }
                     },
                     [_vm._v("原创请勾我")]
