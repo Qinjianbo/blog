@@ -64433,9 +64433,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		editArticle: function editArticle(id) {
-			window.open('/admin#/newArticle?id=' + id);
-		},
 		showArticle: function showArticle(id) {
 			window.open('/blog/' + id);
 		},
@@ -65596,10 +65593,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		console.log('new article component mounted.');
 	},
 	created: function created() {
-		var query = this.$route.query;
-		console.log(query);
-		var id = query.id;
-		this.show(id);
+		this.show(this.getQueryId());
 	},
 	data: function data() {
 		return {
@@ -65621,11 +65615,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		save: function save() {
-			var _this = this;
-
 			console.log('save article');
-			console.log(this.title);
-			var url = 'user/blog';
 			var data = {
 				user_id: this.$cookie.get('uid'),
 				title: this.blog.title,
@@ -65635,39 +65625,82 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				type: Number(this.blog.type),
 				device: 'pc'
 			};
-			console.log(data);
-			this.$http.post(url, data).then(function (response) {
-				console.log(response);
-				if (response.data.code != 0) {
-					_this.$message.error(response.data.msg);
-				} else {
-					_this.$message.success('文章创建成功');
-					location.href = "/admin#/articles";
-				}
-			}).catch(function (error) {
-				console.log(error);
-				_this.$message.error('创建过程出现错误');
-			});
+			var id = this.getQueryId();
+			if (id != undefined && id != 0) {
+				this.putArticle(id, data);
+			} else {
+				this.postArticle(data);
+			}
 		},
 		show: function show(id) {
-			var _this2 = this;
+			var _this = this;
 
+			if (id == 0 || id == undefined) {
+				return;
+			}
 			var url = '/user/blog/' + id + '?user_id=' + this.$cookie.get('uid') + '&device=pc';
 			this.$http.get(url).then(function (response) {
 				console.log(response);
 				if (response.data.code != 0) {
-					_this2.$message.error(response.data.msg);
+					_this.$message.error(response.data.msg);
 				} else {
 					var blog = response.data.data;
-					_this2.blog.title = blog.title;
-					_this2.blog.tags = blog.tags;
-					_this2.blog.type = Boolean(blog.type);
-					_this2.blog.description = blog.description;
-					_this2.simplemde.value(blog.content);
+					_this.blog.title = blog.title;
+					_this.blog.tags = blog.tags;
+					_this.blog.type = Boolean(blog.type);
+					_this.blog.description = blog.description;
+					_this.simplemde.value(blog.content);
 				}
 			}).catch(function (error) {
-				_this2.$message.error(error);
+				_this.$message.error(error);
 			});
+		},
+		postArticle: function postArticle(data) {
+			var _this2 = this;
+
+			console.log('postArticle');
+			var url = 'user/blog';
+			console.log(data);
+			this.$http.post(url, data).then(function (response) {
+				console.log(response);
+				if (response.data.code != 0) {
+					_this2.$message.error(response.data.msg);
+				} else {
+					_this2.$message.success('文章新建成功');
+					location.href = "/admin#/articles";
+				}
+			}).catch(function (error) {
+				console.log(error);
+				_this2.$message.error('操作过程出现错误');
+			});
+		},
+		putArticle: function putArticle(id, data) {
+			var _this3 = this;
+
+			console.log('putArticle');
+			var url = 'user/blog/' + id;
+			this.$http.put(url, data).then(function (response) {
+				console.log(response);
+				if (response.data.code != 0) {
+					_this3.$message.error(response.data.msg);
+				} else {
+					_this3.$message.success('文章编辑成功');
+					location.href = "/admin#/articles";
+				}
+			}).catch(function (error) {
+				console.log(error);
+				_this3.$message.error('操作过程出现错误');
+			});
+		},
+		getQueryId: function getQueryId() {
+			var query = this.$route.query;
+			var id = query.id;
+
+			if (id == undefined || id == '') {
+				return 0;
+			}
+
+			return id;
 		}
 	}
 });

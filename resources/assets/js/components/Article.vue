@@ -31,10 +31,7 @@
 			console.log('new article component mounted.');
 		},
 		created() {
-			let query = this.$route.query;
-			console.log(query);
-			let id = query.id;
-			this.show(id);
+			this.show(this.getQueryId());
 		},
 		data() {
 			return {
@@ -56,8 +53,6 @@
 		methods: {
 			save() {
 				console.log('save article');
-				console.log(this.title);
-				let url = 'user/blog';
 				let data = {
 					user_id: this.$cookie.get('uid'),
 					title: this.blog.title,
@@ -67,24 +62,19 @@
 					type: Number(this.blog.type),
 					device: 'pc'
 				};
-				console.log(data);
-				this.$http.post(url, data)
-				.then(response => {
-					console.log(response);
-					if (response.data.code != 0) {
-						this.$message.error(response.data.msg);
-					} else {
-						this.$message.success('文章创建成功');
-						location.href="/admin#/articles";
-					}
-				})
-				.catch(error => {
-					console.log(error);
-					this.$message.error('创建过程出现错误');
-				});
+				let id = this.getQueryId();
+				if(id != undefined && id != 0) {
+					this.putArticle(id,data);
+				} else {
+					this.postArticle(data);
+				}
+				
 				
 			},
 			show(id) {
+				if (id == 0 || id == undefined) {
+					return;
+				}
 				let url = `/user/blog/${id}?user_id=${this.$cookie.get('uid')}&device=pc`;
 				this.$http.get(url)
 				.then(response => {
@@ -103,6 +93,53 @@
 				.catch(error => {
 					this.$message.error(error);
 				});
+			},
+			postArticle(data) {
+				console.log('postArticle');
+				let url = 'user/blog';
+				console.log(data);
+				this.$http.post(url, data)
+				.then(response => {
+					console.log(response);
+					if (response.data.code != 0) {
+						this.$message.error(response.data.msg);
+					} else {
+						this.$message.success('文章新建成功');
+						location.href="/admin#/articles";
+					}
+				})
+				.catch(error => {
+					console.log(error);
+					this.$message.error('操作过程出现错误');
+				});
+			},
+			putArticle(id, data) {
+				console.log('putArticle');
+				let url = `user/blog/${id}`;
+				this.$http.put(url, data)
+				.then(response => {
+					console.log(response);
+					if (response.data.code != 0) {
+						this.$message.error(response.data.msg);
+					} else {
+						this.$message.success('文章编辑成功');
+						location.href="/admin#/articles";
+					}
+				})
+				.catch(error => {
+					console.log(error);
+					this.$message.error('操作过程出现错误');
+				});
+			},
+			getQueryId() {
+				let query = this.$route.query;
+				let id = query.id;
+
+				if (id == undefined || id == '') {
+					return 0
+				}
+
+				return id;
 			}
 		}
 	}

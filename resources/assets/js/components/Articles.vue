@@ -39,9 +39,6 @@
 			this.getArticleList();
 		},
 		methods: {
-			editArticle(id) {
-				window.open(`/admin#/newArticle?id=${id}`);
-			},
 			showArticle(id) {
 				window.open(`/blog/${id}`);
 			},
