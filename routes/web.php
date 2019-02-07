@@ -37,3 +37,10 @@ Route::get('/checkCaptcha', 'CaptchaController@check')->where('captcha', '\s+');
 Route::get('/captcha', function () {
     return Captcha::create();
 });
+
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+Route::get('/admin', function () {
+    return view('admin.layout');
+});
