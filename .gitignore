@@ -22,3 +22,9 @@ Homestead.json
 .php_cs.cache
 *.sql
 .idea/
+
+public/js/app.js
+public/js/blog.js
+public/js/blog_detail.js
+public/js/edit_blog.js
+public/js/profile.js
