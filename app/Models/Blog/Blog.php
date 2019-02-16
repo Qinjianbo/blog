@@ -122,6 +122,7 @@ class Blog extends Model
     public function show(Collection $input, int $id, bool $parse = false) : Collection
     {
         return collect(self::when($input->has('user_id'), function ($blog) use ($input) {
+            $this->connection = 'master';
             return $blog->where('user_id', $input->get('user_id'));
         })
             ->where('id', $id)
