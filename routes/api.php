@@ -36,3 +36,8 @@ Route::group(['prefix' => 'home'], function () {
         });
     });
 });
+Route::group(['prefix' => 'xcx'], function () {
+    Route::group(['prefix' => 'v1'], function() {
+        Route::get('/login', 'XcxController@login');
+    });
+});
