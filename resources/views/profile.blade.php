@@ -78,3 +78,13 @@
 ### 项目地址
 
 - [Github项目地址](https://github.com/Qinjianbo)
+
+### 待学习的东西
+
+- docker
+- k8s
+- flink
+- flutter
+- golang源码
+- redis底层
+- 消息中间价原理
