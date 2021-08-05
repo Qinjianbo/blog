@@ -245,4 +245,8 @@ return [
     'styles' => [
         'default', 'primary', 'success', 'info', 'warning', 'danger'
     ],
+    'xcx' => [
+        'app_id' => env('XCX_APPID', ''),
+        'app_secret' => env('XCX_APP_SECRET', ''),
+    ]
 ];

@@ -17,10 +17,10 @@
         <li class="@yield('active_about')">
           <a href="/about">关于波波</a>
         </li>
-        <!--
         <li class="@yield('active_home')">
-          <a href="/">首页</a>
+          <a href="https://qiye.aliyun.com/alimail/auth/login" target="_black">阿里企业邮箱登陆</a>
         </li>
+        <!--
         <li class="@yield('active_freshman')">
           <a href="/freshman">小白专场</a>
         </li>

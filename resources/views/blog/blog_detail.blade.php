@@ -28,9 +28,6 @@
     <div>
         <!--PC和WAP自适应版-->
         <div id="SOHUCS" sid="{{$blog['id']}}" ></div>
-        @section('js')
-            <script src="/js/changyan_comment.js"></script>
-        @endsection
     </div>
   </div>
 @endsection
