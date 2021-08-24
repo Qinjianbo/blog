@@ -45,6 +45,7 @@ class BlogController extends Controller
             'type' => 'required|numeric|in:0,1',
             'device' => 'required|string|in:pc,h5,ios,android',
             'tags' => 'required|string',
+            'is_url' => 'required|numeric|in:0,1',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -80,6 +81,7 @@ class BlogController extends Controller
             'description' => 'sometimes|string|min:1|max:255',
             'device' => 'required|string|in:pc,h5,ios,android',
             'tags' => 'required|string',
+            'is_url' => 'required|numeric|in:0,1',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -266,7 +268,7 @@ class BlogController extends Controller
      */
     public function myList(Request $request): Collection
     {
-        $list = (new Blog())->list(collect($request->input())->merge(['select' => 'id,title,reading,user_id,created_at,tags']))
+        $list = (new Blog())->list(collect($request->input())->merge(['select' => 'id,title,reading,user_id,created_at,tags,content']))
              ->pipe(function ($blogs) {
                  $users = (new User())->listByIds($blogs->pluck('user_id')->unique()->implode(','))->keyBy('id');
  

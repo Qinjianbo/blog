@@ -46,7 +46,8 @@ class Blog extends Model
                 'content',
                 'description',
                 'type',
-                'tags'
+                'tags',
+                'is_url',
             ])->toArray());
     }
 
@@ -68,7 +69,8 @@ class Blog extends Model
                 'content',
                 'description',
                 'type',
-                'tags'
+                'tags',
+                'is_url',
             ])->toArray());
     }
 

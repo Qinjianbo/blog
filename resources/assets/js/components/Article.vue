@@ -17,6 +17,9 @@
 				<el-form-item>
 				    <el-checkbox v-model="blog.type">原创请勾我</el-checkbox>
 				</el-form-item>
+				<el-form-item>
+				    <el-checkbox v-model="blog.is_url">原文是否为链接</el-checkbox>
+				</el-form-item>
 				<el-button @click="save">保存</el-button>
 				<!--<router-link to="/articles"><el-button>取消</el-button></router-link>-->
 			</el-form>
@@ -42,6 +45,7 @@
 					content: "",
 					tags: "",
 					type: "",
+                    is_url: "",
 				}
 			}
 		},
@@ -60,6 +64,7 @@
 					content: this.simplemde.value(),
 					tags: this.blog.tags,
 					type: Number(this.blog.type),
+                    is_url: Number(this.blog.is_url),
 					device: 'pc'
 				};
 				let id = this.getQueryId();
@@ -86,6 +91,7 @@
 						this.blog.title = blog.title;
 						this.blog.tags = blog.tags;
 						this.blog.type = Boolean(blog.type);
+                        this.blog.is_url = Boolean(blog.is_url);
 						this.blog.description = blog.description;
 						this.simplemde.value(blog.content);
 					}

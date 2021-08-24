@@ -19,7 +19,7 @@
 			      label="操作"
 			    >
 			      <template slot-scope="scope">
-			        <el-button @click="showArticle(scope.row.id)" type="text" size="small">查看</el-button>
+			        <el-button @click="showArticle(scope.row.id, scope.row.is_url, scope.row.content)" type="text" size="small">查看</el-button>
 			        <router-link :to="{name: 'newArticle', query: {id: scope.row.id}}">
 			        	<el-button type="text" size="small">编辑</el-button>
 			        </router-link>
@@ -39,8 +39,12 @@
 			this.getArticleList();
 		},
 		methods: {
-			showArticle(id) {
-				window.open(`/blog/${id}`);
+			showArticle(id, is_url, url) {
+                if (is_url) {
+				    window.open(url);
+                } else {
+				    window.open(`/blog/${id}`);
+                }
 			},
 			getArticleList() {
 				let url = 'user/blogs';

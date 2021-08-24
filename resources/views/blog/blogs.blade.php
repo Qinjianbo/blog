@@ -17,7 +17,11 @@
         @foreach($list as $blog)
         <div class="row">
           <div class="col-xs-12">
+            @if($blog['is_url'])
+            <h4><a href="{{ $blog['content'] }}" class="blog_title">{!! $blog['title'] !!}</a></h4>
+            @else
             <h4><a href="/blog/{{ $blog['id'] }}" class="blog_title">{!! $blog['title'] !!}</a></h4>
+            @endif
             <div class="author"><div class="author">{{ $blog['nickname'] }}</div>
             <div class="author">{{ $blog['created_at'] }}</div>
             <div class="glyphicon glyphicon-eye-open"></div>&nbsp;{{$blog['reading']}}</div>
